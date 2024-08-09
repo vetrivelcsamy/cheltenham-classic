@@ -1,0 +1,28 @@
+{
+glyphname = endash;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (187,69);
+type = Stem;
+}
+);
+layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
+shapes = (
+{
+closed = 1;
+nodes = (
+(54,259,l),
+(34,187,l),
+(496,187,l),
+(516,259,l)
+);
+}
+);
+width = 545;
+}
+);
+unicode = 8211;
+}

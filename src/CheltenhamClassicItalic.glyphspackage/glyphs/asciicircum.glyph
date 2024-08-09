@@ -1,0 +1,32 @@
+{
+glyphname = asciicircum;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (730,-20);
+target = down;
+type = TopGhost;
+}
+);
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+closed = 1;
+nodes = (
+(437,730,l),
+(373,730,l),
+(177,324,l),
+(247,324,l),
+(405,661,l),
+(563,324,l),
+(633,324,l)
+);
+}
+);
+width = 756;
+}
+);
+unicode = 94;
+}

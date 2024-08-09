@@ -1,0 +1,56 @@
+/* Cheltenham Classic Typeface (Open Source) 
+
+  example usage: font-family: 'cheltenhamclassic', serif;
+*/
+
+
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassic.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassicItalic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicItalic.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassicMedium.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicMedium.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassicMediumltalic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicMediumltalic.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassicBold.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicBold.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "cheltenhamclassic";
+  src: url("./font-files/CheltenhamClassicBoldltalic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicBoldltalic.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+  font-style: italic;
+}

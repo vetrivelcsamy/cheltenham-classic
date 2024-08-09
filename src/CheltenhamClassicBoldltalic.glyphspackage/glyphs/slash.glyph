@@ -1,0 +1,29 @@
+{
+glyphname = slash;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (730,-20);
+target = down;
+type = TopGhost;
+}
+);
+layerId = "F75699C9-9800-49D7-954F-48F025B39DD4";
+shapes = (
+{
+closed = 1;
+nodes = (
+(386,730,l),
+(-111,-190,l),
+(-28,-190,l),
+(469,730,l)
+);
+}
+);
+width = 376;
+}
+);
+unicode = 47;
+}

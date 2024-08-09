@@ -1,0 +1,28 @@
+{
+glyphname = underscore;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (-106,49);
+type = Stem;
+}
+);
+layerId = "0245B36C-B88E-4C5F-8D6F-F0580B5CC529";
+shapes = (
+{
+closed = 1;
+nodes = (
+(535,-57,l),
+(-3,-57,l),
+(-3,-106,l),
+(535,-106,l)
+);
+}
+);
+width = 532;
+}
+);
+unicode = 95;
+}

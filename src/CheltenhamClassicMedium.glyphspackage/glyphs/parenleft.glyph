@@ -1,0 +1,43 @@
+{
+glyphname = parenleft;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (740,-20);
+target = down;
+type = TopGhost;
+},
+{
+place = (47,112);
+type = Stem;
+}
+);
+layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
+shapes = (
+{
+closed = 1;
+nodes = (
+(312,-163,l),
+(209,-64,o),
+(154,93,o),
+(154,276,cs),
+(154,458,o),
+(211,622,o),
+(312,715,c),
+(282,740,l),
+(149,631,o),
+(47,455,o),
+(47,276,cs),
+(47,100,o),
+(152,-83,o),
+(282,-188,c)
+);
+}
+);
+width = 331;
+}
+);
+unicode = 40;
+}

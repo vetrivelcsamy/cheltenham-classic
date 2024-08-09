@@ -1,0 +1,28 @@
+{
+glyphname = hyphen;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (184,77);
+type = Stem;
+}
+);
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+closed = 1;
+nodes = (
+(62,292,l),
+(42,216,l),
+(261,216,l),
+(281,292,l)
+);
+}
+);
+width = 317;
+}
+);
+unicode = 45;
+}

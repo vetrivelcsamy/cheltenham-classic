@@ -1,0 +1,42 @@
+{
+glyphname = equal;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (158,87);
+type = Stem;
+},
+{
+horizontal = 1;
+place = (340,87);
+type = Stem;
+}
+);
+layerId = "F75699C9-9800-49D7-954F-48F025B39DD4";
+shapes = (
+{
+closed = 1;
+nodes = (
+(655,427,l),
+(140,427,l),
+(140,342,l),
+(655,342,l)
+);
+},
+{
+closed = 1;
+nodes = (
+(655,243,l),
+(140,243,l),
+(140,158,l),
+(655,158,l)
+);
+}
+);
+width = 740;
+}
+);
+unicode = 61;
+}

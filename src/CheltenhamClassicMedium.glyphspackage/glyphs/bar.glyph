@@ -1,0 +1,33 @@
+{
+glyphname = bar;
+layers = (
+{
+hints = (
+{
+horizontal = 1;
+place = (730,-20);
+target = down;
+type = TopGhost;
+},
+{
+place = (7,69);
+type = Stem;
+}
+);
+layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
+shapes = (
+{
+closed = 1;
+nodes = (
+(64,730,l),
+(0,730,l),
+(0,-190,l),
+(64,-190,l)
+);
+}
+);
+width = 64;
+}
+);
+unicode = 124;
+}
