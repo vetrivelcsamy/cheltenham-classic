@@ -1,0 +1,57 @@
+name: Font Packaging and Pages Deployment
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install FontForge
+        run: sudo apt-get update && sudo apt-get install -y fontforge
+
+      - name: Zip font files and convert TTF to OTF
+        run: |
+          cd docs/font-files
+          zip -j CheltenhamClassic-TTF.zip *.ttf
+          zip -j CheltenhamClassic-WOFF.zip *.woff
+          zip -j CheltenhamClassic-WOFF2.zip *.woff2
+          for file in *.ttf; do
+            fontforge -c "import fontforge; font = fontforge.open('$file'); font.generate('${file%.ttf}.otf')"
+          done
+          zip -j CheltenhamClassic-OTF.zip *.otf
+          
+      - name: Create download links
+        run: |
+          echo "# Font Downloads" > docs/downloads.md
+          echo "" >> docs/downloads.md
+          echo "- [Cheltenham Classic TTF](font-files/CheltenhamClassic-TTF.zip)" >> docs/downloads.md
+          echo "- [Cheltenham Classic WOFF](font-files/CheltenhamClassic-WOFF.zip)" >> docs/downloads.md
+          echo "- [Cheltenham Classic WOFF2](font-files/CheltenhamClassic-WOFF2.zip)" >> docs/downloads.md
+          echo "- [Cheltenham Classic OTF](font-files/CheltenhamClassic-OTF.zip)" >> docs/downloads.md
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
