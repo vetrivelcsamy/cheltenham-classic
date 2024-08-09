@@ -1,5 +1,8 @@
 # Cheltenham Classic Typeface
 
+[![Sample](docs/img/example.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
+[![Sample Image](docs/img/open-graph.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
+
 *beta*
 
 Cheltenham Classic is a free and open-source typeface inspired by the timeless elegance of the original Cheltenham font.
