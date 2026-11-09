@@ -2,16 +2,14 @@
 glyphname = dieresis;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
+{
+pos = (240,0);
+ref = dieresiscomb;
+},
 );
-width = 0;
+width = 480;
 }
 );
 unicode = 168;

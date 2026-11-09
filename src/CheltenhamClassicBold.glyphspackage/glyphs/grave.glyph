@@ -2,16 +2,14 @@
 glyphname = grave;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
 shapes = (
+{
+pos = (161,0);
+ref = gravecomb;
+},
 );
-width = 0;
+width = 301;
 }
 );
 unicode = 96;

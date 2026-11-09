@@ -5,14 +5,15 @@ layers = (
 layerId = "F75699C9-9800-49D7-954F-48F025B39DD4";
 shapes = (
 {
+pos = (0,0);
 ref = d;
 },
 {
-pos = (281,730);
-ref = caroncomb;
+pos = (634,0);
+ref = caroncomb.alt;
 },
 );
-width = 497;
+width = 798;
 }
 );
 unicode = 271;

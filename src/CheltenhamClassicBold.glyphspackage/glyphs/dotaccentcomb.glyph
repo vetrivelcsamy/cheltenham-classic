@@ -10,6 +10,10 @@ pos = (0,0);
 );
 layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
 shapes = (
+{
+pos = (-132,80);
+ref = period;
+},
 );
 width = 0;
 }

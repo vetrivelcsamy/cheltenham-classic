@@ -2,16 +2,14 @@
 glyphname = ogonek;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
 shapes = (
+{
+pos = (106,0);
+ref = ogonekcomb;
+},
 );
-width = 0;
+width = 235;
 }
 );
 unicode = 731;

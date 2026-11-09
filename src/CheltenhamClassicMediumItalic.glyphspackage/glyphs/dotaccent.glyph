@@ -2,16 +2,14 @@
 glyphname = dotaccent;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
+{
+pos = (115,0);
+ref = dotaccentcomb;
+},
 );
-width = 0;
+width = 230;
 }
 );
 unicode = 729;
