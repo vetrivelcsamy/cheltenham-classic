@@ -1,0 +1,78 @@
+name: Release
+
+# Cuts a release from the sources, never from whatever binaries happen to be
+# committed. Tag and push to publish:
+#
+#   git tag v1.1 && git push origin v1.1
+#
+# The QA report is attached to the release so every download states the
+# FontBakery result it shipped with.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build and release, e.g. v1.1"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install build tools
+        run: pip install fontmake "fontbakery[googlefonts]" brotli
+
+      - name: Install FontForge
+        run: sudo apt-get update && sudo apt-get install -y fontforge
+
+      - name: Build fonts from source
+        run: ./scripts/build.sh
+
+      - name: QA report
+        run: |
+          fontbakery check-googlefonts --succinct \
+            --ghmarkdown qa-report.md gf-submission/*.ttf || true
+          fontbakery check-googlefonts --succinct gf-submission/*.ttf 2>&1 \
+            | grep -E "^ (ERROR|FATAL|FAIL|WARN|PASS):" | tail -1 > qa-summary.txt || true
+          cat qa-summary.txt
+
+      - name: Package
+        run: |
+          VERSION="${{ github.event.inputs.tag || github.ref_name }}"
+          mkdir -p dist
+          cd gf-submission
+          python3 ../scripts/webfonts.py . .
+          for f in *.ttf; do
+            fontforge -c "import fontforge; f = fontforge.open('$f'); f.generate('${f%.ttf}.otf')"
+          done
+          zip -j "../dist/CheltenhamClassic-$VERSION-TTF.zip"   *.ttf
+          zip -j "../dist/CheltenhamClassic-$VERSION-OTF.zip"   *.otf
+          zip -j "../dist/CheltenhamClassic-$VERSION-WOFF.zip"  *.woff *.woff2
+          cp OFL.txt "../dist/"
+          ls -la ../dist
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: Cheltenham Classic ${{ github.event.inputs.tag || github.ref_name }}
+          body_path: qa-report.md
+          files: |
+            dist/*.zip
+            dist/OFL.txt
+            qa-report.md
+          fail_on_unmatched_files: false

@@ -1,4 +1,12 @@
-name: Font Packaging and Pages Deployment
+name: Build, Package and Deploy Pages
+
+# Builds the fonts from src/ on every push to main, then publishes the
+# specimen site and download bundles.
+#
+# Previously this zipped whatever binaries happened to be committed in
+# docs/font-files, so the site could serve something other than what the
+# sources produce. It now rebuilds, which means the site, the downloads and
+# a release all come from the same place.
 
 on:
   push:
@@ -18,40 +26,52 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install build tools
+        run: pip install fontmake "fontbakery[googlefonts]" brotli
 
       - name: Install FontForge
         run: sudo apt-get update && sudo apt-get install -y fontforge
 
-      - name: Zip font files and convert TTF to OTF
+      - name: Build fonts from source
+        run: ./scripts/build.sh
+
+      - name: Refresh docs/font-files from the build
+        run: |
+          cp gf-submission/*.ttf docs/font-files/
+          python3 scripts/webfonts.py docs/font-files docs/font-files
+
+      - name: Zip bundles and generate OTF
         run: |
           cd docs/font-files
-          zip -j CheltenhamClassic-TTF.zip *.ttf
-          zip -j CheltenhamClassic-WOFF.zip *.woff
-          zip -j CheltenhamClassic-WOFF2.zip *.woff2
-          for file in *.ttf; do
-            fontforge -c "import fontforge; font = fontforge.open('$file'); font.generate('${file%.ttf}.otf')"
+          for f in *.ttf; do
+            fontforge -c "import fontforge; f = fontforge.open('$f'); f.generate('${f%.ttf}.otf')"
           done
-          zip -j CheltenhamClassic-OTF.zip *.otf
-          
+          zip -j CheltenhamClassic-TTF.zip   *.ttf
+          zip -j CheltenhamClassic-OTF.zip   *.otf
+          zip -j CheltenhamClassic-WOFF.zip  *.woff
+          zip -j CheltenhamClassic-WOFF2.zip *.woff2
+
       - name: Create download links
         run: |
-          echo "# Font Downloads" > docs/downloads.md
-          echo "" >> docs/downloads.md
-          echo "- [Cheltenham Classic TTF](font-files/CheltenhamClassic-TTF.zip)" >> docs/downloads.md
-          echo "- [Cheltenham Classic WOFF](font-files/CheltenhamClassic-WOFF.zip)" >> docs/downloads.md
-          echo "- [Cheltenham Classic WOFF2](font-files/CheltenhamClassic-WOFF2.zip)" >> docs/downloads.md
-          echo "- [Cheltenham Classic OTF](font-files/CheltenhamClassic-OTF.zip)" >> docs/downloads.md
+          cat > docs/downloads.md <<'MD'
+          # Font Downloads
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+          - [Cheltenham Classic TTF](font-files/CheltenhamClassic-TTF.zip)
+          - [Cheltenham Classic OTF](font-files/CheltenhamClassic-OTF.zip)
+          - [Cheltenham Classic WOFF](font-files/CheltenhamClassic-WOFF.zip)
+          - [Cheltenham Classic WOFF2](font-files/CheltenhamClassic-WOFF2.zip)
+          MD
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
+          path: "./docs"
+      - id: deployment
         uses: actions/deploy-pages@v4
