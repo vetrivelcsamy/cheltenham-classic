@@ -1,0 +1,20 @@
+{
+glyphname = ae;
+layers = (
+{
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+pos = (0,0);
+ref = a;
+},
+{
+pos = (436,0);
+ref = e;
+},
+);
+width = 951;
+}
+);
+unicode = 230;
+}

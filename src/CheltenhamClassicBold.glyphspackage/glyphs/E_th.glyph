@@ -1,0 +1,25 @@
+{
+glyphname = Eth;
+layers = (
+{
+layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
+shapes = (
+{
+pos = (0,0);
+ref = D;
+},
+{
+closed = 1;
+nodes = (
+(12,325,l),
+(289,325,l),
+(289,405,l),
+(12,405,l)
+);
+},
+);
+width = 694;
+}
+);
+unicode = 208;
+}

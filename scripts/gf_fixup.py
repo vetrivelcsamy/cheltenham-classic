@@ -44,6 +44,8 @@ STYLES = {
     "Medium":       ("Regular",     "Medium",        False, False, 500),
     "MediumItalic": ("Italic",      "Medium Italic", False, True,  500),
 }
+WEIGHT_NAMES = {400: "Regular", 500: "Medium", 700: "Bold"}
+ELIDABLE = 0x2
 FS_ITALIC, FS_BOLD, FS_REGULAR, FS_TYPO = 1 << 0, 1 << 5, 1 << 6, 1 << 7
 MAC_BOLD, MAC_ITALIC = 1 << 0, 1 << 1
 # Standard smart-dropout program: PUSHW 511, SCANCTRL, PUSHB 4, SCANTYPE.
@@ -191,6 +193,26 @@ def fixup(path, family):
     os2.fsSelection |= 1 << 7            # USE_TYPO_METRICS
     notes.append(f"metrics -> typo=hhea {ASC}/-{DESC} ({(ASC+DESC)/10:.0f}% UPM), "
                  f"win {os2.usWinAscent}/{os2.usWinDescent}")
+
+    # --- STAT ------------------------------------------------------------
+    # A static family still needs one: it is how a system knows these six
+    # files are one family and which axis position each occupies. Each font
+    # describes only its own location. The default values (weight 400, roman)
+    # are elided so they do not appear in style names, and they carry the
+    # links that let an app resolve bold and italic.
+    from fontTools.otlLib.builder import buildStatTable
+    wv = {"value": weight, "name": WEIGHT_NAMES[weight],
+          "flags": ELIDABLE if weight == 400 else 0}
+    if weight == 400:
+        wv["linkedValue"] = 700
+    iv = {"value": 1 if italic else 0, "name": "Italic" if italic else "Roman",
+          "flags": 0 if italic else ELIDABLE}
+    if not italic:
+        iv["linkedValue"] = 1
+    buildStatTable(f, [{"tag": "wght", "name": "Weight", "ordering": 0, "values": [wv]},
+                       {"tag": "ital", "name": "Italic", "ordering": 1, "values": [iv]}],
+                   elidedFallbackName="Regular")
+    notes.append(f"STAT: wght={weight} ital={1 if italic else 0}")
 
     out = path
     f.save(out)

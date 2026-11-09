@@ -1,0 +1,25 @@
+{
+glyphname = cent;
+layers = (
+{
+layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
+shapes = (
+{
+pos = (0,0);
+ref = c;
+},
+{
+closed = 1;
+nodes = (
+(178,-81,l),
+(178,502,l),
+(257,502,l),
+(257,-81,l)
+);
+},
+);
+width = 405;
+}
+);
+unicode = 162;
+}

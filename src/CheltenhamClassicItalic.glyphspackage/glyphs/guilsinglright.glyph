@@ -1,0 +1,23 @@
+{
+glyphname = guilsinglright;
+layers = (
+{
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+closed = 1;
+nodes = (
+(208,207,l),
+(60,344,l),
+(137,344,l),
+(148,207,l),
+(137,69,l),
+(60,69,l)
+);
+},
+);
+width = 267;
+}
+);
+unicode = 8250;
+}

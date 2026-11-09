@@ -1,19 +1,19 @@
 # What still needs drawing
 
-`scripts/scaffold_latin_core.py` laid out the Latin Core expansion and the
-two mark scripts have since filled the marks. 289 glyphs build. What is left
-is the 28 characters that do not decompose, and one missing semicolon.
+317 glyphs build across all six styles. All 14 combining marks have outlines,
+`scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
+letter any more.
 
-> **All 14 combining marks now have outlines** and `scripts/check_marks_drawn.py`
-> passes, so the accented glyphs no longer render as bare base letters. What
-> remains for a Google Fonts submission is the 28 characters in section 2 and
-> the Italic semicolon in section 3.
+> **Five characters are left**, listed in section 2, plus three in section 2a
+> that are built but want redrawing. The five are the entire remaining
+> blocker: placed at `ofl/cheltenhamclassic/`, FontBakery reports 12 failures
+> and every one is a consequence of them.
 
-Both mark scripts are run automatically by `scripts/build.sh`, which builds
-twice: once to measure the design, then again with the marks regenerated from
-those measurements. Nothing here is a hardcoded coordinate.
+The three generation scripts are run by `scripts/build.sh`, which builds
+twice: once to measure the design, then again with everything regenerated
+from those measurements. Nothing in them is a hardcoded coordinate.
 
-## 1. The combining marks — done
+## 1. The combining marks
 
 **Five are derived.** `scripts/derive_marks.py` builds them from shapes already
 in the font, as components, so they carry the typeface's own modulation and
@@ -59,17 +59,46 @@ are their own codepoints, not the combining marks. Both scripts emit them as
 composites of the matching mark, re-centred inside a real advance width. An
 empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
-## 2. The 28 remaining characters — original drawings
+## 2. The five remaining characters
 
-Letters: `Æ æ` `Ø ø` `ß` `Þ þ` `Ð ð` `Đ đ` `Ħ ħ` `Ł ł` `Œ œ` `ª º`
-Symbols: `¢ ¥ © ® ™ § ¶ ‹ ›`
+| | Why it is not generated |
+| --- | --- |
+| `ß` `ẞ` | The eszett is its own letterform. Nothing in the font decomposes into it. |
+| `Þ` `þ` | Lowercase would be honest — `b` already carries a bowl on a full ascender, and thorn is that with the stem taken below the baseline. The capital needs its bowl at **mid-height**, which neither `P` nor `b` gives without redrawing the join; `P` reduced and re-hung on a cap stem was tried and still read as a `P`. They are a case pair, so neither ships. |
+| `¶` | Built from primitives the bowl spans the full width and the silhouette comes out as an arch on two legs. A real pilcrow carries its bowl only to the left of the stem. |
 
-None decompose into base + mark, so each is its own drawing.
+## 2a. Built, but wanting a designer's hand first
 
-## 3. The semicolon
+These three ship and clear the coverage check, but they are the weakest things
+in the font and a curation review will notice:
 
-`CheltenhamClassic-Italic` has no semicolon, U+003B. The other five styles do.
-A live bug in the shipped font, not only a submission blocker.
+| | What is wrong with it |
+| --- | --- |
+| `Æ` | `A` and `E` overlapped. The `A`'s right leg is a diagonal and the `E`'s stem is vertical, so they can only truly meet at one height — it reads as two letters touching rather than one letterform. `æ` does not have this problem, both sides being curved. |
+| `ð` | The bowl is the `o` and the ascender is a straight stroke with a bar across it. A real eth's ascender *curves* out of the bowl. Legible at text size, visibly constructed at display size. |
+| `§` | Two reduced `S`s overlapped. A section sign is a single continuous double curve, so there is a seam where they meet. Reads at text size; does not hold up large. |
+
+## 3. What was built, and from what
+
+`scripts/latin_core.py`, run by `build.sh` after the two mark scripts:
+
+| | |
+| --- | --- |
+| `dotlessi` `dotlessj` | `i` and `j` with the dot contour dropped — **and every accented `i`/`j` recomposed onto them.** The scaffold had stacked accents on the dotted forms, so `ï` carried three dots. The mark's height is re-seated on the dotless letter's own top. `į` keeps its dot, because the ogonek is below. |
+| `Ț ț` | `T` and `t` over the existing `commaaccentcomb`. |
+| `Đ đ` `Ħ ħ` | A crossbar at the measured hairline weight. |
+| `Ł ł` `Ø ø` | A diagonal at the same weight. |
+| `¢ ¥` | `c` and `Y` with the same strokes through them. |
+| `« » ‹ ›` | Chevrons built to the design's own stroke weight. |
+| `ª º ™ © ®` | `a o T M C R` reduced. These characters *are* smaller letters, so reduction is the construction rather than a shortcut around one. |
+| `Æ æ Œ œ` | Two letters overlapped so the second's left edge lands on the first's right stem. fontmake unions them, which is the real construction of these characters. See 2a for `Æ`. |
+| `ð Ð` | `o` with a stroked ascender; `D` with a crossbar. The capital only ships because the lowercase does — half a case pair breaks `case_mapping`. |
+| `§` | Two reduced `S`s. See 2a. |
+
+It also repairs any glyph carrying a layer id that is not its master's.
+glyphsLib drops those silently — which is why the Italic shipped with no
+semicolon for so long. The outlines were drawn all along, filed under another
+master's id.
 
 ## Checking progress
 

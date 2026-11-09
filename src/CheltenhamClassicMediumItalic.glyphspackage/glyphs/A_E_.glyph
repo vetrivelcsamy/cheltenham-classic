@@ -1,0 +1,20 @@
+{
+glyphname = AE;
+layers = (
+{
+layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
+shapes = (
+{
+pos = (0,0);
+ref = A;
+},
+{
+pos = (564,0);
+ref = E;
+},
+);
+width = 1163;
+}
+);
+unicode = 198;
+}

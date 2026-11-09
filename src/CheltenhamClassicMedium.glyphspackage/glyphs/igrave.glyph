@@ -5,10 +5,10 @@ layers = (
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
 shapes = (
 {
-ref = i;
+ref = dotlessi;
 },
 {
-pos = (130,687);
+pos = (130,429);
 ref = gravecomb;
 },
 );
