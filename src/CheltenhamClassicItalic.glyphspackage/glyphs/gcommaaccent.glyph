@@ -8,7 +8,8 @@ shapes = (
 ref = g;
 },
 {
-pos = (272,-198);
+scale = (-1,-1);
+pos = (272,553);
 ref = cedillacomb;
 },
 );
