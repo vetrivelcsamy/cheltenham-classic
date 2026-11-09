@@ -28,15 +28,23 @@ LICENSE_URL = "https://openfontlicense.org"
 VERSION = "Version 1.000"
 FAMILY = "Cheltenham Classic"
 
-# filename stem -> (subfamily, typographic subfamily, is RIBBI, italic)
+# filename stem -> (subfamily, typographic subfamily, RIBBI, italic, weight)
+# Weight and the fsSelection/macStyle bits are derived here rather than read
+# from the sources: a fontmake build straight from the .glyphspackage files
+# got all three wrong (every style claimed weight 400, bold and italic were
+# unmarked), which is more failures than the old FontLab export had.
 STYLES = {
-    "Regular":      ("Regular",     None,            True,  False),
-    "Italic":       ("Italic",      None,            True,  True),
-    "Bold":         ("Bold",        None,            True,  False),
-    "BoldItalic":   ("Bold Italic", None,            True,  True),
-    "Medium":       ("Regular",     "Medium",        False, False),
-    "MediumItalic": ("Italic",      "Medium Italic", False, True),
+    "Regular":      ("Regular",     None,            True,  False, 400),
+    "Italic":       ("Italic",      None,            True,  True,  400),
+    "Bold":         ("Bold",        None,            True,  False, 700),
+    "BoldItalic":   ("Bold Italic", None,            True,  True,  700),
+    "Medium":       ("Regular",     "Medium",        False, False, 500),
+    "MediumItalic": ("Italic",      "Medium Italic", False, True,  500),
 }
+FS_ITALIC, FS_BOLD, FS_REGULAR, FS_TYPO = 1 << 0, 1 << 5, 1 << 6, 1 << 7
+MAC_BOLD, MAC_ITALIC = 1 << 0, 1 << 1
+# Standard smart-dropout program: PUSHW 511, SCANCTRL, PUSHB 4, SCANTYPE.
+SMART_DROPOUT = b"\xb8\x01\xff\x85\xb0\x04\x8d"
 WIN, MAC = (3, 1, 0x409), (1, 0, 0)
 
 
@@ -78,7 +86,7 @@ def set_name(font, nid, value):
 def fixup(path, family):
     f = TTFont(path)
     stem = os.path.basename(path).rsplit("-", 1)[-1][:-4]
-    subfam, typosub, ribbi, italic = STYLES[stem]
+    subfam, typosub, ribbi, italic, weight = STYLES[stem]
     ps = f"CheltenhamClassic-{stem}"
     notes = []
 
@@ -88,7 +96,12 @@ def fixup(path, family):
         f["OS/2"].fsType = 0
 
     # --- names -----------------------------------------------------------
-    full = FAMILY if stem == "Regular" else f"{FAMILY} {subfam if ribbi else typosub}"
+    # Name ID 4 always carries the style, Regular included. Dropping it there
+    # satisfies metadata/nameid/family_and_full_names but then breaks
+    # metadata/match_fullname_postscript, which wants it to track the
+    # PostScript name "CheltenhamClassic-Regular". Both pass only if the full
+    # name and METADATA.pb agree on "Cheltenham Classic Regular".
+    full = f"{FAMILY} {subfam if ribbi else typosub}"
     set_name(f, 0, COPYRIGHT)
     set_name(f, 1, FAMILY if ribbi else f"{FAMILY} {typosub.replace(' Italic','')}")
     set_name(f, 2, subfam)
@@ -98,7 +111,15 @@ def fixup(path, family):
     set_name(f, 6, ps)
     set_name(f, 13, LICENSE)
     set_name(f, 14, LICENSE_URL)
-    if not ribbi:
+    if ribbi:
+        # RIBBI styles must NOT carry typographic family/subfamily records.
+        # fontmake wrote 16='CheltenhamClassic' / 17='BoldItalic' on Bold
+        # Italic from the source, and leaving them there cascaded into eight
+        # failures: camelcase family, a weightclass read off 'BoldItalic',
+        # and every name/metadata consistency check.
+        f["name"].removeNames(16)
+        f["name"].removeNames(17)
+    else:
         set_name(f, 16, FAMILY)
         set_name(f, 17, typosub)
     for rec in f["name"].names:          # name/trailing_spaces
@@ -115,6 +136,34 @@ def fixup(path, family):
             notes.append(f"italicAngle 0.0 -> {ang} (measured)")
         else:
             notes.append("italicAngle UNRESOLVED - outlines look upright")
+
+    # --- weight and style bits ------------------------------------------
+    os2_, head_ = f["OS/2"], f["head"]
+    bold = weight >= 700
+    os2_.usWeightClass = weight
+    sel = FS_TYPO | (FS_ITALIC if italic else 0) | (FS_BOLD if bold else 0)
+    if not italic and not bold:
+        sel |= FS_REGULAR
+    os2_.fsSelection = sel
+    head_.macStyle = (MAC_BOLD if bold else 0) | (MAC_ITALIC if italic else 0)
+    notes.append(f"weight={weight} fsSelection={sel:#010b} macStyle={head_.macStyle}")
+
+    # --- gasp + smart dropout -------------------------------------------
+    # Both are required by GF and neither survives a plain fontmake export.
+    if "gasp" not in f:
+        from fontTools.ttLib.tables._g_a_s_p import table__g_a_s_p
+        g = table__g_a_s_p(); g.version = 1
+        g.gaspRange = {0xFFFF: 0x000F}
+        f["gasp"] = g
+        notes.append("added gasp")
+    prep_prog = f["prep"].program.getBytecode() if "prep" in f else b""
+    if b"\x85" not in prep_prog:
+        from fontTools.ttLib.tables._p_r_e_p import table__p_r_e_p
+        from fontTools.ttLib.tables import ttProgram
+        pr = table__p_r_e_p(); pr.program = ttProgram.Program()
+        pr.program.fromBytecode(SMART_DROPOUT + prep_prog)
+        f["prep"] = pr
+        notes.append("added smart dropout to prep")
 
     # --- vertical metrics -----------------------------------------------
     # Two rules that interact:

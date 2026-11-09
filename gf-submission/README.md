@@ -18,8 +18,11 @@ Working directory for onboarding Cheltenham Classic to Google Fonts.
 
 | | FAIL | PASS |
 |---|---|---|
-| Before | 88 | 786 |
-| After `gf_fixup.py` | 26 | 850 |
+| Original FontLab exports | 88 | 786 |
+| Same, after `gf_fixup.py` | 26 | 850 |
+| **`fontmake` build + `gf_fixup.py`** | **14** | **844** |
+
+Run `./scripts/build.sh` to reproduce.
 
 Everything that was metadata is fixed. What remains needs drawing or a
 different build.
@@ -32,10 +35,20 @@ different build.
   drawing is ~21 letters (Æ Ø ß Þ Ð Œ Ł Đ Ħ ª º and lowercase), 15 symbols,
   4 punctuation. Full list: `../../chelt/missing-glyphs.txt`.
 - **`mandatory_glyphs`** — `.notdef` is blank; it needs a box drawn.
-- **`smart_dropout`** — comes from the `fontmake` / ttfautohint build, cannot
-  be patched post-export.
+- **`equal_codepoint_coverage`** — `CheltenhamClassic-Italic` is missing the
+  semicolon, U+003B. The other five styles have it. One glyph to draw, and a
+  real bug in the shipped font rather than only a submission blocker.
 - **`family_directory_name`** — only passes inside a `google/fonts` checkout
   at `ofl/cheltenhamclassic/`.
+
+## Source metadata
+
+Building straight from the `.glyphspackage` files gave every style
+`usWeightClass 400` with bold and italic unmarked — 45 failures, worse than
+the old FontLab exports. `gf_fixup.py` now derives weight, `fsSelection` and
+`macStyle` from the filename instead of trusting the source, so the build is
+correct either way. The tidier fix is in Glyphs: Font Info -> Masters ->
+weight, plus style linking.
 
 ## Needs a decision before release
 
