@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # need tags and history to derive the version
 
       - uses: actions/setup-python@v5
         with:
@@ -38,6 +40,21 @@ jobs:
 
       - name: Install FontForge
         run: sudo apt-get update && sudo apt-get install -y fontforge
+
+      # Without this the site served fonts stamped "Version 1.000" no matter
+      # what they contained, so an OS or browser font cache had no reason to
+      # refetch them. Derived from the latest tag plus the commits since, which
+      # keeps it monotonic between releases: v1.1 + 3 commits -> 1.103.
+      - name: Derive font version
+        run: |
+          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo v1.0)
+          base=${tag#v}
+          major=${base%%.*}; minor=${base#*.}
+          [ "$minor" = "$base" ] && minor=0
+          n=$(git rev-list "$tag"..HEAD --count 2>/dev/null || echo 0)
+          printf -v micro '%03d' $(( (10#$minor * 100 + n) % 1000 ))
+          echo "FONT_VERSION=$major.$micro" >> "$GITHUB_ENV"
+          echo "font version: $major.$micro (from $tag + $n commits)"
 
       - name: Build fonts from source
         run: ./scripts/build.sh
