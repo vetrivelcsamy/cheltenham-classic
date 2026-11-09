@@ -1,0 +1,22 @@
+{
+glyphname = section;
+layers = (
+{
+layerId = "0245B36C-B88E-4C5F-8D6F-F0580B5CC529";
+shapes = (
+{
+scale = (0.5600,0.5600);
+pos = (9,286);
+ref = S;
+},
+{
+scale = (0.5600,0.5600);
+pos = (9,25);
+ref = S;
+},
+);
+width = 349;
+}
+);
+unicode = 167;
+}

@@ -1,0 +1,20 @@
+{
+glyphname = OE;
+layers = (
+{
+layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
+shapes = (
+{
+pos = (0,0);
+ref = O;
+},
+{
+pos = (560,0);
+ref = E;
+},
+);
+width = 1207;
+}
+);
+unicode = 338;
+}

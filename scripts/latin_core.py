@@ -383,6 +383,69 @@ def build(pkg, lid, m, style):
                    R(base, cx - (x0 + x1) / 2 * sc, cy - (y0 + y1) / 2 * sc, (sc, sc))],
                   int(rad * 2 + sb * 2), uni); made.append(nm)
 
+    # ── ligatures: two letters sharing a stroke ───────────────────────────
+    # fontmake unions overlapping contours, so setting the second letter so
+    # its left edge lands on the first's right stem produces the join. This
+    # is the real construction of these four characters, not a trick around
+    # one -- but a designer would still want to even out the shared stroke.
+    for a_, b_, nm, uni, shrink in (("A", "E", "AE", 0x00C6, 0.96),
+                                    ("a", "e", "ae", 0x00E6, 1.0),
+                                    ("O", "E", "OE", 0x0152, 1.0),
+                                    ("o", "e", "oe", 0x0153, 1.0)):
+        if a_ not in B or b_ not in B:
+            continue
+        ax0, _, ax1, _, aw = B[a_]
+        bx0, _, bx1, _, bw = B[b_]
+        join = stem if a_ in ("A", "O") else thin * 1.15
+        dx = (ax1 - join) - bx0
+        put_mixed(pkg, nm, lid, [R(a_), R(b_, dx, 0)],
+                  int(aw + (bw - bx0) - join + (bx0 - 0)), uni)
+        made.append(nm)
+
+    # ── lowercase eth: the o's bowl, with a stroked ascender over it ──────
+    if "o" in B and "d" in B:
+        ox0, oy0, ox1, oy1, owd = B["o"]
+        top = asc * 0.96
+        x_a, y_a = ox1 - thin * 0.9, oy1 - thin * 0.4
+        x_b, y_b = ox0 + (ox1 - ox0) * 0.42, top
+        # the bar crosses the ascender, so it is placed ON the stroke at a
+        # fraction of its run -- not at an absolute height, which put it
+        # floating above the tip
+        f_ = 0.68
+        bx = x_a + (x_b - x_a) * f_
+        by = y_a + (y_b - y_a) * f_
+        put_mixed(pkg, "eth", lid,
+                  [R("o"), diagonal(x_a, y_a, x_b, y_b, thin * 1.15),
+                   diagonal(bx - ow * 0.115, by - thin * 0.30,
+                            bx + ow * 0.115, by + thin * 0.30, thin * 0.95)],
+                  owd, 0x00F0); made.append("eth")
+        # with its lowercase in hand the capital is just a D with a crossbar
+        dx0, dy0, dx1, dy1, dw = B["D"]
+        put_mixed(pkg, "Eth", lid,
+                  [R("D"), hbarat("D", cap * 0.50, True, stem * 2.0 + over)], dw, 0x00D0)
+        made.append("Eth")
+
+    # ── section: the S is already a double curve; two of them make this ──
+    if "S" in B:
+        sx0, sy0, sx1, sy1, sw = B["S"]
+        sc = 0.56
+        h = (sy1 - sy0) * sc
+        put_mixed(pkg, "section", lid,
+                  [R("S", -sx0 * sc + sb * 0.5, cap * 0.96 - sy1 * sc, (sc, sc)),
+                   R("S", -sx0 * sc + sb * 0.5, cap * 0.96 - sy1 * sc - h * 0.62, (sc, sc))],
+                  int((sx1 - sx0) * sc + sb), 0x00A7); made.append("section")
+    # Thorn is not here. Lowercase would be honest -- b already has a bowl on
+    # a full ascender and thorn is that with the stem carried below -- but the
+    # capital needs its bowl at mid-height, which neither P nor b can give
+    # without redrawing the join. P reduced and re-hung on a cap stem was
+    # tried and still read as a P. They are a case pair, so neither ships.
+
+    desc = -cap * 0.255
+    # The pilcrow is not here either. Built from primitives its bowl spans
+    # the full width and the silhouette comes out as an arch on two legs; a
+    # real one carries the bowl only to the left of the stem. One more that
+    # wants drawing rather than construction.
+
     return made
 
 

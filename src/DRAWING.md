@@ -1,12 +1,13 @@
 # What still needs drawing
 
-310 glyphs build across all six styles. All 14 combining marks have outlines,
+317 glyphs build across all six styles. All 14 combining marks have outlines,
 `scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
 letter any more.
 
-> **Twelve characters are left**, listed in section 2. They are the entire
-> remaining blocker: placed at `ofl/cheltenhamclassic/`, FontBakery reports 12
-> failures and every one of them is a consequence of those twelve glyphs.
+> **Five characters are left**, listed in section 2, plus three in section 2a
+> that are built but want redrawing. The five are the entire remaining
+> blocker: placed at `ofl/cheltenhamclassic/`, FontBakery reports 12 failures
+> and every one is a consequence of them.
 
 The three generation scripts are run by `scripts/build.sh`, which builds
 twice: once to measure the design, then again with everything regenerated
@@ -58,22 +59,24 @@ are their own codepoints, not the combining marks. Both scripts emit them as
 composites of the matching mark, re-centred inside a real advance width. An
 empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
-## 2. The twelve remaining characters
-
-These are the whole of what stands between the family and a clean FontBakery
-run. Everything else in Latin Core is now built.
+## 2. The five remaining characters
 
 | | Why it is not generated |
 | --- | --- |
-| `Æ æ` `Œ œ` | Ligatures. The two letters have to share a stem and resolve their join; that is a design decision, not an overlap. |
-| `ß` `ẞ` | The eszett is its own letterform. |
-| `Þ þ` | Thorn. A stem with a bowl set at mid-height — close to `b` and `P` but not reachable from either without redrawing the join. |
-| `ð` `Ð` | Capital eth is a `D` with a crossbar and would be free, but lowercase eth is a wholly different curved form. **Shipping one half of a case pair breaks `case_mapping`, which currently passes**, so the capital waits for the lowercase. |
-| `§` `¶` | The section and pilcrow signs. Both are compound forms with their own construction. |
+| `ß` `ẞ` | The eszett is its own letterform. Nothing in the font decomposes into it. |
+| `Þ` `þ` | Lowercase would be honest — `b` already carries a bowl on a full ascender, and thorn is that with the stem taken below the baseline. The capital needs its bowl at **mid-height**, which neither `P` nor `b` gives without redrawing the join; `P` reduced and re-hung on a cap stem was tried and still read as a `P`. They are a case pair, so neither ships. |
+| `¶` | Built from primitives the bowl spans the full width and the silhouette comes out as an arch on two legs. A real pilcrow carries its bowl only to the left of the stem. |
 
-`scripts/latin_core.py` deliberately stops here. Everything it does make is
-either an existing glyph reused or a stroke measured off the design; none of
-it invents a letterform.
+## 2a. Built, but wanting a designer's hand first
+
+These three ship and clear the coverage check, but they are the weakest things
+in the font and a curation review will notice:
+
+| | What is wrong with it |
+| --- | --- |
+| `Æ` | `A` and `E` overlapped. The `A`'s right leg is a diagonal and the `E`'s stem is vertical, so they can only truly meet at one height — it reads as two letters touching rather than one letterform. `æ` does not have this problem, both sides being curved. |
+| `ð` | The bowl is the `o` and the ascender is a straight stroke with a bar across it. A real eth's ascender *curves* out of the bowl. Legible at text size, visibly constructed at display size. |
+| `§` | Two reduced `S`s overlapped. A section sign is a single continuous double curve, so there is a seam where they meet. Reads at text size; does not hold up large. |
 
 ## 3. What was built, and from what
 
@@ -88,6 +91,9 @@ it invents a letterform.
 | `¢ ¥` | `c` and `Y` with the same strokes through them. |
 | `« » ‹ ›` | Chevrons built to the design's own stroke weight. |
 | `ª º ™ © ®` | `a o T M C R` reduced. These characters *are* smaller letters, so reduction is the construction rather than a shortcut around one. |
+| `Æ æ Œ œ` | Two letters overlapped so the second's left edge lands on the first's right stem. fontmake unions them, which is the real construction of these characters. See 2a for `Æ`. |
+| `ð Ð` | `o` with a stroked ascender; `D` with a crossbar. The capital only ships because the lowercase does — half a case pair breaks `case_mapping`. |
+| `§` | Two reduced `S`s. See 2a. |
 
 It also repairs any glyph carrying a layer id that is not its master's.
 glyphsLib drops those silently — which is why the Italic shipped with no

@@ -307,5 +307,15 @@ ordfeminine,
 ordmasculine,
 trademark,
 copyright,
-registered
+registered,
+AE,
+ae,
+OE,
+oe,
+eth,
+Eth,
+section,
+
+
+paragraph
 )
