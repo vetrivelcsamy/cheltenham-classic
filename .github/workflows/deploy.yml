@@ -42,10 +42,23 @@ jobs:
       - name: Build fonts from source
         run: ./scripts/build.sh
 
+      - name: Are the combining marks drawn?
+        id: marks
+        continue-on-error: true
+        run: python3 scripts/check_marks_drawn.py gf-submission
+
+      # Only publish the fresh build when the marks have outlines. Otherwise
+      # keep the committed fonts: a missing accent falls back to another face
+      # and stays legible, where an empty one renders as the bare letter.
       - name: Refresh docs/font-files from the build
+        if: steps.marks.outcome == 'success'
         run: |
           cp gf-submission/*.ttf docs/font-files/
           python3 scripts/webfonts.py docs/font-files docs/font-files
+
+      - name: Keep the committed fonts
+        if: steps.marks.outcome == 'failure'
+        run: echo "::warning::Combining marks are not drawn yet; serving the committed fonts instead of this build."
 
       - name: Zip bundles and generate OTF
         run: |

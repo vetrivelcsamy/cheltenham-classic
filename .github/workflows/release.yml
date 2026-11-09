@@ -55,6 +55,9 @@ jobs:
       - name: Build fonts from source
         run: ./scripts/build.sh
 
+      - name: Are the combining marks drawn?
+        run: python3 scripts/check_marks_drawn.py gf-submission
+
       - name: QA report
         run: |
           fontbakery check-googlefonts --succinct \
