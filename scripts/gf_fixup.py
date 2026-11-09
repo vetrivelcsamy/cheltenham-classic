@@ -25,7 +25,10 @@ LICENSE = ("This Font Software is licensed under the SIL Open Font License, "
            "Version 1.1. This license is available with a FAQ at: "
            "https://openfontlicense.org")
 LICENSE_URL = "https://openfontlicense.org"
-VERSION = "Version 1.000"
+# Set by the release workflow from the git tag. A hardcoded version means a
+# v1.1 release ships fonts that still claim 1.000, and OS font caches use this
+# string to decide whether an installed font is stale.
+VERSION = "Version " + os.environ.get("FONT_VERSION", "1.000")
 FAMILY = "Cheltenham Classic"
 
 # filename stem -> (subfamily, typographic subfamily, RIBBI, italic, weight)
@@ -105,7 +108,7 @@ def fixup(path, family):
     set_name(f, 0, COPYRIGHT)
     set_name(f, 1, FAMILY if ribbi else f"{FAMILY} {typosub.replace(' Italic','')}")
     set_name(f, 2, subfam)
-    set_name(f, 3, f"1.000;UKWN;{ps}")
+    set_name(f, 3, f"{VERSION.split()[1]};UKWN;{ps}")
     set_name(f, 4, full)
     set_name(f, 5, VERSION)
     set_name(f, 6, ps)
