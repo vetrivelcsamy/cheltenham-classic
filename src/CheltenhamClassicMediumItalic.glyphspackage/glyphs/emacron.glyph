@@ -1,0 +1,19 @@
+{
+glyphname = emacron;
+layers = (
+{
+layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
+shapes = (
+{
+ref = e;
+},
+{
+pos = (214,434);
+ref = macroncomb;
+},
+);
+width = 410;
+}
+);
+unicode = 275;
+}

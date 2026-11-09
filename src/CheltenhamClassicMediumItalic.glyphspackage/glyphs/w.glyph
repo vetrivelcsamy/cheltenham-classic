@@ -23,6 +23,16 @@ place = (634,65);
 type = Stem;
 }
 );
+anchors = (
+{
+name = top;
+pos = (368,460);
+},
+{
+name = bottom;
+pos = (368,-9);
+},
+);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
 {

@@ -15,6 +15,16 @@ target = down;
 type = TopGhost;
 }
 );
+anchors = (
+{
+name = top;
+pos = (352,730);
+},
+{
+name = bottom;
+pos = (352,0);
+},
+);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
 {

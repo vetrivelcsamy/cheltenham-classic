@@ -1,0 +1,19 @@
+{
+glyphname = Zdotaccent;
+layers = (
+{
+layerId = "0245B36C-B88E-4C5F-8D6F-F0580B5CC529";
+shapes = (
+{
+ref = Z;
+},
+{
+pos = (312,738);
+ref = dotaccentcomb;
+},
+);
+width = 632;
+}
+);
+unicode = 379;
+}

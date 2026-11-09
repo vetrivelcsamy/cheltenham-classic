@@ -1,0 +1,19 @@
+{
+glyphname = Ycircumflex;
+layers = (
+{
+layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
+shapes = (
+{
+ref = Y;
+},
+{
+pos = (418,730);
+ref = circumflexcomb;
+},
+);
+width = 625;
+}
+);
+unicode = 374;
+}

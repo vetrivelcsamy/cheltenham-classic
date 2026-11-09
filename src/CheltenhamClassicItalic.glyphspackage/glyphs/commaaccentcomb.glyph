@@ -1,0 +1,18 @@
+{
+glyphname = commaaccentcomb;
+layers = (
+{
+anchors = (
+{
+name = _bottom;
+pos = (0,0);
+},
+);
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+);
+width = 0;
+}
+);
+unicode = 806;
+}
