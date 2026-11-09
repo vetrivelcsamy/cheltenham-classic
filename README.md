@@ -36,7 +36,7 @@ Cheltenham Classic is currently in beta. We are continuously working on expandin
 ## Building
 
 ```sh
-pip install fontmake "fontbakery[googlefonts]" brotli
+pip install -r requirements.txt
 ./scripts/build.sh
 ```
 

@@ -1,0 +1,11 @@
+# Build and QA toolchain for Cheltenham Classic.
+#   pip install -r requirements.txt
+#   ./scripts/build.sh
+#
+# This file also gives actions/setup-python's pip cache something to key on;
+# without it the workflows fail at setup with "No file matched to
+# **/requirements.txt or **/pyproject.toml".
+
+fontmake>=3.12          # builds TTFs from the .glyphspackage sources
+fontbakery[googlefonts] # the Google Fonts QA profile
+brotli                  # required by fontTools to write WOFF2
