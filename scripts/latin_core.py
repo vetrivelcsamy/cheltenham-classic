@@ -489,7 +489,11 @@ def build(pkg, lid, m, style):
             continue
         ax0, _, ax1, _, aw = B[a_]
         bx0, _, bx1, _, bw = B[b_]
-        join = stem if a_ in ("A", "O") else thin * 1.15
+        # The A's right leg is a diagonal and the E's stem is vertical, so
+        # they can only truly meet at one height. Overlapping by more than a
+        # stem puts that meeting near the middle of the E rather than at its
+        # foot, which is where the eye looks for the join.
+        join = stem * 2.15 if a_ == "A" else (stem * 1.25 if a_ == "O" else thin * 1.15)
         dx = (ax1 - join) - bx0
         put_mixed(pkg, nm, lid, [R(a_), R(b_, dx, 0)],
                   int(aw + (bw - bx0) - join + (bx0 - 0)), uni)

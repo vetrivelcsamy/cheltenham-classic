@@ -9,11 +9,11 @@ pos = (0,0);
 ref = A;
 },
 {
-pos = (568,0);
+pos = (464,0);
 ref = E;
 },
 );
-width = 1181;
+width = 1077;
 }
 );
 unicode = 198;
