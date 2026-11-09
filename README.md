@@ -33,6 +33,27 @@ body {
 
 Cheltenham Classic is currently in beta. We are continuously working on expanding the character set and improving the overall design.
 
+## Building
+
+```sh
+pip install fontmake "fontbakery[googlefonts]" brotli
+./scripts/build.sh
+```
+
+`fontmake` builds from `src/*.glyphspackage`, `scripts/gf_fixup.py` applies the
+metadata Google Fonts requires, and FontBakery reports the result.
+
+## Releasing
+
+Tag and push. The release workflow rebuilds from source, packages TTF, OTF,
+WOFF and WOFF2, and attaches the FontBakery report so every download states
+the QA result it shipped with.
+
+```sh
+git tag v1.1
+git push origin v1.1
+```
+
 ## Contributing
 
 We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more information.
