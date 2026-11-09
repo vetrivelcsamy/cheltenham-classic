@@ -31,8 +31,8 @@
 }
 @font-face {
   font-family: "cheltenhamclassic";
-  src: url("./font-files/CheltenhamClassicMediumltalic.woff2") format("woff2"),
-    url("./font-files/CheltenhamClassicMediumltalic.woff") format("woff");
+  src: url("./font-files/CheltenhamClassicMediumItalic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicMediumItalic.woff") format("woff");
   font-weight: 500;
   font-display: swap;
   font-style: italic;
@@ -48,8 +48,8 @@
 
 @font-face {
   font-family: "cheltenhamclassic";
-  src: url("./font-files/CheltenhamClassicBoldltalic.woff2") format("woff2"),
-    url("./font-files/CheltenhamClassicBoldltalic.woff") format("woff");
+  src: url("./font-files/CheltenhamClassicBoldItalic.woff2") format("woff2"),
+    url("./font-files/CheltenhamClassicBoldItalic.woff") format("woff");
   font-weight: 700;
   font-display: swap;
   font-style: italic;

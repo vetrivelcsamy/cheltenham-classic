@@ -47,11 +47,12 @@ drawn cannot pass. `gf_fixup.py` pads them to **1000 / -250 = 125%**.
 This changes default line spacing in every application. It is a typographic
 decision, not a configuration fix. Check a specimen before release.
 
-## Also worth fixing in the repo
+## Fixed in this branch
 
-- `src/CheltenhamClassicBoldltalic.glyphspackage` and
-  `...MediumItalic...` use a lowercase **L** where **I**talic is meant.
-- Root `LICENSE.txt` line 1 reads `Copyright (c) 2024 The Cheltenham Classic
-  Typeface Project Authors`. GF's pattern rejects `(c)` and expects the family
-  name exactly, without "Typeface". Corrected copy is in `OFL.txt` here.
-- `README.md` says "150+ glyphs"; the sources hold 116 and the built TTFs 119.
+- Source packages and built fonts renamed `...ltalic` -> `...Italic`
+  (lowercase L where a capital I was meant), and the four `url()` references
+  in `docs/cheltenhamclassic.css` updated to match so the site keeps resolving.
+- Root `LICENSE.txt` line 1 reformatted to GF's pattern.
+- `README.md` glyph count corrected from "Over 150+" to 119. The misspelling
+  inside the two `fontinfo.plist` files is left alone: it appears only in a
+  comment recording the original FontLab path, which is history, not config.
