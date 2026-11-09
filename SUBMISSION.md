@@ -8,7 +8,7 @@ Run `./scripts/build.sh`, then copy `gf-submission/` into a `google/fonts`
 fork at `ofl/cheltenhamclassic/` and run FontBakery there:
 
 ```
-FAIL 12   WARN 43   PASS 883
+FAIL 12   WARN 37   PASS 889
 ```
 
 **All twelve failures are the same two glyphs.** `glyph_coverage` and
@@ -48,7 +48,15 @@ yours:
 Every copyright holder must complete it. If anyone else contributed
 outlines, they sign too.
 
-### 4. Review what was constructed rather than drawn
+### 4. Kerning by eye
+
+`scripts/kern.py` measures the white between outlines and corrects pairs that
+are loose against their own category's norm, which gets `AV`, `To`, `Yo`,
+`LT` and `P.` to a reasonable place and leaves `nn`, `oo`, `HH` and body text
+untouched. It is a floor, not a substitute for kerning by eye. Numerals,
+accented letters and the pairs that only a designer notices are untouched.
+
+### 5. Review what was constructed rather than drawn
 
 A curation reviewer will look at these. All are listed in
 `src/DRAWING.md` §2a:
@@ -60,7 +68,7 @@ A curation reviewer will look at these. All are listed in
 They are consistent with the design's measurements and correct at text size.
 They are not drawn by hand, and at display size that shows.
 
-### 5. Write your own designer bio
+### 6. Write your own designer bio
 
 `gf-submission/designer/bio.html` is a stub on purpose. Google Fonts keeps
 profiles at `catalog/designers/<slug>/` with `info.pb`, `bio.html` and a
@@ -70,7 +78,6 @@ portrait. A biography is not something to generate on someone's behalf.
 
 | Warning | Why |
 | --- | --- |
-| `gpos_kerning_info` | **The font has no kerning at all** — `kerningLTR` in the sources is empty. For a text serif this is a real gap and the most valuable thing you could add after the eszett. Inventing pairs mechanically would be worse than the warning. |
 | `outline_jaggy_segments`, `contour_count` | The constructed glyphs. Both resolve when they are redrawn. |
 | `vendor_id` | Blank. Google Fonts normally assigns or accepts this during onboarding. |
 | `designer_profiles` | Clears once your profile is merged into `google/fonts`. |
