@@ -1,0 +1,25 @@
+{
+glyphname = oslash;
+layers = (
+{
+layerId = "0245B36C-B88E-4C5F-8D6F-F0580B5CC529";
+shapes = (
+{
+pos = (0,0);
+ref = o;
+},
+{
+closed = 1;
+nodes = (
+(-12,-23,l),
+(483,488,l),
+(521,451,l),
+(26,-60,l)
+);
+},
+);
+width = 509;
+}
+);
+unicode = 248;
+}

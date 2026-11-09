@@ -1,0 +1,25 @@
+{
+glyphname = hbar;
+layers = (
+{
+layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
+shapes = (
+{
+pos = (0,0);
+ref = h;
+},
+{
+closed = 1;
+nodes = (
+(-1,544,l),
+(289,544,l),
+(289,624,l),
+(-1,624,l)
+);
+},
+);
+width = 531;
+}
+);
+unicode = 295;
+}

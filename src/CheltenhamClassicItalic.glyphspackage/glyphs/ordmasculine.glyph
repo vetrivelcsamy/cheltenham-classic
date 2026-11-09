@@ -1,0 +1,17 @@
+{
+glyphname = ordmasculine;
+layers = (
+{
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+scale = (0.6000,0.6000);
+pos = (19,417);
+ref = o;
+},
+);
+width = 351;
+}
+);
+unicode = 186;
+}

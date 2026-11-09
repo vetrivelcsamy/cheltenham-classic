@@ -1,0 +1,22 @@
+{
+glyphname = trademark;
+layers = (
+{
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+scale = (0.4000,0.4000);
+pos = (-11,420);
+ref = T;
+},
+{
+scale = (0.4000,0.4000);
+pos = (300,423);
+ref = M;
+},
+);
+width = 695;
+}
+);
+unicode = 8482;
+}

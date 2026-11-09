@@ -31,6 +31,7 @@ echo
 echo "regenerating marks from the measured design"
 python3 scripts/derive_marks.py . "$TMP"
 python3 scripts/draw_marks.py . "$TMP"
+python3 scripts/latin_core.py . "$TMP"
 
 echo
 echo "pass 2 - final build"

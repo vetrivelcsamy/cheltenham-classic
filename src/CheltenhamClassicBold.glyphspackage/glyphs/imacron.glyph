@@ -5,10 +5,10 @@ layers = (
 layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
 shapes = (
 {
-ref = i;
+ref = dotlessi;
 },
 {
-pos = (137,711);
+pos = (137,430);
 ref = macroncomb;
 },
 );

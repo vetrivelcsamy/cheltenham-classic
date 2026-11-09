@@ -13,8 +13,7 @@ place = (75,136);
 type = Stem;
 }
 );
-layerId = "E598D622-D839-404A-B9D8-3C33AEBC4C09";
-name = Regular;
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
 shapes = (
 {
 closed = 1;
