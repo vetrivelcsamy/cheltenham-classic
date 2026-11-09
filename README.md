@@ -7,7 +7,7 @@ Cheltenham Classic is a free and open-source typeface inspired by the timeless e
 
 ## Features
 
-- 317 glyphs: basic Latin plus all but five of the Google Fonts Latin Core set
+- 320 glyphs: basic Latin plus all but two of the Google Fonts Latin Core set
 - Supports English language
 - Suitable for both print and web use
 - Free for personal and commercial use
