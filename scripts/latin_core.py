@@ -135,6 +135,60 @@ def chevron(cx, cy, h, w, t, left=True):
                  (back, cy - h / 2)])
 
 
+def half_arc(cx, cy, rx, ry, a0, a1):
+    """One quarter-ellipse as a cubic, as (x,y,type) nodes after the start."""
+    s_, e_ = math.radians(a0), math.radians(a1)
+    d = 1 if a1 > a0 else -1
+    x0, y0 = cx + rx * math.cos(s_), cy + ry * math.sin(s_)
+    x1, y1 = cx + rx * math.cos(e_), cy + ry * math.sin(e_)
+    t0 = (-rx * math.sin(s_) * d, ry * math.cos(s_) * d)
+    t1 = (-rx * math.sin(e_) * d, ry * math.cos(e_) * d)
+    return [(x0 + t0[0] * K, y0 + t0[1] * K, "o"),
+            (x1 - t1[0] * K, y1 - t1[1] * K, "o"), (x1, y1, "cs")]
+
+
+def nodes_text(seq):
+    return "{\nclosed = 1;\nnodes = (\n%s\n);\n}," % ",\n".join(
+        "(%d,%d,%s)" % (round(x), round(y), t) for x, y, t in seq)
+
+
+def dbowl(x, x_in, y0, y1, reach, w_side, w_horiz):
+    """The bowl of a thorn: a solid D springing rightward from a stem, with
+    its counter punched as a separate contour. Returns both.
+
+    Tracing outer-then-inner as ONE contour does not work here: the two
+    ellipses need different centres (the counter must stop at the stem's
+    right edge, `x_in`, or it eats a hole through the stem) and ellipses with
+    different centres and aspect ratios diverge instead of staying parallel.
+    The bowl came out a wedge -- thick at the stem, thin at the outside,
+    which is backwards. As two contours each one can be sized on its own.
+    """
+    # Counter-clockwise, matching bar() and the font's own outer contours.
+    # Traced the other way it subtracts, and the bowl cut a slot out of the
+    # stem instead of joining it.
+    cy, ry = (y0 + y1) / 2.0, (y1 - y0) / 2.0
+    solid = [(x, cy - ry, "l")]
+    solid += half_arc(x, cy, reach, ry, -90, 0) + half_arc(x, cy, reach, ry, 0, 90)
+    outer = nodes_text(solid)
+
+    x_right = (x + reach) - w_side
+    rxi = (x_right - x_in) / 2.0
+    ryi = ry - w_horiz
+    counter = ellipse(x_in + rxi, cy, rxi, ryi, cw=True)
+    return outer + "\n" + counter
+
+
+def disc(x, y0, y1, reach, left=False):
+    """A solid half-disc springing from a stem at x. The pilcrow's bowl."""
+    cy, ry = (y0 + y1) / 2.0, (y1 - y0) / 2.0
+    seq = [(x, cy + ry, "l")]
+    if left:
+        seq += half_arc(x, cy, reach, ry, 90, 180) + half_arc(x, cy, reach, ry, 180, 270)
+    else:
+        seq += half_arc(x, cy, reach, ry, 90, 0) + half_arc(x, cy, reach, ry, 0, -90)
+    return nodes_text(seq)
+
+
 def measure(ttf):
     f = TTFont(ttf); cm = f.getBestCmap(); g = f["glyf"]; hm = f["hmtx"]
     m = dict(xh=g[cm[0x78]].yMax, cap=g[cm[0x48]].yMax, asc=g[cm[0x62]].yMax,
@@ -172,6 +226,11 @@ def measure(ttf):
     b = hits(outline(cm[0x6C]), m["xh"] * 0.95)
     sl = math.degrees(math.atan2(b[0] - a[0], m["xh"] * 0.70)) if a and b else 0.0
     m["slant"] = 0.0 if abs(sl) < 1.5 else sl
+    m["stemx"] = {}
+    for ch, yy in (("I", m["cap"] * 0.5), ("l", m["xh"] * 0.5)):
+        h_ = hits(outline(cm[ord(ch)]), yy)
+        if len(h_) >= 2:
+            m["stemx"][ch] = (h_[0], h_[1])
     m["box"] = {chr(u): (g[n].xMin, g[n].yMin, g[n].xMax, g[n].yMax, hm[n][0])
                 for u, n in cm.items() if 0x20 < u < 0x7F}
     f.close()
@@ -434,17 +493,60 @@ def build(pkg, lid, m, style):
                   [R("S", -sx0 * sc + sb * 0.5, cap * 0.96 - sy1 * sc, (sc, sc)),
                    R("S", -sx0 * sc + sb * 0.5, cap * 0.96 - sy1 * sc - h * 0.62, (sc, sc))],
                   int((sx1 - sx0) * sc + sb), 0x00A7); made.append("section")
-    # Thorn is not here. Lowercase would be honest -- b already has a bowl on
-    # a full ascender and thorn is that with the stem carried below -- but the
-    # capital needs its bowl at mid-height, which neither P nor b can give
-    # without redrawing the join. P reduced and re-hung on a cap stem was
-    # tried and still read as a P. They are a case pair, so neither ships.
-
     desc = -cap * 0.255
-    # The pilcrow is not here either. Built from primitives its bowl spans
-    # the full width and the silhouette comes out as an arch on two legs; a
-    # real one carries the bowl only to the left of the stem. One more that
-    # wants drawing rather than construction.
+
+    # ── thorn, and the pilcrow ────────────────────────────────────────────
+    # Borrowing a bowl does not work: in P and b the stem and bowl are one
+    # contour, so the bowl cannot be lifted out, and P reduced onto a cap
+    # stem still read as a P. The bowl is therefore built -- a D-shaped band
+    # between two half-ellipses, modulated like the font's own o: heavy on
+    # the outside of the curve, light top and bottom. The stem is the font's
+    # own I or l, so it keeps its serifs; a plain bar read as sans-serif
+    # beside P.
+    if "P" in B and "b" in B and "I" in B and "l" in B:
+        px0, _, _, _, pw = B["P"]
+        bx0, _, _, _, bw = B["b"]
+        w_side, w_horiz = stem * 1.12, thin * 1.10
+
+        ix0, _, _, _, iw = B["I"]
+        isl, isr = m["stemx"].get("I", (ix0, ix0 + stem))
+        ty0, ty1 = cap * 0.175, cap * 0.815
+        reach = (pw - px0) * 0.62
+        dxi = px0 - ix0
+        put_mixed(pkg, "Thorn", lid,
+                  [R("I", dxi, 0),
+                   dbowl(isr + dxi - thin * 0.70 + lean((ty0 + ty1) / 2),
+                         isr + dxi + lean((ty0 + ty1) / 2),
+                         ty0, ty1, reach, w_side, w_horiz)],
+                  int(isr + dxi + reach + (pw - px0) * 0.16), 0x00DE)
+        made.append("Thorn")
+
+        lx0, _, _, _, lw = B["l"]
+        lsl, lsr = m["stemx"].get("l", (lx0, lx0 + stem))
+        reachl = (bw - bx0) * 0.60
+        dxl = bx0 - lx0
+        put_mixed(pkg, "thorn", lid,
+                  [R("l", dxl, 0),
+                   bar(lsl + dxl + lean(desc), desc, lsr + dxl, 1),
+                   dbowl(lsr + dxl - thin * 0.70 + lean(xh / 2),
+                         lsr + dxl + lean(xh / 2), 0.0, xh,
+                         reachl, w_side, w_horiz)],
+                  int(lsr + dxl + reachl + (bw - bx0) * 0.16), 0x00FE)
+        made.append("thorn")
+
+    # The pilcrow's bowl is solid and hangs to the LEFT of its stem. Spanning
+    # the full width instead gave an arch on two legs.
+    W = ow * 1.06
+    st = stem * 0.95
+    ry = cap * 0.255
+    cy_ = cap - ry
+    rstem = W - sb * 0.6 - st
+    reach_p = rstem - sb * 0.6
+    put_mixed(pkg, "paragraph", lid,
+              [bar(rstem + lean(desc), desc, rstem + st + lean(cap), cap),
+               disc(rstem + lean(cy_), cy_ - ry, cy_ + ry, reach_p, left=True),
+               bar(sb * 0.6 + lean(desc), desc, sb * 0.6 + st + lean(cy_), cy_)],
+              int(W), 0x00B6); made.append("paragraph")
 
     return made
 

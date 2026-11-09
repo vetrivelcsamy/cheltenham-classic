@@ -1,13 +1,13 @@
 # What still needs drawing
 
-317 glyphs build across all six styles. All 14 combining marks have outlines,
+320 glyphs build across all six styles. All 14 combining marks have outlines,
 `scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
 letter any more.
 
-> **Five characters are left**, listed in section 2, plus three in section 2a
-> that are built but want redrawing. The five are the entire remaining
-> blocker: placed at `ofl/cheltenhamclassic/`, FontBakery reports 12 failures
-> and every one is a consequence of them.
+> **Two characters are left** — `ß` and `ẞ` — plus three in section 2a that
+> are built but want redrawing. The two are the entire remaining blocker:
+> placed at `ofl/cheltenhamclassic/`, FontBakery reports 12 failures and
+> every one is a consequence of them.
 
 The three generation scripts are run by `scripts/build.sh`, which builds
 twice: once to measure the design, then again with everything regenerated
@@ -59,13 +59,11 @@ are their own codepoints, not the combining marks. Both scripts emit them as
 composites of the matching mark, re-centred inside a real advance width. An
 empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
-## 2. The five remaining characters
+## 2. The two remaining characters
 
 | | Why it is not generated |
 | --- | --- |
-| `ß` `ẞ` | The eszett is its own letterform. Nothing in the font decomposes into it. |
-| `Þ` `þ` | Lowercase would be honest — `b` already carries a bowl on a full ascender, and thorn is that with the stem taken below the baseline. The capital needs its bowl at **mid-height**, which neither `P` nor `b` gives without redrawing the join; `P` reduced and re-hung on a cap stem was tried and still read as a `P`. They are a case pair, so neither ships. |
-| `¶` | Built from primitives the bowl spans the full width and the silhouette comes out as an arch on two legs. A real pilcrow carries its bowl only to the left of the stem. |
+| `ß` `ẞ` | The eszett is its own letterform. Nothing in the font decomposes into it, and it is not a stem plus a bowl the way thorn is. |
 
 ## 2a. Built, but wanting a designer's hand first
 
@@ -77,6 +75,7 @@ in the font and a curation review will notice:
 | `Æ` | `A` and `E` overlapped. The `A`'s right leg is a diagonal and the `E`'s stem is vertical, so they can only truly meet at one height — it reads as two letters touching rather than one letterform. `æ` does not have this problem, both sides being curved. |
 | `ð` | The bowl is the `o` and the ascender is a straight stroke with a bar across it. A real eth's ascender *curves* out of the bowl. Legible at text size, visibly constructed at display size. |
 | `§` | Two reduced `S`s overlapped. A section sign is a single continuous double curve, so there is a seam where they meet. Reads at text size; does not hold up large. |
+| `Þ þ ¶` | The bowls are built from ellipses rather than drawn, so the counter is a plain oval where `P`'s is shaped, and the stroke does not thin into the join. Correct and in-style at text size; a designer would redraw the counter. |
 
 ## 3. What was built, and from what
 
@@ -94,6 +93,8 @@ in the font and a curation review will notice:
 | `Æ æ Œ œ` | Two letters overlapped so the second's left edge lands on the first's right stem. fontmake unions them, which is the real construction of these characters. See 2a for `Æ`. |
 | `ð Ð` | `o` with a stroked ascender; `D` with a crossbar. The capital only ships because the lowercase does — half a case pair breaks `case_mapping`. |
 | `§` | Two reduced `S`s. See 2a. |
+| `Þ þ` | The font's own `I`/`l` for the stem, so the serifs come free, plus a **built** bowl: a solid half-ellipse with its counter punched as a separate contour. Borrowing a bowl is impossible — in `P` and `b` the stem and bowl are one contour. |
+| `¶` | Two stems and a solid half-disc hung to the left of the right one. |
 
 It also repairs any glyph carrying a layer id that is not its master's.
 glyphsLib drops those silently — which is why the Italic shipped with no
