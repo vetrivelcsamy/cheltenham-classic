@@ -1,0 +1,19 @@
+{
+glyphname = tcommaaccent;
+layers = (
+{
+layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
+shapes = (
+{
+ref = t;
+},
+{
+pos = (181,-9);
+ref = cedillacomb;
+},
+);
+width = 292;
+}
+);
+unicode = 355;
+}

@@ -1,0 +1,19 @@
+{
+glyphname = Lcaron;
+layers = (
+{
+layerId = "F75699C9-9800-49D7-954F-48F025B39DD4";
+shapes = (
+{
+ref = L;
+},
+{
+pos = (275,730);
+ref = caroncomb;
+},
+);
+width = 583;
+}
+);
+unicode = 317;
+}

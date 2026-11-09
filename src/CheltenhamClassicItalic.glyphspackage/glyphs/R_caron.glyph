@@ -1,0 +1,19 @@
+{
+glyphname = Rcaron;
+layers = (
+{
+layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
+shapes = (
+{
+ref = R;
+},
+{
+pos = (304,730);
+ref = caroncomb;
+},
+);
+width = 651;
+}
+);
+unicode = 344;
+}

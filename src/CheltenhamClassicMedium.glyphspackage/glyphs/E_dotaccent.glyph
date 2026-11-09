@@ -1,0 +1,19 @@
+{
+glyphname = Edotaccent;
+layers = (
+{
+layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
+shapes = (
+{
+ref = E;
+},
+{
+pos = (298,737);
+ref = dotaccentcomb;
+},
+);
+width = 580;
+}
+);
+unicode = 278;
+}

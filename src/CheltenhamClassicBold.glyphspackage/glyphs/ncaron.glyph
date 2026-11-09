@@ -1,0 +1,19 @@
+{
+glyphname = ncaron;
+layers = (
+{
+layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
+shapes = (
+{
+ref = n;
+},
+{
+pos = (274,433);
+ref = caroncomb;
+},
+);
+width = 540;
+}
+);
+unicode = 328;
+}
