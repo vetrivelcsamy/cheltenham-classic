@@ -39,6 +39,19 @@ jobs:
       - name: Install FontForge
         run: sudo apt-get update && sudo apt-get install -y fontforge
 
+      - name: Derive font version from the tag
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          python3 - "$TAG" >> "$GITHUB_ENV" <<'EOF'
+          import sys, re
+          # v1.1 -> 1.100. OpenType wants major.mmm, so the minor part is
+          # right-padded to three digits: .1 is .100, not .001.
+          m = re.match(r"v?(\d+)(?:\.(\d+))?", sys.argv[1])
+          major, minor = m.group(1), (m.group(2) or "0")
+          print(f"FONT_VERSION={major}.{minor.ljust(3, '0')[:3]}")
+          EOF
+          echo "font version: $FONT_VERSION"
+
       - name: Build fonts from source
         run: ./scripts/build.sh
 
