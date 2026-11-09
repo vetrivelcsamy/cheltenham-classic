@@ -3,8 +3,6 @@
 [![Sample](docs/img/example.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
 [![Sample Image](docs/img/open-graph.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
 
-*beta*
-
 Cheltenham Classic is a free and open-source typeface inspired by the timeless elegance of the original Cheltenham font.
 
 ## Features
@@ -31,7 +29,8 @@ body {
 
 ## Current Status
 
-Cheltenham Classic is currently in beta. We are continuously working on expanding the character set and improving the overall design.
+Cheltenham Classic is in active development. It covers basic Latin today; the
+current focus is expanding the character set toward Google Fonts' Latin Core.
 
 ## Building
 
@@ -56,11 +55,15 @@ git push origin v1.1
 
 ## Contributing
 
-We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more information.
+Contributions are welcome. Open an issue or a pull request.
+
+The character set is the most useful place to help: see
+[`gf-submission/README.md`](gf-submission/README.md) for the list of glyphs
+still missing from Google Fonts' Latin Core.
 
 ## License
 
-Cheltenham Classic is licensed under the SIL Open Font License 1.1. See the [LICENSE](LICENSE) file for details.
+Cheltenham Classic is licensed under the SIL Open Font License 1.1. See the [LICENSE.txt](LICENSE.txt) file for details.
 
 ## Contact
 
