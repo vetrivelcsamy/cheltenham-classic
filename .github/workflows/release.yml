@@ -34,7 +34,7 @@ jobs:
           cache: pip
 
       - name: Install build tools
-        run: pip install fontmake "fontbakery[googlefonts]" brotli
+        run: pip install -r requirements.txt
 
       - name: Install FontForge
         run: sudo apt-get update && sudo apt-get install -y fontforge
