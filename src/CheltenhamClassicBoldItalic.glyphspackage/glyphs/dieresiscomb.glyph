@@ -11,11 +11,11 @@ pos = (0,0);
 layerId = "F75699C9-9800-49D7-954F-48F025B39DD4";
 shapes = (
 {
-pos = (-307,80);
+pos = (-242,80);
 ref = period;
 },
 {
-pos = (99,80);
+pos = (34,80);
 ref = period;
 },
 );

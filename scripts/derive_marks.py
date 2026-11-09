@@ -7,7 +7,7 @@ component, so they inherit the typeface's own modulation and terminals, and
 they follow if that glyph is later redrawn:
 
   dotaccentcomb      period
-  dieresiscomb       period, twice
+  dieresiscomb       period, twice, parted by 0.92 of its width
   cedillacomb        comma, below the baseline
   commaaccentcomb    comma
   macroncomb         a bar, measured off the o and the period
@@ -38,6 +38,21 @@ def file_for(name):
 
 def layer_id(pkg):
     return re.search(r'id = "([^"]+)";', open(f"{pkg}/fontinfo.plist").read()).group(1)
+
+
+# Spacing twins of the derived marks, at their own legacy codepoints. A mark
+# with no advance width trips base_has_width; an empty slot trips contour_count.
+SPACING = {"dotaccentcomb": ("dotaccent", 0x02D9), "dieresiscomb": ("dieresis", 0x00A8),
+           "macroncomb": ("macron", 0x00AF), "cedillacomb": ("cedilla", 0x00B8)}
+
+
+def spacing(pkg, lid, comb, x0, x1, sb):
+    name, uni = SPACING[comb]
+    body = ("{\nglyphname = %s;\nlayers = (\n{\nlayerId = \"%s\";\nshapes = (\n"
+            "{\npos = (%d,0);\nref = %s;\n},\n);\nwidth = %d;\n}\n);\n"
+            "unicode = %d;\n}\n" % (name, lid, round(sb - x0), comb,
+                                     round((x1 - x0) + 2 * sb), uni))
+    open(f"{pkg}/glyphs/{file_for(name)}", "w").write(body)
 
 
 def glyph(name, lid, shapes, width, uni, anchor="_top"):
@@ -71,6 +86,7 @@ def main(repo, built):
 
         pn, cn, on = cm.get(0x2E), cm.get(0x2C), cm.get(0x6F)
         pg, og = glyf[pn], glyf[on]
+        cg = glyf[cn]
         pw, ph = pg.xMax - pg.xMin, pg.yMax - pg.yMin
         ow = og.xMax - og.xMin
         # The macron has no donor glyph, so its weight is scaled off the
@@ -83,14 +99,18 @@ def main(repo, built):
         out["dotaccentcomb"] = glyph("dotaccentcomb", lid,
             [{"ref": pn, "pos": (-(pg.xMin + pw // 2), GAP - pg.yMin)}], 0, 0x0307)
         # two of them, parted by one dot width
-        sep = int(pw * 1.35)
+        sep = int(pw * 0.92)
         out["dieresiscomb"] = glyph("dieresiscomb", lid,
             [{"ref": pn, "pos": (-(pg.xMin + pw // 2) - sep, GAP - pg.yMin)},
              {"ref": pn, "pos": (-(pg.xMin + pw // 2) + sep, GAP - pg.yMin)}], 0, 0x0308)
         # the comma, hung below the baseline
-        cg = glyf[cn]
+        # A whole comma hangs 297 units below the baseline, past the descender
+        # box. Scaled to 0.82 it reads as a cedilla rather than a comma that
+        # wandered, and Ccedilla stops being the deepest glyph in the family.
+        cs_ = 0.82
         out["cedillacomb"] = glyph("cedillacomb", lid,
-            [{"ref": cn, "pos": (-(cg.xMin + (cg.xMax - cg.xMin) // 2), -cg.yMax - 20)}],
+            [{"ref": cn, "scale": (cs_, cs_),
+              "pos": (-(cg.xMin + (cg.xMax - cg.xMin) // 2) * cs_, -cg.yMax * cs_ - 8)}],
             0, 0x0327, anchor="_bottom")
         out["commaaccentcomb"] = glyph("commaaccentcomb", lid,
             [{"ref": cn, "pos": (-(cg.xMin + (cg.xMax - cg.xMin) // 2), -cg.yMax - 20)}],
@@ -117,6 +137,15 @@ def main(repo, built):
 
         for name, body in out.items():
             open(f"{pkg}/glyphs/{file_for(name)}", "w").write(body)
+
+        sb = int((og.xMax - og.xMin) * 0.11)
+        cw = cg.xMax - cg.xMin
+        for comb, x0, x1 in (
+                ("dotaccentcomb", -(pw // 2), pw - pw // 2),
+                ("dieresiscomb", -(pw // 2) - sep, pw - pw // 2 + sep),
+                ("macroncomb", -half, half),
+                ("cedillacomb", -(cw // 2) * cs_, (cw - cw // 2) * cs_)):
+            spacing(pkg, lid, comb, x0, x1, sb)
         print(f"  {stem:34} derived {len(out)}  (dot {pw}x{ph}, thin {thin})")
         f.close()
 

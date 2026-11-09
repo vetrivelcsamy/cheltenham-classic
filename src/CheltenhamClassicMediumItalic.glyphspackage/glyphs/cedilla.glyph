@@ -2,16 +2,14 @@
 glyphname = cedilla;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
+{
+pos = (127,0);
+ref = cedillacomb;
+},
 );
-width = 0;
+width = 253;
 }
 );
 unicode = 184;

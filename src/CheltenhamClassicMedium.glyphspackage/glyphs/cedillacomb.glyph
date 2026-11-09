@@ -11,7 +11,8 @@ pos = (0,0);
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
 shapes = (
 {
-pos = (-112,-154);
+scale = (0.820,0.820);
+pos = (-91,-117);
 ref = comma;
 },
 );

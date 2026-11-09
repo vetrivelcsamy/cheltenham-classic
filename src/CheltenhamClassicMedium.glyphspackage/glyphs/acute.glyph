@@ -2,16 +2,14 @@
 glyphname = acute;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
 shapes = (
+{
+pos = (127,0);
+ref = acutecomb;
+},
 );
-width = 0;
+width = 274;
 }
 );
 unicode = 180;

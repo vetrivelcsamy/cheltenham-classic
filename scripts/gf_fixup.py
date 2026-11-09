@@ -182,9 +182,15 @@ def fixup(path, family):
     os2.sTypoAscender = hhea.ascender = ASC
     os2.sTypoDescender = hhea.descender = -DESC
     os2.sTypoLineGap = hhea.lineGap = 0
-    os2.usWinAscent, os2.usWinDescent = ASC, DESC
+    # win is a clipping box, not a spacing value: it has to cover the family's
+    # real extremes or Windows crops the tallest accents and deepest cedillas.
+    # Line spacing stays on the typo values because USE_TYPO_METRICS is set,
+    # so widening these costs nothing.
+    os2.usWinAscent = max(ASC, family[0])
+    os2.usWinDescent = max(DESC, family[1])
     os2.fsSelection |= 1 << 7            # USE_TYPO_METRICS
-    notes.append(f"metrics -> typo=hhea=win {ASC}/-{DESC} ({(ASC+DESC)/10:.0f}% UPM)")
+    notes.append(f"metrics -> typo=hhea {ASC}/-{DESC} ({(ASC+DESC)/10:.0f}% UPM), "
+                 f"win {os2.usWinAscent}/{os2.usWinDescent}")
 
     out = path
     f.save(out)

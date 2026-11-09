@@ -2,16 +2,14 @@
 glyphname = hungarumlaut;
 layers = (
 {
-anchors = (
-{
-name = _top;
-pos = (0,0);
-},
-);
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
 shapes = (
+{
+pos = (260,0);
+ref = hungarumlautcomb;
+},
 );
-width = 0;
+width = 542;
 }
 );
 unicode = 733;
