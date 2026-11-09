@@ -156,6 +156,15 @@ languagesystem latn dflt;
 tag = Languagesystems;
 }
 );
+features = (
+{
+code = "sub i' [cedillacomb ogonekcomb commaaccentcomb] [gravecomb acutecomb circumflexcomb tildecomb macroncomb brevecomb dotaccentcomb dieresiscomb ringcomb hungarumlautcomb caroncomb] by dotlessi;
+sub j' [cedillacomb ogonekcomb commaaccentcomb] [gravecomb acutecomb circumflexcomb tildecomb macroncomb brevecomb dotaccentcomb dieresiscomb ringcomb hungarumlautcomb caroncomb] by dotlessj;
+sub i' [gravecomb acutecomb circumflexcomb tildecomb macroncomb brevecomb dotaccentcomb dieresiscomb ringcomb hungarumlautcomb caroncomb] by dotlessi;
+sub j' [gravecomb acutecomb circumflexcomb tildecomb macroncomb brevecomb dotaccentcomb dieresiscomb ringcomb hungarumlautcomb caroncomb] by dotlessj;";
+tag = ccmp;
+}
+);
 fontMaster = (
 {
 customParameters = (

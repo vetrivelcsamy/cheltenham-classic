@@ -1,0 +1,70 @@
+{
+glyphname = uni25CC;
+layers = (
+{
+anchors = (
+{
+name = top;
+pos = (235,396);
+},
+{
+name = bottom;
+pos = (235,42);
+},
+);
+layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";
+shapes = (
+{
+pos = (102,326);
+ref = period;
+},
+{
+pos = (191,303);
+ref = period;
+},
+{
+pos = (255,238);
+ref = period;
+},
+{
+pos = (279,149);
+ref = period;
+},
+{
+pos = (255,61);
+ref = period;
+},
+{
+pos = (191,-4);
+ref = period;
+},
+{
+pos = (102,-27);
+ref = period;
+},
+{
+pos = (14,-4);
+ref = period;
+},
+{
+pos = (-51,61);
+ref = period;
+},
+{
+pos = (-74,149);
+ref = period;
+},
+{
+pos = (-51,238);
+ref = period;
+},
+{
+pos = (14,303);
+ref = period;
+},
+);
+width = 470;
+}
+);
+unicode = 9676;
+}

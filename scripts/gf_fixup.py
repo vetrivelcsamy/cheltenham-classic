@@ -16,8 +16,8 @@ Fixes, each tied to the FontBakery check it clears:
   opentype/italic_angle              measured from the outlines, not guessed
   linegaps + googlefonts/vertical_metrics  lineGap 0, win metrics from yMax/yMin
 """
-import sys, os, glob
-from fontTools.ttLib import TTFont
+import sys, os, glob, math
+from fontTools.ttLib import TTFont, newTable
 
 REPO = "https://github.com/vetrivelcsamy/cheltenham-classic"
 COPYRIGHT = f"Copyright 2024 The Cheltenham Classic Project Authors ({REPO})"
@@ -193,6 +193,27 @@ def fixup(path, family):
     os2.fsSelection |= 1 << 7            # USE_TYPO_METRICS
     notes.append(f"metrics -> typo=hhea {ASC}/-{DESC} ({(ASC+DESC)/10:.0f}% UPM), "
                  f"win {os2.usWinAscent}/{os2.usWinDescent}")
+
+    # --- meta: declared and supported languages ----------------------------
+    # googlefonts/meta/script_lang_tags wants the font to say what it is for.
+    # Latin only, and the languages the Latin Core set actually covers.
+    from fontTools.ttLib.tables import otTables
+    meta = newTable("meta")
+    meta.data = {"dlng": "Latn", "slng": "Latn"}
+    f["meta"] = meta
+    notes.append("meta: dlng/slng = Latn")
+
+    # --- caret slope -------------------------------------------------------
+    # The text cursor in an italic should lean with the text. Upright fonts
+    # take rise 1 / run 0; italics take rise = UPM and run derived from the
+    # angle, which is what opentype/caret_slope wants to see.
+    ia = f["post"].italicAngle
+    if abs(ia) < 0.01:
+        hhea.caretSlopeRise, hhea.caretSlopeRun = 1, 0
+    else:
+        hhea.caretSlopeRise = f["head"].unitsPerEm
+        hhea.caretSlopeRun = round(math.tan(math.radians(-ia)) * f["head"].unitsPerEm)
+    notes.append(f"caret slope {hhea.caretSlopeRise}/{hhea.caretSlopeRun}")
 
     # --- STAT ------------------------------------------------------------
     # A static family still needs one: it is how a system knows these six

@@ -250,6 +250,40 @@ def put_mixed(pkg, name, lid, shapes, width, uni):
     put_outline(pkg, name, lid, out, width, uni)
 
 
+ABOVE_MARKS = ("gravecomb acutecomb circumflexcomb tildecomb macroncomb "
+               "brevecomb dotaccentcomb dieresiscomb ringcomb "
+               "hungarumlautcomb caroncomb")
+
+
+def add_ccmp(pkg):
+    """A soft-dotted i or j must lose its dot when a mark is stacked on it.
+
+    Precomposed iacute already uses dotlessi, but a decomposed i + U+0301
+    sequence has nothing to tell the renderer, so the dot stays and collides
+    with the accent. This is the font's first GSUB feature -- the sources
+    carried only an empty FontLab stub declaring zero lookups.
+    """
+    fi = f"{pkg}/fontinfo.plist"
+    t = open(fi).read()
+    if "tag = ccmp;" in t:
+        return False
+    # just the rules: Glyphs wraps them in feature/endfeature from `tag`,
+    # and nesting a feature block inside one is a syntax error
+    # A mark below may sit between the letter and the accent above
+    # (Lithuanian i-ogonek-grave), so that case needs its own rule.
+    below = "cedillacomb ogonekcomb commaaccentcomb"
+    code = ("sub i' [%s] [%s] by dotlessi;\n"
+            "sub j' [%s] [%s] by dotlessj;\n"
+            "sub i' [%s] by dotlessi;\n"
+            "sub j' [%s] by dotlessj;"
+            % (below, ABOVE_MARKS, below, ABOVE_MARKS, ABOVE_MARKS, ABOVE_MARKS))
+    block = 'features = (\n{\ncode = "%s";\ntag = ccmp;\n}\n);\n' % code
+    t = re.sub(r"(featurePrefixes = \(.*?\n\);\n)", lambda m: m.group(1) + block, t,
+               count=1, flags=re.S)
+    open(fi, "w").write(t)
+    return True
+
+
 def repair_layers(pkg, lid):
     """A glyph whose layerId is not this master's is dropped on build, without
     a warning. The Italic's semicolon was lost that way."""
@@ -495,6 +529,38 @@ def build(pkg, lid, m, style):
                   int((sx1 - sx0) * sc + sb), 0x00A7); made.append("section")
     desc = -cap * 0.255
 
+    # ── dotted circle ────────────────────────────────────────────────────
+    # U+25CC is what a renderer shows when a combining mark arrives with no
+    # base. A font carrying 14 marks should be able to draw it. Twelve of the
+    # font's own periods on a ring, so it matches the dots in the dieresis.
+    if "period" in [chr(0x2E)] or True:
+        pg = B.get(".")
+        if pg:
+            p0, p1 = pg[0], pg[2]
+            pw_ = p1 - p0
+            rad = xh * 0.42
+            cy_d = xh * 0.52
+            dots = []
+            for k in range(12):
+                a_ = math.radians(90 - k * 30)
+                dots.append(("ref", "period",
+                             rad * math.cos(a_) - (p0 + pw_ / 2) + sb + rad,
+                             cy_d + rad * math.sin(a_) - (pg[1] + pg[3]) / 2, None))
+            # It needs top/bottom anchors or the marks have nothing to
+            # attach to, and dotted_circle turns from a WARN into a FAIL.
+            sh = "".join("{\npos = (%d,%d);\nref = period;\n},\n"
+                         % (round(d[2]), round(d[3])) for d in dots)
+            cxd = sb + rad
+            body = ("{\nglyphname = uni25CC;\nlayers = (\n{\nanchors = (\n"
+                    "{\nname = top;\npos = (%d,%d);\n},\n"
+                    "{\nname = bottom;\npos = (%d,%d);\n},\n);\n"
+                    "layerId = \"%s\";\nshapes = (\n%s);\nwidth = %d;\n}\n);\n"
+                    "unicode = 9676;\n}\n"
+                    % (round(cxd), round(cy_d + rad), round(cxd), round(cy_d - rad),
+                       lid, sh, round(2 * (rad + sb))))
+            open(f"{pkg}/glyphs/{fname('uni25CC')}", "w").write(body)
+            made.append("uni25CC")
+
     # ── thorn, and the pilcrow ────────────────────────────────────────────
     # Borrowing a bowl does not work: in P and b the stem and bowl are one
     # contour, so the bowl cannot be lifted out, and P reduced onto a cap
@@ -559,6 +625,7 @@ def main(repo, built):
         if not os.path.exists(ttf):
             print(f"  skip {stem_}"); continue
         lid = layer_id(pkg)
+        ccmp = add_ccmp(pkg)
         relaid = repair_layers(pkg, lid)
         made = build(pkg, lid, measure(ttf), style)
         new = [n for n in made if not n.startswith("~")]
@@ -571,6 +638,7 @@ def main(repo, built):
                 open(op, "w").write(txt.rstrip().rstrip(")").rstrip()
                                     + ",\n" + ",\n".join(add) + "\n)\n")
         note = f", relaid {','.join(relaid)}" if relaid else ""
+        note += ", +ccmp" if ccmp else ""
         print(f"  {stem_:34} {len(new)} new, {len(fixed)} recomposed onto dotless{note}")
 
 
