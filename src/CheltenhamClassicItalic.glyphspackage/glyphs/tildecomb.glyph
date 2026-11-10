@@ -1,5 +1,7 @@
 {
 glyphname = tildecomb;
+kernLeft = tildecomb;
+kernRight = tildecomb;
 layers = (
 {
 anchors = (

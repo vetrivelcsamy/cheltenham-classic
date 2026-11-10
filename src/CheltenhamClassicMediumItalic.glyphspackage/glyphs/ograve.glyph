@@ -1,5 +1,7 @@
 {
 glyphname = ograve;
+kernLeft = o;
+kernRight = o;
 layers = (
 {
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";

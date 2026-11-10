@@ -1,5 +1,7 @@
 {
 glyphname = percent;
+kernLeft = percent;
+kernRight = percent;
 layers = (
 {
 hints = (

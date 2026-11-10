@@ -1,5 +1,7 @@
 {
 glyphname = semicolon;
+kernLeft = semicolon;
+kernRight = semicolon;
 layers = (
 {
 hints = (

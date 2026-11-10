@@ -1,5 +1,7 @@
 {
 glyphname = adieresis;
+kernLeft = a;
+kernRight = a;
 layers = (
 {
 layerId = "59F106EB-9104-49C8-9C07-57E2EFBDDD8D";
