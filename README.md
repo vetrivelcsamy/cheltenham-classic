@@ -63,7 +63,7 @@ still missing from Google Fonts' Latin Core.
 
 ## License
 
-Cheltenham Classic is licensed under the SIL Open Font License 1.1. See the [LICENSE.txt](LICENSE.txt) file for details.
+Cheltenham Classic is licensed under the SIL Open Font License 1.1. See the [OFL.txt](OFL.txt) file for details.
 
 ## Contact
 

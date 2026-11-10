@@ -53,6 +53,12 @@ python3 scripts/gf_fixup.py "$OUT"
 # rewritten whenever they are. Left to drift it points Google Fonts' tooling
 # at the wrong commit, which is worse than no pin at all.
 python3 scripts/pin_commit.py "$OUT/METADATA.pb"
+
+# The article is authored once, under documentation/, which is where the
+# Google Fonts upstream layout puts it. The package gets a copy, because in
+# google/fonts it has to sit beside METADATA.pb.
+mkdir -p "$OUT/article"
+cp documentation/article/* "$OUT/article/"
 echo
 python3 scripts/check_marks_drawn.py "$OUT"
 
@@ -64,16 +70,12 @@ echo "laying out fonts/ for upstream"
 rm -rf fonts; mkdir -p fonts/ttf fonts/webfonts
 cp "$OUT"/*.ttf fonts/ttf/
 python3 scripts/webfonts.py "$OUT" fonts/webfonts 2>/dev/null || true
-# OTF needs fontforge, which CI has and a local checkout may not.
-if command -v fontforge >/dev/null; then
-  mkdir -p fonts/otf
-  for t in "$OUT"/*.ttf; do
-    b=$(basename "$t" .ttf)
-    fontforge -lang=ff -c 'Open($1); Generate($2)' "$t" "fonts/otf/$b.otf" >/dev/null 2>&1 || true
-  done
-else
-  echo "  (fontforge absent; fonts/otf left to CI)"
-fi
+# OTFs are built from the sources rather than converted from the TTFs, so
+# they carry real cubic CFF outlines instead of a quadratic round-trip.
+mkdir -p fonts/otf
+for g in sources/*.glyphspackage; do
+  fontmake -g "$g" -o otf --output-dir fonts/otf >/dev/null 2>&1 || true
+done
 printf "  ttf %s  otf %s  webfonts %s\n" \
   "$(ls fonts/ttf 2>/dev/null | wc -l | tr -d ' ')" \
   "$(ls fonts/otf 2>/dev/null | wc -l | tr -d ' ')" \

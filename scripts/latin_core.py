@@ -240,6 +240,20 @@ def measure(ttf):
             m["stemx"][ch] = (h_[0], h_[1])
     m["box"] = {chr(u): (g[n].xMin, g[n].yMin, g[n].xMax, g[n].yMax, hm[n][0])
                 for u, n in cm.items() if 0x20 < u < 0x7F}
+    # How far the ink actually reaches from the letter's own centre. A letter
+    # set inside a ring is limited by this, not by its width or height: C has
+    # no ink in the corners of its bounding box and R has it in two of them,
+    # so sizing both off max(width, height) fits the C and bursts the R out
+    # through the circle.
+    m["inkr"] = {}
+    for ch in "CR":
+        n = cm.get(ord(ch))
+        if not n:
+            continue
+        cx = (g[n].xMin + g[n].xMax) / 2.0
+        cy = (g[n].yMin + g[n].yMax) / 2.0
+        m["inkr"][ch] = max(math.hypot(x - cx, y - cy)
+                            for c in outline(n) for x, y in c)
     f.close()
     return m
 
@@ -525,7 +539,9 @@ def build(pkg, lid, m, style):
         x0, y0, x1, y1, w = B[base]
         rad = cap * 0.375
         cy, cx = cap * 0.50, sb + rad
-        sc = (rad * 2 - thin * 3.4) / max(x1 - x0, y1 - y0)
+        # fit the ink inside the ring's inner edge, with a hairline of air
+        inner = rad - thin * 0.92
+        sc = (inner - thin * 0.55) / m["inkr"].get(base, max(x1 - x0, y1 - y0) / 2)
         put_mixed(pkg, nm, lid,
                   [ellipse(cx, cy, rad, rad),
                    ellipse(cx, cy, rad - thin * 0.92, rad - thin * 0.92, cw=True),
