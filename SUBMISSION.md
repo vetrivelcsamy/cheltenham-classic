@@ -11,7 +11,7 @@ fork at `ofl/librecheltenham/` and run FontBakery there:
 FAIL 0   WARN 36   PASS 902
 ```
 
-**FontBakery passes.** The Latin Core set is complete at 323 glyphs per
+**FontBakery passes.** The Latin Core set is complete at 325 glyphs per
 style. What remains is not technical: the provenance statement, the CLA, and
 your bio.
 

@@ -62,7 +62,7 @@ subsets: "latin-ext"
 subsets: "menu"
 source {
   repository_url: "https://github.com/vetrivelcsamy/libre-cheltenham"
-  commit: "6974ebb24ebafadf784f1b004dbb546c404db617"
+  commit: "d511f8040d58e3776f152ff06805a4467f8a9154"
   files {
     source_file: "OFL.txt"
     dest_file: "OFL.txt"
