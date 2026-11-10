@@ -82,16 +82,38 @@ identical -- a lowercase-shaped eszett among capitals reads as a mistake.
 
 ## 2a. Built, but wanting a designer's hand first
 
-These three ship and clear the coverage check, but they are the weakest things
-in the font and a curation review will notice:
+These ship and clear the coverage check, but they are the weakest things in
+the font and a curation review will notice:
 
 | | What is wrong with it |
 | --- | --- |
 | `Æ` | `A` and `E` overlapped. The `A`'s right leg is a diagonal and the `E`'s stem is vertical, so they can only truly meet at one height — it reads as two letters touching rather than one letterform. `æ` does not have this problem, both sides being curved. |
-| `ð` | The bowl is the `o` and the ascender is a straight stroke with a bar across it. A real eth's ascender *curves* out of the bowl. Legible at text size, visibly constructed at display size. |
 | `§` | Two reduced `S`s overlapped. A section sign is a single continuous double curve, so there is a seam where they meet. Reads at text size; does not hold up large. |
 | `ß ẞ` | Drawn as a stroked skeleton rather than by eye: the weights come from the style's own stem and hairline, but the curves are mine, not the designer's. Reads correctly at text and display size; worth a pass in Glyphs. |
-| `Þ þ ¶` | The bowls are built from ellipses rather than drawn, so the counter is a plain oval where `P`'s is shaped, and the stroke does not thin into the join. Correct and in-style at text size; a designer would redraw the counter. |
+
+## 2b. ð, Þ, þ and ¶ — no longer built
+
+These four used to be in 2a. They are now cut out of, or grown from, the
+designer's own letters by `scripts/borrow_bowls.py`.
+
+The earlier note said a bowl "cannot be lifted out" of `P` or `b`, because in
+both the stem and the bowl are a single contour. That is true of a component
+reference, which can only move a whole glyph. It is not true of the geometry:
+intersecting `P` with the half-plane to the right of its stem and above its
+foot serif leaves the bowl behind, and re-hanging it on the font's own `I`
+gives a `Þ` whose counter is the shape `P`'s counter is, and whose stroke
+thins into the join the way `P`'s does.
+
+| | Where it comes from now |
+| --- | --- |
+| `Þ` | `P`'s bowl, cut at the stem and hung at mid-cap on `I`'s stem, serifs and all. |
+| `þ` | `b`'s own bowl on `l`'s stem, with `l`'s foot serif cut away — the stem runs on to the descender, so there is no foot for a serif to stand on. |
+| `¶` | `P`'s bowl again, taken from the outer contour alone so it is solid, mirrored so it hangs to the left, on two stems. |
+| `ð` | The `o`, with an ascender that curves out of it. The old one began at the `o`'s top-right *corner*, where the `o` has no ink — at that x its stroke is down at mid-height — so the ascender floated clear of the bowl with white in between. It is now anchored on the middle of the ring's right wall and drawn as a tapered curve, which is what 2a asked for. |
+
+Stem and bowl are unioned into one contour rather than left overlapping, and
+every cut is sheared by the master's own slant, read off `l`, so the italics
+are cut along their stems rather than across them.
 
 ## 3. What was built, and from what
 
@@ -107,10 +129,9 @@ in the font and a curation review will notice:
 | `« » ‹ ›` | Chevrons built to the design's own stroke weight. |
 | `ª º ™ © ®` | `a o T M C R` reduced. These characters *are* smaller letters, so reduction is the construction rather than a shortcut around one. |
 | `Æ æ Œ œ` | Two letters overlapped so the second's left edge lands on the first's right stem. fontmake unions them, which is the real construction of these characters. See 2a for `Æ`. |
-| `ð Ð` | `o` with a stroked ascender; `D` with a crossbar. The capital only ships because the lowercase does — half a case pair breaks `case_mapping`. |
+| `ð Ð` | The lowercase is no longer a straight stroke — see 2b. `Ð` is `D` with a crossbar, and only ships because the lowercase does: half a case pair breaks `case_mapping`. |
 | `§` | Two reduced `S`s. See 2a. |
-| `Þ þ` | The font's own `I`/`l` for the stem, so the serifs come free, plus a **built** bowl: a solid half-ellipse with its counter punched as a separate contour. Borrowing a bowl is impossible — in `P` and `b` the stem and bowl are one contour. |
-| `¶` | Two stems and a solid half-disc hung to the left of the right one. |
+| `Þ þ ¶` | No longer built from ellipses — the bowls are cut out of `P` and `b`. See 2b. |
 
 It also repairs any glyph carrying a layer id that is not its master's.
 glyphsLib drops those silently — which is why the Italic shipped with no
