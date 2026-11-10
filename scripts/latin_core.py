@@ -118,12 +118,19 @@ def ellipse(cx, cy, rx, ry, cw=False):
 
 
 def diagonal(x0, y0, x1, y1, w):
-    """A stroke from one point to another, cut square at both ends."""
+    """A stroke from one point to another, cut square at both ends.
+
+    Wound counter-clockwise to match bar() and the font's own contours.
+    Traced the other way it subtracts instead of adding, and the slash cut
+    white notches out of the letter everywhere it crossed a stroke -- which
+    is what shipped in Oslash, oslash, Lslash, lslash, cent and eth until
+    this was caught.
+    """
     dx, dy = x1 - x0, y1 - y0
     L = math.hypot(dx, dy) or 1.0
     nx, ny = -dy / L * w / 2, dx / L * w / 2
-    return quad([(x0 + nx, y0 + ny), (x1 + nx, y1 + ny),
-                 (x1 - nx, y1 - ny), (x0 - nx, y0 - ny)])
+    return quad([(x0 - nx, y0 - ny), (x1 - nx, y1 - ny),
+                 (x1 + nx, y1 + ny), (x0 + nx, y0 + ny)])
 
 
 def chevron(cx, cy, h, w, t, left=True):
