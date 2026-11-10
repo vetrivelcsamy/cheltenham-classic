@@ -4,9 +4,8 @@ Working directory for onboarding Cheltenham Classic. Everything here is
 produced by `../scripts/build.sh`; nothing is edited by hand except
 `METADATA.pb` and the two files under `designer/`.
 
-**Not ready to submit.** `ß` and `ẞ` are missing, and Google Fonts requires
-the complete GF Latin Core set. See `../SUBMISSION.md` for the full list of
-what is blocking and who has to clear it.
+**The font passes.** What is outstanding is not technical: the provenance
+statement, the CLA, and a portrait. See `../SUBMISSION.md`.
 
 ## Contents
 
@@ -29,15 +28,15 @@ Copy this directory into a `google/fonts` fork at `ofl/cheltenhamclassic/`
 and run `fontbakery check-googlefonts ofl/cheltenhamclassic/*.ttf`:
 
 ```
-FAIL 12   WARN 30   PASS 896
+FAIL 0   WARN 36   PASS 902
 ```
 
-321 glyphs across six styles. All twelve failures are `glyph_coverage` and
-`shape_languages`, and both fail for one reason: `ß` and `ẞ`.
+323 glyphs across six styles, and the GF Latin Core set is complete.
 
 The thirty warnings are itemised in `../SUBMISSION.md` with a reason each.
 One of them, `outline_jaggy_segments` on `B`, is a false positive and should
-be left standing.
+be left standing: the node it flags is a deliberate corner at the waist, and
+smoothing it would flatten the letter.
 
 ## Draft issue text
 
@@ -59,8 +58,8 @@ New families are submitted as an **issue**, not a pull request. Open
 >
 > **Description.** Cheltenham Classic is a serif family in three weights with
 > matching italics, drawn in the spirit of Cheltenham, the 1896 face by
-> Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 321 glyphs
-> covering the GF Latin Core set.
+> Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 323 glyphs
+> covering the whole of the GF Latin Core set.
 >
 > **Provenance.** <!-- YOU MUST WRITE THIS YOURSELF. Google Fonts requires
 > the design to be original, or a legitimate revival of a public-domain
@@ -77,7 +76,16 @@ New families are submitted as an **issue**, not a pull request. Open
 >
 > **Licence.** SIL OFL 1.1. CLA signed by <!-- confirm -->.
 >
-> **Known gaps.** <!-- Delete once ß and ẞ are drawn. -->
+> **Constructed glyphs.** Some outlines are built to the design's own
+> measurements rather than drawn by hand: nine of the fourteen combining
+> marks (grave, acute, circumflex, caron, tilde, breve, ring, hungarumlaut,
+> ogonek), the AE and OE ligatures, eth, section, thorn, the pilcrow, and
+> the eszett. Each takes its weights from the style's own stem and hairline,
+> and the italics are sheared to their own measured angle, so they are
+> consistent with the family. They read correctly at text size. They are
+> listed in src/DRAWING.md section 2a. <!-- Say so plainly here rather than
+> letting a reviewer find it; and if you have redrawn any of them by hand
+> before filing, say that instead. -->
 
 ## Reproducing
 
