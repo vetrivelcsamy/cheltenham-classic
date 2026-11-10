@@ -1,5 +1,7 @@
 {
 glyphname = Uhungarumlaut;
+kernLeft = U;
+kernRight = U;
 layers = (
 {
 layerId = "0245B36C-B88E-4C5F-8D6F-F0580B5CC529";

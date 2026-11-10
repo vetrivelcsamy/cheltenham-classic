@@ -1,5 +1,7 @@
 {
 glyphname = E;
+kernLeft = E;
+kernRight = E;
 layers = (
 {
 hints = (

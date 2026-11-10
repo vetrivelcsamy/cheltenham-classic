@@ -30,7 +30,7 @@ Three deliberate restraints, because a bad kern is worse than none:
 
 It is a floor, not a substitute for kerning by eye.
 """
-import glob, os, re, sys
+import glob, os, re, sys, unicodedata
 from fontTools.ttLib import TTFont
 from fontTools.pens.recordingPen import DecomposingRecordingPen
 
@@ -116,6 +116,78 @@ def gap(left, right, advance):
     return sum(vals[:k]) / k, len(vals) / float(SAMPLES)
 
 
+# Letters with a stroke have no canonical decomposition, so they are not
+# reached by the rule below, but their silhouettes are their base's: the bar
+# or slash crosses the stem rather than redefining the outer profile. Thorn
+# is deliberately absent -- its bowl sits at mid-height, where P's does not.
+STRUCK = {"Lslash": "L", "lslash": "l", "Oslash": "O", "oslash": "o",
+          "Dcroat": "D", "dcroat": "d", "Eth": "D",
+          "Hbar": "H", "hbar": "h"}
+
+
+def groups(pkg, f):
+    """Point every accented glyph at its base for kerning.
+
+    145 glyphs decompose to a base already in the font, and none of them were
+    kerned: `Avatar` closed up but `Avatar` with an accent on the A did not.
+    Rather than emit a pair for every combination, each accented glyph joins
+    its base's kerning group, and the pairs are written against the groups.
+    """
+    cm = f.getBestCmap()
+    rev = {v: k for k, v in cm.items()}
+    n = 0
+    for gname in f.getGlyphOrder():
+        u = rev.get(gname)
+        if u is None:
+            continue
+        d = unicodedata.decomposition(chr(u))
+        if not d or d.startswith("<"):
+            continue
+        base = int(d.split()[0], 16)
+        bn = cm.get(base)
+        if not bn:
+            continue
+        path = f"{pkg}/glyphs/{fname(gname)}"
+        if not os.path.exists(path):
+            continue
+        t = open(path).read()
+        if "kernLeft" in t:
+            continue
+        t = t.replace("glyphname = %s;\n" % gname,
+                      "glyphname = %s;\nkernLeft = %s;\nkernRight = %s;\n" % (gname, bn, bn),
+                      1)
+        open(path, "w").write(t)
+        n += 1
+    for gname, bn in STRUCK.items():
+        path = f"{pkg}/glyphs/{fname(gname)}"
+        if not os.path.exists(path) or bn not in f.getGlyphOrder():
+            continue
+        t = open(path).read()
+        if "kernLeft" in t:
+            continue
+        t = t.replace("glyphname = %s;\n" % gname,
+                      "glyphname = %s;\nkernLeft = %s;\nkernRight = %s;\n" % (gname, bn, bn), 1)
+        open(path, "w").write(t)
+        n += 1
+
+    # the bases themselves must be in their own group or the pairs miss them
+    for bn in set(cm.values()):
+        path = f"{pkg}/glyphs/{fname(bn)}"
+        if not os.path.exists(path):
+            continue
+        t = open(path).read()
+        if "kernLeft" in t:
+            continue
+        t = t.replace("glyphname = %s;\n" % bn,
+                      "glyphname = %s;\nkernLeft = %s;\nkernRight = %s;\n" % (bn, bn, bn), 1)
+        open(path, "w").write(t)
+    return n
+
+
+def fname(n):
+    return "".join(c + "_" if c.isupper() else c for c in n) + ".glyph"
+
+
 def main(repo, built):
     for pkg in sorted(glob.glob(f"{repo}/src/*.glyphspackage")):
         stem = os.path.basename(pkg).replace(".glyphspackage", "")
@@ -170,9 +242,10 @@ def main(repo, built):
             if k < 0 and abs(k) >= MIN_EMIT:
                 pairs.setdefault(gname[a_], {})[gname[b_]] = max(-CLAMP, min(CLAMP, k))
         shown = ", ".join(f"{k_}:{v:.0f}" for k_, v in sorted(norms.items()))
+        ng = groups(pkg, f)
         write(pkg, pairs)
         n = sum(len(v) for v in pairs.values())
-        print(f"  {stem:30} {n:5} pairs  [{shown}]")
+        print(f"  {stem:30} {n:5} pairs, {ng} accented glyphs grouped")
         f.close()
 
 
@@ -181,8 +254,8 @@ def write(pkg, pairs):
     t = open(fi).read()
     lid = re.search(r'id = "([^"]+)";', t).group(1)
     body = "".join(
-        "%s = {\n%s};\n" % (a, "".join("%s = %d;\n" % (b, v)
-                                       for b, v in sorted(pairs[a].items())))
+        '"@MMK_L_%s" = {\n%s};\n' % (a, "".join('"@MMK_R_%s" = %d;\n' % (b, v)
+                                                 for b, v in sorted(pairs[a].items())))
         for a in sorted(pairs))
     block = 'kerningLTR = {\n"%s" = {\n%s};\n};\n' % (lid, body)
     # Brace-matched, not a regex. A non-greedy pattern stops at the first

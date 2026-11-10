@@ -1,5 +1,7 @@
 {
 glyphname = exclamdown;
+kernLeft = exclamdown;
+kernRight = exclamdown;
 layers = (
 {
 hints = (

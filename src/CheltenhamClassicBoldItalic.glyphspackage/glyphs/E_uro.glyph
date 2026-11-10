@@ -1,5 +1,7 @@
 {
 glyphname = Euro;
+kernLeft = Euro;
+kernRight = Euro;
 layers = (
 {
 hints = (

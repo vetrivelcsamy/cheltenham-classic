@@ -1,5 +1,7 @@
 {
 glyphname = Acircumflex;
+kernLeft = A;
+kernRight = A;
 layers = (
 {
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";

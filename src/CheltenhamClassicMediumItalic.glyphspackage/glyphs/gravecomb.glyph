@@ -1,5 +1,7 @@
 {
 glyphname = gravecomb;
+kernLeft = gravecomb;
+kernRight = gravecomb;
 layers = (
 {
 anchors = (

@@ -1,5 +1,7 @@
 {
 glyphname = Oslash;
+kernLeft = O;
+kernRight = O;
 layers = (
 {
 layerId = "C6EC6FDA-E503-47EF-96B2-9587BA9C0735";

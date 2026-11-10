@@ -1,5 +1,7 @@
 {
 glyphname = quotesinglbase;
+kernLeft = quotesinglbase;
+kernRight = quotesinglbase;
 layers = (
 {
 hints = (

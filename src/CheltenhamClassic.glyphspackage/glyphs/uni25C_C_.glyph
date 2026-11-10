@@ -1,5 +1,7 @@
 {
 glyphname = uni25CC;
+kernLeft = uni25CC;
+kernRight = uni25CC;
 layers = (
 {
 anchors = (
