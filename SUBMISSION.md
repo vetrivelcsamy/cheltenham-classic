@@ -113,4 +113,5 @@ New families are submitted as an **issue**, not a pull request.
    `fontmake` build, FontBakery in CI, and an OFL.
 4. Tag a release first so there is a fixed version to review.
 
-Draft issue text is in `gf-submission/README.md`.
+Draft issue text is in `gf-submission/README.md`, including the
+provenance paragraph you have to write yourself.
