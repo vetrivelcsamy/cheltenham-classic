@@ -45,10 +45,10 @@ New families are submitted as an **issue**, not a pull request. Open
 <https://github.com/google/fonts/issues/new?template=1_add-font.md>, title it
 `Add Libre Cheltenham`, and adapt this:
 
-> **Font Project Link:** https://github.com/vetrivelcsamy/cheltenham-classic
+> **Font Project Link:** https://github.com/vetrivelcsamy/libre-cheltenham
 >
 > **Is the font already published anywhere?** Specimen and downloads at
-> https://vetrivelcsamy.github.io/cheltenham-classic/ — built from the same
+> https://vetrivelcsamy.github.io/libre-cheltenham/ — built from the same
 > sources by CI, so the site and this submission are the same binaries.
 >
 > **Name.** No `Cheltenham` exists in the Google Fonts catalogue, and the OFL
