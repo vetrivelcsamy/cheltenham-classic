@@ -276,7 +276,7 @@ def build(m):
          shape(nodes(shear_n(i_[:-1], sl, piv)))])
 
     # ── ogonek: a hook below the baseline, thin where it leaves the letter
-    hg, wg = xh * 0.50, ow * 0.34
+    hg, wg = xh * 0.54, ow * 0.34
 
     def og(t):
         # One open cubic, under 180 degrees of sweep. Anything more and the
@@ -285,7 +285,11 @@ def build(m):
         v = 1 - t
         x = v**3*a[0] + 3*v*v*t*b[0] + 3*v*t*t*c[0] + t**3*d[0]
         y = v**3*a[1] + 3*v*v*t*b[1] + 3*v*t*t*c[1] + t**3*d[1]
-        return (x * wg - wg * 0.45, y * hg)
+        # Bite into the letter rather than meeting it. The composite hangs
+        # this from the base's lowest point, so starting the centreline at
+        # the anchor left the ogonek overlapping `a` by two units -- it read
+        # as detached, with white between.
+        return (x * wg - wg * 0.45, y * hg + thin * 0.95)
 
     cen = sample(og, 40)
     # thin where it leaves the letter, weight through the bend, a fine tip
