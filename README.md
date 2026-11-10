@@ -1,7 +1,7 @@
 # Libre Cheltenham Typeface
 
-[![Sample](docs/img/example.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
-[![Sample Image](docs/img/open-graph.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
+[![Sample](docs/img/example.png)](https://vetrivelcsamy.github.io/libre-cheltenham/)
+[![Sample Image](docs/img/open-graph.png)](https://vetrivelcsamy.github.io/libre-cheltenham/)
 
 Libre Cheltenham is a free and open-source typeface inspired by the timeless elegance of the original Cheltenham font.
 
@@ -14,13 +14,13 @@ Libre Cheltenham is a free and open-source typeface inspired by the timeless ele
 
 ## Quick Start
 
-1. Download the font files from the [releases page](https://github.com/vetrivelcsamy/cheltenham-classic/releases).
+1. Download the font files from the [releases page](https://github.com/vetrivelcsamy/libre-cheltenham/releases).
 2. Install the fonts on your system.
 
 For web projects, include the following in your CSS:
 
 ```css
-@import url('https://vetrivelcsamy.github.io/cheltenham-classic/librecheltenham.css');
+@import url('https://vetrivelcsamy.github.io/libre-cheltenham/librecheltenham.css');
 
 body {
   font-family: 'librecheltenham', serif;

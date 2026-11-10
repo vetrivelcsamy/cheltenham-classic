@@ -10,7 +10,7 @@ fonts {
   filename: "LibreCheltenham-Regular.ttf"
   post_script_name: "LibreCheltenham-Regular"
   full_name: "Libre Cheltenham Regular"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 fonts {
   name: "Libre Cheltenham"
@@ -19,7 +19,7 @@ fonts {
   filename: "LibreCheltenham-Italic.ttf"
   post_script_name: "LibreCheltenham-Italic"
   full_name: "Libre Cheltenham Italic"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 fonts {
   name: "Libre Cheltenham"
@@ -28,7 +28,7 @@ fonts {
   filename: "LibreCheltenham-Medium.ttf"
   post_script_name: "LibreCheltenham-Medium"
   full_name: "Libre Cheltenham Medium"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 fonts {
   name: "Libre Cheltenham"
@@ -37,7 +37,7 @@ fonts {
   filename: "LibreCheltenham-MediumItalic.ttf"
   post_script_name: "LibreCheltenham-MediumItalic"
   full_name: "Libre Cheltenham Medium Italic"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 fonts {
   name: "Libre Cheltenham"
@@ -46,7 +46,7 @@ fonts {
   filename: "LibreCheltenham-Bold.ttf"
   post_script_name: "LibreCheltenham-Bold"
   full_name: "Libre Cheltenham Bold"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 fonts {
   name: "Libre Cheltenham"
@@ -55,14 +55,14 @@ fonts {
   filename: "LibreCheltenham-BoldItalic.ttf"
   post_script_name: "LibreCheltenham-BoldItalic"
   full_name: "Libre Cheltenham Bold Italic"
-  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/libre-cheltenham)"
 }
 subsets: "latin"
 subsets: "latin-ext"
 subsets: "menu"
 source {
-  repository_url: "https://github.com/vetrivelcsamy/cheltenham-classic"
-  commit: "d7e10bcd810b4560cd622160de5b1eb799813bb8"
+  repository_url: "https://github.com/vetrivelcsamy/libre-cheltenham"
+  commit: "6974ebb24ebafadf784f1b004dbb546c404db617"
   files {
     source_file: "OFL.txt"
     dest_file: "OFL.txt"

@@ -192,7 +192,7 @@ New families are submitted as an **issue**, not a pull request.
 1. Open <https://github.com/google/fonts/issues/new?template=1_add-font.md>
    — the "Submitting a new OFL Font" template.
 2. Title: `Add Libre Cheltenham`.
-3. Point it at `https://github.com/vetrivelcsamy/cheltenham-classic`, which
+3. Point it at `https://github.com/vetrivelcsamy/libre-cheltenham`, which
    already has what they ask for: sources in `.glyphspackage` form, a
    `fontmake` build, FontBakery in CI, and an OFL.
 4. Tag a release first so there is a fixed version to review.

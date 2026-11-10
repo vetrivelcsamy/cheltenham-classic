@@ -19,7 +19,7 @@ Fixes, each tied to the FontBakery check it clears:
 import sys, os, glob, math
 from fontTools.ttLib import TTFont, newTable
 
-REPO = "https://github.com/vetrivelcsamy/cheltenham-classic"
+REPO = "https://github.com/vetrivelcsamy/libre-cheltenham"
 COPYRIGHT = f"Copyright 2024 The Libre Cheltenham Project Authors ({REPO})"
 LICENSE = ("This Font Software is licensed under the SIL Open Font License, "
            "Version 1.1. This license is available with a FAQ at: "
