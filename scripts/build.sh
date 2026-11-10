@@ -32,6 +32,7 @@ echo "regenerating marks from the measured design"
 python3 scripts/derive_marks.py . "$TMP"
 python3 scripts/draw_marks.py . "$TMP"
 python3 scripts/latin_core.py . "$TMP"
+python3 scripts/draw_eszett.py . "$TMP"
 # after latin_core, which regenerates glyph files and would otherwise wipe
 # the kerning groups written onto them
 python3 scripts/kern.py . "$TMP"

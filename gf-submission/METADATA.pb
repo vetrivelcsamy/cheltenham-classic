@@ -62,7 +62,7 @@ subsets: "latin-ext"
 subsets: "menu"
 source {
   repository_url: "https://github.com/vetrivelcsamy/cheltenham-classic"
-  commit: "468694aaf35341eeb1c3343ed0901635d6b44575"
+  commit: "fcc3bb6266b1b85d57c05f60cc388ed143f26596"
   files {
     source_file: "OFL.txt"
     dest_file: "OFL.txt"

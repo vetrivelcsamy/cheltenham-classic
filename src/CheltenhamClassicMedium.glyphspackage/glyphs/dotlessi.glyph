@@ -4,6 +4,16 @@ kernLeft = dotlessi;
 kernRight = dotlessi;
 layers = (
 {
+anchors = (
+{
+name = top;
+pos = (130,429);
+},
+{
+name = bottom;
+pos = (130,0);
+},
+);
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
 shapes = (
 {

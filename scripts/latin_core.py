@@ -301,6 +301,45 @@ def add_ccmp(pkg):
     return not had
 
 
+def ensure_anchors(pkg, f):
+    """Give a mark somewhere to attach on glyphs the scaffold missed.
+
+    I and i carry top/bottom anchors; J, j and the two dotless forms did not,
+    so a combining acute had nothing to attach to. Dutch writes it -- the
+    shaper could not build `íj́`, which is what shape_languages was failing on
+    once the eszett closed the coverage gap.
+    """
+    cm = f.getBestCmap()
+    glyf = f["glyf"]
+    fixed = []
+    # (source file name, codepoint). The built font may use a production name
+    # -- dotlessj ships as uni0237 -- so the outline is found by codepoint
+    # while the file is found by its source name.
+    for src, cp in (("J", 0x4A), ("j", 0x6A), ("dotlessi", 0x131), ("dotlessj", 0x237)):
+        gname = cm.get(cp)
+        path = f"{pkg}/glyphs/{fname(src)}"
+        if not path or not os.path.exists(path):
+            continue
+        t = open(path).read()
+        if "name = top;" in t:
+            continue
+        if not gname or gname not in glyf:
+            continue
+        b = glyf[gname]
+        if not hasattr(b, "xMin"):
+            continue
+        cx = round((b.xMin + b.xMax) / 2)
+        anc = ("anchors = (\n{\nname = top;\npos = (%d,%d);\n},\n"
+               "{\nname = bottom;\npos = (%d,%d);\n},\n);\n"
+               % (cx, b.yMax, cx, min(0, b.yMin)))
+        if "anchors = (" in t:
+            continue
+        t = t.replace("layers = (\n{\n", "layers = (\n{\n" + anc, 1)
+        open(path, "w").write(t)
+        fixed.append(src)
+    return fixed
+
+
 def repair_layers(pkg, lid):
     """A glyph whose layerId is not this master's is dropped on build, without
     a warning. The Italic's semicolon was lost that way."""
@@ -649,6 +688,9 @@ def main(repo, built):
         ccmp = add_ccmp(pkg)
         relaid = repair_layers(pkg, lid)
         made = build(pkg, lid, measure(ttf), style)
+        # after build(), which regenerates dotlessi and dotlessj and would
+        # otherwise wipe the anchors straight off them again
+        anchored = ensure_anchors(pkg, TTFont(ttf, lazy=True))
         new = [n for n in made if not n.startswith("~")]
         fixed = [n[1:] for n in made if n.startswith("~")]
         op = f"{pkg}/order.plist"
@@ -660,6 +702,7 @@ def main(repo, built):
                                     + ",\n" + ",\n".join(add) + "\n)\n")
         note = f", relaid {','.join(relaid)}" if relaid else ""
         note += ", +ccmp" if ccmp else ""
+        note += f", anchored {','.join(anchored)}" if anchored else ""
         print(f"  {stem_:34} {len(new)} new, {len(fixed)} recomposed onto dotless{note}")
 
 
