@@ -51,6 +51,12 @@ New families are submitted as an **issue**, not a pull request. Open
 > https://vetrivelcsamy.github.io/cheltenham-classic/ — built from the same
 > sources by CI, so the site and this submission are the same binaries.
 >
+> **Name.** No `Cheltenham` exists in the Google Fonts catalogue, and the OFL
+> declares no Reserved Font Name. The qualifier follows the pattern the
+> catalogue already uses for historical names — `Libre Franklin`,
+> `Libre Baskerville`, `Libre Caslon`, `EB Garamond`. <!-- If you decided to
+> rename to Libre Cheltenham, say so here instead. See ../SUBMISSION.md. -->
+>
 > **Description.** Cheltenham Classic is a serif family in three weights with
 > matching italics, drawn in the spirit of Cheltenham, the 1896 face by
 > Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 321 glyphs
