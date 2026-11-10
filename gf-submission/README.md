@@ -62,13 +62,10 @@ New families are submitted as an **issue**, not a pull request. Open
 > Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 323 glyphs
 > covering the whole of the GF Latin Core set.
 >
-> **Provenance.** <!-- YOU MUST WRITE THIS YOURSELF. Google Fonts requires
-> the design to be original, or a legitimate revival of a public-domain
-> design. Cheltenham (1896) is public domain. Say in your own words whether
-> these outlines were drawn by you from specimens or from scratch, and state
-> explicitly whether any geometry came from an existing digital Cheltenham.
-> If any did, name it and its licence. Do not submit without answering this;
-> see ../SUBMISSION.md. -->
+> **Provenance.** The outlines are my own drawing, made in FontLab. The
+> design takes its spirit from Cheltenham, the 1896 face by Bertram Goodhue
+> and Ingalls Kimball for the Cheltenham Press, which is in the public
+> domain. No geometry was taken from any existing digital font.
 >
 > **Sources.** Six `.glyphspackage` files under `src/`. The build is
 > `scripts/build.sh`: `fontmake` from source, then `scripts/gf_fixup.py` for
