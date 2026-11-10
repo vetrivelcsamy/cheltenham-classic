@@ -13,7 +13,7 @@ FAIL 0   WARN 36   PASS 902
 
 **FontBakery passes.** The Latin Core set is complete at 323 glyphs per
 style. What remains is not technical: the provenance statement, the CLA, and
-your bio and portrait.
+your bio.
 
 ## Blockers — only you can clear these
 
@@ -128,16 +128,20 @@ They are not drawn by hand, and at display size that shows.
 `gf-submission/designer/` holds `info.pb` and `bio.html`. They go to
 `catalog/designers/vetrivelchinnasamy/` in a `google/fonts` fork.
 
-`info.pb` follows the schema their own entries use — `designer`, `link`,
-`avatar` — which is **not** the nested block this file had until now; that
-form does not exist and would have been rejected.
+`info.pb` follows the schema their own entries use — flat `designer` and
+`link` fields, **not** the nested block this file had until now; that form
+does not exist and would have been rejected.
 
 `bio.html` is a **draft**, written only from facts you stated yourself.
 Read it and cut what you would rather not publish.
 
-**A portrait is still needed.** `info.pb` names it
-`vetrivelchinnasamy.png`, so supply a file by exactly that name — square,
-and large enough not to look soft on a high-density screen.
+**No portrait.** It is optional: of twenty-five catalog entries sampled,
+`adeleantignac` and `alemetadesse` ship without one, and they do it by
+leaving the `avatar` block out entirely. `info.pb` used to name a file that
+was never supplied, which is the one state worth avoiding — a profile
+pointing at an image that is not there. The block is now gone. To add a
+portrait later, drop a square PNG beside `bio.html` and name it in an
+`avatar { file_name: "..." }` block.
 
 Note that `info.pb` has no field for an email. Google Fonts keeps contact
 in the bio, which is where `hello@vetrivelcsamy.me` now sits. It

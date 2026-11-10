@@ -4,9 +4,9 @@ Working directory for onboarding Cheltenham Classic. Everything here is
 produced by `../scripts/build.sh`; nothing is edited by hand except
 `METADATA.pb` and the two files under `designer/`.
 
-**The font passes and the CLA is signed.** Two things are outstanding, both
-of them the designer's: the provenance statement in the issue below, and a
-portrait for the designer profile. See `../SUBMISSION.md`.
+**The font passes and the CLA is signed.** One thing is outstanding and it
+is the designer's: the provenance statement in the issue below. See
+`../SUBMISSION.md`.
 
 ## Contents
 
@@ -17,7 +17,7 @@ portrait for the designer profile. See `../SUBMISSION.md`.
 | `OFL.txt` | Licence. Body is the canonical SIL text; only line 1 is ours |
 | `article/ARTICLE.en_us.html` | The page shown on the Google Fonts listing |
 | `article/specimen.png` | Rendered from the built fonts, so it cannot drift from what ships |
-| `designer/info.pb`, `designer/bio.html` | For `catalog/designers/` in `google/fonts`. The bio is a **draft** and needs reading; a portrait is still required |
+| `designer/info.pb`, `designer/bio.html` | For `catalog/designers/` in `google/fonts`. The bio is a **draft** and needs reading. No portrait: it is optional, and an `avatar` naming a missing file is worse than none |
 
 There is deliberately no `DESCRIPTION.en_us.html`: a family may have a
 description **or** an article, not both, and the article is what Google
