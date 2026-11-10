@@ -91,10 +91,13 @@ One loose end while you are there: the `copyrights` property in every source
 is a single space. `gf_fixup.py` writes the real string into the binaries, so
 the shipped fonts are correct, but the sources should say it too.
 
-### 4. Sign the Google CLA
+### ~~Sign the Google CLA~~ — done
 
-Every copyright holder must complete it. If anyone else contributed
-outlines, they sign too.
+Signed on 10 November 2026 as `vetrivel@fluentyne.com`, which is also the
+author address on every commit in this repository, so the signatory and the
+commit history agree without needing explanation.
+
+If anyone else ever contributes outlines, they sign too.
 
 ### 5. Kerning by eye
 
