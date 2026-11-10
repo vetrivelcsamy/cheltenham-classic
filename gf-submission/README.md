@@ -75,9 +75,7 @@ New families are submitted as an **issue**, not a pull request. Open
 > the metadata the sources do not carry. FontBakery runs in CI on every push,
 > and a release cannot be tagged while any combining mark is an empty outline.
 >
-> **Licence.** SIL OFL 1.1. The Google Individual CLA is signed by
-> vetrivel@fluentyne.com, which is also the author address on every commit
-> in the repository.
+> **Licence.** SIL OFL 1.1. The Google Individual CLA is signed.
 >
 > **Constructed glyphs.** Some outlines are built to the design's own
 > measurements rather than drawn by hand: nine of the fourteen combining
