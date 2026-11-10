@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Measure what a drawn eszett has to match, and write src/DRAWING-ESZETT.md.
+Measure what a drawn eszett has to match, and write sources/DRAWING-ESZETT.md.
 
     python3 scripts/eszett_spec.py . gf-submission
 
 The eszett is the last thing standing between this family and a Google Fonts
 submission, and it cannot be constructed -- five attempts are recorded in
-src/DRAWING.md. It has to be drawn. This measures the numbers a drawing has
+sources/DRAWING.md. It has to be drawn. This measures the numbers a drawing has
 to agree with, off the built fonts, so whoever draws it starts from the
 design's own values instead of guessing, and so the figures cannot drift
 away from the font the way a hand-written table would.
@@ -234,9 +234,9 @@ font was being built.
 When that list comes back empty, FontBakery should clear: both current
 failures are these two codepoints and nothing else.
 """
-    with open(f"{repo}/src/DRAWING-ESZETT.md", "w") as fh:
+    with open(f"{repo}/sources/DRAWING-ESZETT.md", "w") as fh:
         fh.write(out)
-    print(f"  wrote src/DRAWING-ESZETT.md from {len(rows)} styles")
+    print(f"  wrote sources/DRAWING-ESZETT.md from {len(rows)} styles")
 
 
 if __name__ == "__main__":

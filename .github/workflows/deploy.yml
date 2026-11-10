@@ -1,6 +1,6 @@
 name: Build, Package and Deploy Pages
 
-# Builds the fonts from src/ on every push to main, then publishes the
+# Builds the fonts from sources/ on every push to main, then publishes the
 # specimen site and download bundles.
 #
 # Previously this zipped whatever binaries happened to be committed in

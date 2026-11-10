@@ -34,7 +34,7 @@ def main(d):
         print(f"{name}: {len(cps)} combining marks encoded but empty")
         print("   " + " ".join(f"U+{c:04X}" for c in sorted(cps)))
     print("\nThese build into accented glyphs that render as the bare base letter.")
-    print("Draw them (see src/DRAWING.md) before publishing.")
+    print("Draw them (see sources/DRAWING.md) before publishing.")
     return 1
 
 
