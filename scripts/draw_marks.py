@@ -313,7 +313,7 @@ def build(m):
 
 
 def main(repo, built):
-    for pkg in sorted(glob.glob(f"{repo}/src/*.glyphspackage")):
+    for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem_ = os.path.basename(pkg).replace(".glyphspackage", "")
         style = stem_.replace("CheltenhamClassic", "") or "Regular"
         ttf = f"{built}/CheltenhamClassic-{style}.ttf"

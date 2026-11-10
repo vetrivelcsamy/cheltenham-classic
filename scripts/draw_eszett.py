@@ -20,7 +20,7 @@ Weights come from the style's own stem and hairline, so the bold's eszett is
 the bold's weight. Italics are sheared to the angle measured off their `l`.
 
 It is a drawing, not a derivation, and like the nine constructed marks it is
-a working default rather than a finished outline -- see src/DRAWING.md.
+a working default rather than a finished outline -- see sources/DRAWING.md.
 """
 import glob, math, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -98,7 +98,7 @@ def widths(n, stem, thin):
 
 
 def main(repo, built):
-    for pkg in sorted(glob.glob(f"{repo}/src/*.glyphspackage")):
+    for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem_ = os.path.basename(pkg).replace(".glyphspackage", "")
         style = stem_.replace("CheltenhamClassic", "") or "Regular"
         ttf = f"{built}/CheltenhamClassic-{style}.ttf"

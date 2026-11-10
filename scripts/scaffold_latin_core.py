@@ -2,7 +2,7 @@
 """
 Lay out the Google Fonts Latin Core expansion so only the drawing is left.
 
-Writes into every src/*.glyphspackage:
+Writes into every sources/*.glyphspackage:
 
   1. `top` and `bottom` anchors on each base letter that will carry an accent,
      positioned from that glyph's own outline rather than a shared constant.
@@ -101,7 +101,7 @@ def main(repo, core_file, built_dir):
             if len(u) == 1:
                 core[ord(u)] = n
 
-    pkgs = sorted(glob.glob(f"{repo}/src/*.glyphspackage"))
+    pkgs = sorted(glob.glob(f"{repo}/sources/*.glyphspackage"))
     for pkg in pkgs:
         stem = os.path.basename(pkg).replace(".glyphspackage", "")
         style = stem.replace("CheltenhamClassic", "") or "Regular"

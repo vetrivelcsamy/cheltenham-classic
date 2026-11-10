@@ -23,7 +23,7 @@ FLATTEN="ufo2ft.filters.flattenComponents::FlattenComponentsFilter"
 rm -rf "$TMP"; mkdir -p "$TMP" "$OUT"
 
 echo "pass 1 - measuring build"
-for g in src/*.glyphspackage; do
+for g in sources/*.glyphspackage; do
   fontmake -g "$g" -o ttf --output-dir "$TMP" >/dev/null
 done
 
@@ -39,7 +39,7 @@ python3 scripts/kern.py . "$TMP"
 
 echo
 echo "pass 2 - final build"
-for g in src/*.glyphspackage; do
+for g in sources/*.glyphspackage; do
   echo "building $(basename "$g")"
   fontmake -g "$g" -o ttf --output-dir "$OUT" --filter "$FLATTEN" >/dev/null
 done
@@ -52,5 +52,28 @@ python3 scripts/gf_fixup.py "$OUT"
 python3 scripts/pin_commit.py "$OUT/METADATA.pb"
 echo
 python3 scripts/check_marks_drawn.py "$OUT"
+
+# The layout Google Fonts expects upstream: fonts/ttf, fonts/otf and
+# fonts/webfonts beside sources/. Their builder produces these by default,
+# so a submission that does not carry them does not look like one of theirs.
+echo
+echo "laying out fonts/ for upstream"
+rm -rf fonts; mkdir -p fonts/ttf fonts/webfonts
+cp "$OUT"/*.ttf fonts/ttf/
+python3 scripts/webfonts.py "$OUT" fonts/webfonts 2>/dev/null || true
+# OTF needs fontforge, which CI has and a local checkout may not.
+if command -v fontforge >/dev/null; then
+  mkdir -p fonts/otf
+  for t in "$OUT"/*.ttf; do
+    b=$(basename "$t" .ttf)
+    fontforge -lang=ff -c 'Open($1); Generate($2)' "$t" "fonts/otf/$b.otf" >/dev/null 2>&1 || true
+  done
+else
+  echo "  (fontforge absent; fonts/otf left to CI)"
+fi
+printf "  ttf %s  otf %s  webfonts %s\n" \
+  "$(ls fonts/ttf 2>/dev/null | wc -l | tr -d ' ')" \
+  "$(ls fonts/otf 2>/dev/null | wc -l | tr -d ' ')" \
+  "$(ls fonts/webfonts 2>/dev/null | wc -l | tr -d ' ')"
 echo
 fontbakery check-googlefonts --succinct "$OUT"/*.ttf || true

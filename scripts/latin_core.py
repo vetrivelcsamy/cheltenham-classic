@@ -27,7 +27,7 @@ What it makes, and from what:
                         were drawn all along, under another master's id
 
 Not here, because they are real drawing: AE, OE, eszett, thorn, eth lowercase,
-section and pilcrow. See src/DRAWING.md.
+section and pilcrow. See sources/DRAWING.md.
 """
 import glob, math, os, re, sys
 from fontTools.ttLib import TTFont
@@ -425,7 +425,7 @@ def build(pkg, lid, m, style):
     # Capital eth is a D with a crossbar and would be free here, but its
     # lowercase is a wholly different curved form that cannot be constructed.
     # Shipping one half of a case pair breaks case_mapping, which was passing,
-    # so Eth waits for eth. See src/DRAWING.md.
+    # so Eth waits for eth. See sources/DRAWING.md.
     specs = []
     if "D" in B:
         specs += [("Dcroat", 0x0110, "D")]
@@ -678,7 +678,7 @@ def build(pkg, lid, m, style):
 
 
 def main(repo, built):
-    for pkg in sorted(glob.glob(f"{repo}/src/*.glyphspackage")):
+    for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem_ = os.path.basename(pkg).replace(".glyphspackage", "")
         style = stem_.replace("CheltenhamClassic", "") or "Regular"
         ttf = f"{built}/CheltenhamClassic-{style}.ttf"
