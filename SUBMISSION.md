@@ -95,7 +95,7 @@ Thirty remain, in five kinds. None is mechanically fixable from here.
 
 | Warning | Why |
 | --- | --- |
-| `outline_jaggy_segments` | **One glyph, and it is yours, not generated: `B`.** Two segments meet at about 13 degrees near `(403, 383)` — the inner join of the upper and lower bowls. Left alone deliberately: silently reshaping your drawing is not my call. Worth a look in Glyphs. |
+| `outline_jaggy_segments` | **Checked, and it is a false positive. Do not "fix" it.** The one glyph is `B`, at the waist node `(403, 383)` where the two bowls meet. Both control vectors point rightward, so the node is a deliberate corner — a reversal, not a broken smooth point — and the check flags the narrow angle between them because that *often* means an error. Rendered at 420px the waist is clean, with no kink. Smoothing the node to silence the check would flatten the waist and make the letter worse. |
 | `vendor_id` | Now `VETR` rather than four spaces. It warns until the code is registered with Microsoft at <https://learn.microsoft.com/typography/vendors/>, which is your step. |
 | `designer_profiles` | Clears once your profile is merged into `google/fonts`. |
 | `contour_count` | The constructed glyphs differ from the shapes this check learned from. Resolves when they are redrawn. |
