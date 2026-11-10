@@ -425,6 +425,24 @@ def build(pkg, lid, m, style):
                   w, uni)
         made.append(name)
 
+    # ── T and t with cedilla below ────────────────────────────────────────
+    # U+0162/U+0163 are a separate requirement from the comma-below pair
+    # above. The Adobe Glyph List calls U+0162 "Tcommaaccent" -- Romanian
+    # renders a cedilla as a comma, so the two names cross over -- and the
+    # Google Fonts Latin Core list uses that name, which means Latin Core
+    # asks for U+0162 and not U+021A. Shipping only U+021A left the set two
+    # characters short while appearing to cover it.
+    #
+    # The font already distinguishes the pair for S (Scedilla at U+015E,
+    # uni0218 at U+0218), so T follows S: this one takes the cedilla.
+    for base, name, uni in (("T", "Tcedilla", 0x0162), ("t", "tcedilla", 0x0163)):
+        if base not in B:
+            continue
+        x0, y0, x1, y1, w = B[base]
+        put_mixed(pkg, name, lid, [R(base), R("cedillacomb", (x0 + x1) / 2, min(0, y0))],
+                  w, uni)
+        made.append(name)
+
     # ── strokes through existing letters ──────────────────────────────────
     t = thin * 1.06
     over = ow * 0.052

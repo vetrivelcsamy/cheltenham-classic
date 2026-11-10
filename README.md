@@ -7,7 +7,7 @@ Libre Cheltenham is a free and open-source typeface inspired by the timeless ele
 
 ## Features
 
-- 323 glyphs: the complete Google Fonts Latin Core set
+- 325 glyphs: the complete Google Fonts Latin Core set
 - Supports English language
 - Suitable for both print and web use
 - Free for personal and commercial use

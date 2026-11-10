@@ -1,6 +1,6 @@
 # What still needs drawing
 
-323 glyphs build across all six styles. All 14 combining marks have outlines,
+325 glyphs build across all six styles. All 14 combining marks have outlines,
 `scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
 letter any more.
 
@@ -60,7 +60,7 @@ empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
 ## 2. Nothing is missing
 
-The Google Fonts Latin Core set is complete: 323 glyphs in each of the six
+The Google Fonts Latin Core set is complete: 325 glyphs in each of the six
 styles, nothing left out.
 
 `ß` and `ẞ` were the last two and are now drawn, by

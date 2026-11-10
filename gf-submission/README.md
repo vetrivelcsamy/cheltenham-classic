@@ -32,7 +32,7 @@ and run `fontbakery check-googlefonts ofl/librecheltenham/*.ttf`:
 FAIL 0   WARN 36   PASS 902
 ```
 
-323 glyphs across six styles, and the GF Latin Core set is complete.
+325 glyphs across six styles, and the GF Latin Core set is complete.
 
 The thirty warnings are itemised in `../SUBMISSION.md` with a reason each.
 One of them, `outline_jaggy_segments` on `B`, is a false positive and should
@@ -59,7 +59,7 @@ New families are submitted as an **issue**, not a pull request. Open
 >
 > **Description.** Libre Cheltenham is a serif family in three weights with
 > matching italics, drawn in the spirit of Cheltenham, the 1896 face by
-> Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 323 glyphs
+> Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 325 glyphs
 > covering the whole of the GF Latin Core set.
 >
 > **Provenance.** <!-- YOU MUST WRITE THIS YOURSELF. Google Fonts requires
