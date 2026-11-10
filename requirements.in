@@ -1,0 +1,7 @@
+# Direct dependencies. requirements.txt is what CI installs; this file is the
+# unpinned source it is kept in step with, as googlefonts-project-template
+# expects.
+fontmake>=3.12
+fontbakery[googlefonts]
+brotli
+Pillow
