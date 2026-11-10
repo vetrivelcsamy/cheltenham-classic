@@ -192,6 +192,51 @@ def reverse(shape):
     return rec
 
 
+
+# ── a curved stroke, for the eth's ascender ───────────────────────────────
+PER = 26
+
+
+def bez(p, u):
+    a, b, c, d = p
+    v = 1 - u
+    return (v**3 * a[0] + 3 * v * v * u * b[0] + 3 * v * u * u * c[0] + u**3 * d[0],
+            v**3 * a[1] + 3 * v * v * u * b[1] + 3 * v * u * u * c[1] + u**3 * d[1])
+
+
+def taper(pts, w0, w1):
+    """Offset a skeleton either side, the width easing from w0 to w1."""
+    n = len(pts)
+    left, right = [], []
+    for i, (x, y) in enumerate(pts):
+        nx = pts[min(i + 1, n - 1)]
+        px = pts[max(i - 1, 0)]
+        dx, dy = nx[0] - px[0], nx[1] - px[1]
+        ln = math.hypot(dx, dy) or 1.0
+        ux, uy = -dy / ln, dx / ln
+        h = (w0 + (w1 - w0) * (i / (n - 1.0))) / 2.0
+        left.append((x + ux * h, y + uy * h))
+        right.append((x - ux * h, y - uy * h))
+    ring = left + list(reversed(right))
+    rec = RecordingPen()
+    rec.moveTo(ring[0])
+    for q in ring[1:]:
+        rec.lineTo(q)
+    rec.closePath()
+    return Shape(rec)
+
+
+def wall_mid(shape, y, slant=0.0):
+    """The middle of the ring's right-hand wall at height y -- a point that is
+    certainly inside the o's ink, which the top-right corner of its bounding
+    box is not."""
+    runs = spans(shape, y, y + 4, True, slant)
+    if not runs:
+        return None
+    r = runs[-1]
+    return ((r[0] + r[1]) / 2.0, y + 2)
+
+
 # ── writing geometry back out as Glyphs source nodes ──────────────────────
 def nodes_of(shape):
     """Contours as Glyphs node text: offcurves `o`, curve points `cs`, lines `l`.
@@ -376,6 +421,41 @@ def build_style(pkg, ttf):
     pil = pil.union(BooleanGlyph(region(s2x, desc, s2x + stem_w, cap, slant)))
     put(pkg, "paragraph", lid, nodes_of(pil), bounds(pil)[2] + sb, 0x00B6)
     made.append("paragraph")
+
+
+    # ---- eth: an ascender that grows out of the bowl, not above it -------
+    # The old one started at the o's top-RIGHT corner, where the o has no ink
+    # at all -- at that x the ring's stroke is down at mid-height -- so the
+    # ascender floated clear of the bowl with white between them. It is now
+    # anchored on the middle of the ring's right wall, and curves, which is
+    # what section 2a asked for: "a real eth's ascender curves out of the
+    # bowl".
+    if ord("o") in cm and ord("d") in cm:
+        o = outline(gs, cm[ord("o")])
+        ob2 = bounds(o)
+        asc = glyf[cm[ord("d")]].yMax
+        thin = max(30, (ob2[3] - ob2[1]) * 0.11)
+        anchor = wall_mid(o, xh * 0.66, slant)
+        if anchor:
+            w_o = ob2[2] - ob2[0]
+            p3 = (ob2[0] + w_o * 0.36 + asc * math.tan(math.radians(slant)), asc)
+            rise = p3[1] - anchor[1]
+            seg = (anchor,
+                   (anchor[0] + w_o * 0.14, anchor[1] + rise * 0.44),
+                   (p3[0] + w_o * 0.46, p3[1] - rise * 0.20),
+                   p3)
+            pts = [bez(seg, i / (PER - 1.0)) for i in range(PER)]
+            asc_stroke = taper(pts, thin * 1.30, thin * 0.88)
+            # the bar sits ON the stroke, at a fraction of its run
+            mid = pts[int(PER * 0.44)]
+            bar_w = w_o * 0.34
+            bar = region(mid[0] - bar_w / 2, mid[1] - thin * 0.42,
+                         mid[0] + bar_w / 2, mid[1] + thin * 0.42, slant)
+            eth_g = BooleanGlyph(o).union(BooleanGlyph(asc_stroke))
+            eth_g = eth_g.union(BooleanGlyph(bar))
+            put(pkg, "eth", lid, nodes_of(eth_g),
+                hmtx[cm[ord("o")]][0], 0x00F0)
+            made.append("eth")
 
     print("  %-34s P stem %.0f-%.0f  bowl y %.0f-%.0f  slant %.1f  -> %s"
           % (os.path.basename(pkg), p_stem[0], p_stem[1], pb[1], pb[3],
