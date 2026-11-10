@@ -28,7 +28,48 @@ stroked lower curve (collided into the stem). See `src/DRAWING.md`.
 Thorn worked because it decomposes into a stem plus a bowl. The eszett does
 not decompose into anything the font holds.
 
-### 2. Confirm the provenance, in writing
+### 2. Settle the family name before you submit, not after
+
+Checked against the live catalogue and the naming rules, and this needs a
+decision. It is cheap now and expensive later: a rename after submission
+means the family name, the PostScript names, the filenames, `METADATA.pb`,
+the repository, the deployed site and the release tags.
+
+**No collision.** There is no `Cheltenham` in the 1,959 families Google
+Fonts currently serves, and our OFL declares no Reserved Font Name, which is
+what they require.
+
+**But the naming rule is specific.** It says a family name must *"not include
+registered trademarks"*, and separately: *"When creating a libre version of a
+prior proprietary font or work in an established genre, add 'Libre' or a
+local equivalent."*
+
+Cheltenham is still sold commercially as ITC Cheltenham. That places it
+nearer Franklin than Garamond — Garamond and Baskerville and Caslon name
+long-dead punchcutters, and the catalogue uses them freely, but it reaches
+for the qualifier where a living product shares the name:
+
+| On Google Fonts | Historical name |
+| --- | --- |
+| `Libre Franklin` | ATF Franklin Gothic |
+| `Libre Baskerville` | Baskerville |
+| `Libre Caslon Text`, `Display`, `Condensed` | Caslon |
+| `Libre Bodoni`, `Bodoni Moda` | Bodoni |
+| `EB Garamond`, `Cormorant Garamond` | Garamond |
+
+Every one carries a qualifier. `Cheltenham Classic` does too, so it may well
+pass as it stands — "Classic" is doing the same work as "Libre" or "EB".
+
+**What to do:** decide deliberately rather than discover it in review.
+Either keep `Cheltenham Classic` and be ready to defend it, or rename to
+`Libre Cheltenham` now, which matches their stated rule most directly and is
+the form they have reached for four times already. I am not renaming it on
+my own: it is your font's identity, your repository and your published site.
+
+Whatever you choose, say in the submission issue that you checked, and why
+you landed where you did. It costs a sentence and pre-empts the question.
+
+### 3. Confirm the provenance, in writing
 
 Google Fonts requires the design to be *"original, or a legitimate revival of
 a design in the public domain."* They will ask, and the answer has to be
@@ -53,12 +94,12 @@ One loose end while you are there: the `copyrights` property in every source
 is a single space. `gf_fixup.py` writes the real string into the binaries, so
 the shipped fonts are correct, but the sources should say it too.
 
-### 3. Sign the Google CLA
+### 4. Sign the Google CLA
 
 Every copyright holder must complete it. If anyone else contributed
 outlines, they sign too.
 
-### 4. Kerning by eye
+### 5. Kerning by eye
 
 `scripts/kern.py` measures the white between outlines and corrects pairs that
 are loose against their own category's norm, which gets `AV`, `To`, `Yo`,
@@ -69,7 +110,7 @@ so `ÁV` closes up like `AV` and `Ł T` like `L T`.
 It is a floor, not a substitute for kerning by eye. Numerals and the pairs
 that only a designer notices are still untouched.
 
-### 5. Review what was constructed rather than drawn
+### 6. Review what was constructed rather than drawn
 
 A curation reviewer will look at these. All are listed in
 `src/DRAWING.md` §2a:
@@ -81,7 +122,7 @@ A curation reviewer will look at these. All are listed in
 They are consistent with the design's measurements and correct at text size.
 They are not drawn by hand, and at display size that shows.
 
-### 6. Write your own designer bio
+### 7. Write your own designer bio
 
 `gf-submission/designer/bio.html` is now a **draft**, written only from facts
 you stated yourself — nothing inferred. Read it, cut what you would rather
