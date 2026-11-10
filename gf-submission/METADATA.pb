@@ -58,6 +58,7 @@ fonts {
   copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 subsets: "latin"
+subsets: "latin-ext"
 subsets: "menu"
 source {
   repository_url: "https://github.com/vetrivelcsamy/cheltenham-classic"

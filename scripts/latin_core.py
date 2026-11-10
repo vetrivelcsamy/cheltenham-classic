@@ -265,23 +265,33 @@ def add_ccmp(pkg):
     """
     fi = f"{pkg}/fontinfo.plist"
     t = open(fi).read()
-    if "tag = ccmp;" in t:
-        return False
+    # Rewrite rather than skip. Bailing out when a ccmp block already existed
+    # meant later edits to these rules silently never reached the font.
+    had = "tag = ccmp;" in t
+    t = re.sub(r"features = \(\n\{\ncode = \".*?\";\ntag = ccmp;\n\}\n\);\n", "", t, flags=re.S)
     # just the rules: Glyphs wraps them in feature/endfeature from `tag`,
     # and nesting a feature block inside one is a syntax error
     # A mark below may sit between the letter and the accent above
     # (Lithuanian i-ogonek-grave), so that case needs its own rule.
     below = "cedillacomb ogonekcomb commaaccentcomb"
-    code = ("sub i' [%s] [%s] by dotlessi;\n"
+    # Precomposed iogonek keeps its dot under an accent too, and that cannot
+    # be fixed by swapping one glyph for another -- there is no dotless i
+    # with an ogonek. It is decomposed instead, in that context only.
+    code = ("lookup ccmp_iog {\n"
+            "sub iogonek by dotlessi ogonekcomb;\n"
+            "} ccmp_iog;\n"
+            "sub iogonek' lookup ccmp_iog [%s];\n"
+            "sub i' [%s] [%s] by dotlessi;\n"
             "sub j' [%s] [%s] by dotlessj;\n"
             "sub i' [%s] by dotlessi;\n"
             "sub j' [%s] by dotlessj;"
-            % (below, ABOVE_MARKS, below, ABOVE_MARKS, ABOVE_MARKS, ABOVE_MARKS))
+            % (ABOVE_MARKS, below, ABOVE_MARKS, below, ABOVE_MARKS,
+               ABOVE_MARKS, ABOVE_MARKS))
     block = 'features = (\n{\ncode = "%s";\ntag = ccmp;\n}\n);\n' % code
     t = re.sub(r"(featurePrefixes = \(.*?\n\);\n)", lambda m: m.group(1) + block, t,
                count=1, flags=re.S)
     open(fi, "w").write(t)
-    return True
+    return not had
 
 
 def repair_layers(pkg, lid):
