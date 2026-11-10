@@ -121,11 +121,25 @@ They are not drawn by hand, and at display size that shows.
 
 ### 7. Write your own designer bio
 
-`gf-submission/designer/bio.html` is now a **draft**, written only from facts
-you stated yourself — nothing inferred. Read it, cut what you would rather
-not publish, and add what belongs. A portrait is also required. Google Fonts
-keeps profiles at `catalog/designers/<slug>/` with `info.pb`, `bio.html` and
-an image.
+`gf-submission/designer/` holds `info.pb` and `bio.html`. They go to
+`catalog/designers/vetrivelchinnasamy/` in a `google/fonts` fork.
+
+`info.pb` follows the schema their own entries use — `designer`, `link`,
+`avatar` — which is **not** the nested block this file had until now; that
+form does not exist and would have been rejected.
+
+`bio.html` is a **draft**, written only from facts you stated yourself.
+Read it and cut what you would rather not publish.
+
+**A portrait is still needed.** `info.pb` names it
+`vetrivelchinnasamy.png`, so supply a file by exactly that name — square,
+and large enough not to look soft on a high-density screen.
+
+Note that `info.pb` has no field for an email. Google Fonts keeps contact
+in the bio, which is where `hello@vetrivelcsamy.me` now sits. It
+cannot go in the OFL copyright line: that parenthetical has to be the
+repository URL, and an email there fails `font_copyright`. Tried, measured,
+reverted.
 
 ## Known warnings, and why they are left
 
