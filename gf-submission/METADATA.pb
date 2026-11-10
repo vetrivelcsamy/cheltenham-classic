@@ -62,5 +62,36 @@ subsets: "latin-ext"
 subsets: "menu"
 source {
   repository_url: "https://github.com/vetrivelcsamy/cheltenham-classic"
+  commit: "503963e295e4aafaed916e7a584c8730dc7c0006"
+  files {
+    source_file: "OFL.txt"
+    dest_file: "OFL.txt"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-Regular.ttf"
+    dest_file: "CheltenhamClassic-Regular.ttf"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-Italic.ttf"
+    dest_file: "CheltenhamClassic-Italic.ttf"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-Medium.ttf"
+    dest_file: "CheltenhamClassic-Medium.ttf"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-MediumItalic.ttf"
+    dest_file: "CheltenhamClassic-MediumItalic.ttf"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-Bold.ttf"
+    dest_file: "CheltenhamClassic-Bold.ttf"
+  }
+  files {
+    source_file: "gf-submission/CheltenhamClassic-BoldItalic.ttf"
+    dest_file: "CheltenhamClassic-BoldItalic.ttf"
+  }
   branch: "main"
+  config_yaml: "sources/config.yaml"
 }
+stroke: "SERIF"

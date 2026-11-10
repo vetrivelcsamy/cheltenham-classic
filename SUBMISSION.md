@@ -142,6 +142,30 @@ Thirty remain, in five kinds. None is mechanically fixable from here.
 | `contour_count` | The constructed glyphs differ from the shapes this check learned from. Resolves when they are redrawn. |
 | `unreachable_subsetting` | The spacing accents and a few combining marks are not in any Google Fonts subset definition. Its suggestions — add `yi`, `old-permic`, `todhri` — are nonsense for a Latin face. Nothing to do. |
 
+## What the metadata now carries
+
+Compared against what Google Fonts actually ships for `Young Serif`,
+`Libre Bodoni` and `Instrument Serif`, because their own entries are the
+only reliable statement of the schema. Four things were missing:
+
+| Added | Why it matters |
+| --- | --- |
+| `stroke: "SERIF"` | Separate from `category`; the catalogue filters on it |
+| `commit` | Pins the exact upstream revision the submission was built from |
+| `files { source_file, dest_file }` | Tells their tooling which binaries to take and what to call them |
+| `config_yaml` | Points at `sources/config.yaml` |
+
+`sources/config.yaml` is new. Google Fonts rebuilds families from upstream
+with `gftools builder`, and without a config they cannot. It declares the six
+sources, the family name, and static TTF/OTF/webfont output with no variable
+axis, since each style is its own single-master source.
+
+It is **not** what this repository builds with — `scripts/build.sh` is,
+because the marks, the Latin Core expansion and the kerning are all
+generated from measurements taken off a first build, which a declarative
+config cannot express. The config exists so their pipeline can produce the
+same six styles from the same sources.
+
 ## The submission itself
 
 New families are submitted as an **issue**, not a pull request.
