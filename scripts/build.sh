@@ -44,6 +44,11 @@ for g in src/*.glyphspackage; do
 done
 
 python3 scripts/gf_fixup.py "$OUT"
+
+# METADATA.pb pins the revision these binaries came from, so it has to be
+# rewritten whenever they are. Left to drift it points Google Fonts' tooling
+# at the wrong commit, which is worse than no pin at all.
+python3 scripts/pin_commit.py "$OUT/METADATA.pb"
 echo
 python3 scripts/check_marks_drawn.py "$OUT"
 echo
