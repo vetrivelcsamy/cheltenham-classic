@@ -4,8 +4,9 @@ Working directory for onboarding Cheltenham Classic. Everything here is
 produced by `../scripts/build.sh`; nothing is edited by hand except
 `METADATA.pb` and the two files under `designer/`.
 
-**The font passes.** What is outstanding is not technical: the provenance
-statement, the CLA, and a portrait. See `../SUBMISSION.md`.
+**The font passes and the CLA is signed.** Two things are outstanding, both
+of them the designer's: the provenance statement in the issue below, and a
+portrait for the designer profile. See `../SUBMISSION.md`.
 
 ## Contents
 
@@ -74,7 +75,9 @@ New families are submitted as an **issue**, not a pull request. Open
 > the metadata the sources do not carry. FontBakery runs in CI on every push,
 > and a release cannot be tagged while any combining mark is an empty outline.
 >
-> **Licence.** SIL OFL 1.1. CLA signed by <!-- confirm -->.
+> **Licence.** SIL OFL 1.1. The Google Individual CLA is signed by
+> vetrivel@fluentyne.com, which is also the author address on every commit
+> in the repository.
 >
 > **Constructed glyphs.** Some outlines are built to the design's own
 > measurements rather than drawn by hand: nine of the fourteen combining
