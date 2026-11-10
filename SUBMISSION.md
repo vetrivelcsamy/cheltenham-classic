@@ -8,25 +8,22 @@ Run `./scripts/build.sh`, then copy `gf-submission/` into a `google/fonts`
 fork at `ofl/cheltenhamclassic/` and run FontBakery there:
 
 ```
-FAIL 12   WARN 30   PASS 896
+FAIL 0   WARN 36   PASS 902
 ```
 
-**All twelve failures are the same two glyphs.** `glyph_coverage` and
-`shape_languages` both fail only because `ß` (U+00DF) and `ẞ` (U+1E9E) are
-missing, and Google Fonts requires the complete GF Latin Core set. Nothing
-else blocks the submission.
+**FontBakery passes.** The Latin Core set is complete at 323 glyphs per
+style. What remains is not technical: the provenance statement, the CLA, and
+your bio and portrait.
 
 ## Blockers — only you can clear these
 
-### 1. Draw `ß` and `ẞ`
+### 1. Look at the eszett
 
-The hard blocker. Three constructions were tried and thrown away: the
-historical long-s + s ligature (an overlapping `ls` smudge), a two-storey `B`
-on an ascender (a blob with no counter), and a stem with a built bowl plus a
-stroked lower curve (collided into the stem). See `src/DRAWING.md`.
-
-Thorn worked because it decomposes into a stem plus a bowl. The eszett does
-not decompose into anything the font holds.
+`ß` and `ẞ` are drawn and FontBakery passes, but they are drawn by stroking
+a skeleton, not by eye. The weights come from each style's own stem and
+hairline and they read correctly at text and display size, but the curves
+are not the designer's. Worth a pass in Glyphs before submission, along with
+the other glyphs in `src/DRAWING.md` section 2a.
 
 ### 2. Settle the family name before you submit, not after
 

@@ -2,6 +2,16 @@
 glyphname = dotlessj;
 layers = (
 {
+anchors = (
+{
+name = top;
+pos = (59,429);
+},
+{
+name = bottom;
+pos = (59,-197);
+},
+);
 layerId = "8E176FE4-6495-4606-9FA3-C7BE98DB310E";
 shapes = (
 {

@@ -1,13 +1,12 @@
 # What still needs drawing
 
-320 glyphs build across all six styles. All 14 combining marks have outlines,
+323 glyphs build across all six styles. All 14 combining marks have outlines,
 `scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
 letter any more.
 
-> **Two characters are left** — `ß` and `ẞ` — plus three in section 2a that
-> are built but want redrawing. The two are the entire remaining blocker:
-> placed at `ofl/cheltenhamclassic/`, FontBakery reports 12 failures and
-> every one is a consequence of them.
+> **FontBakery passes.** Placed at `ofl/cheltenhamclassic/` the family
+> reports **zero failures**. What is left is in section 2a: glyphs that are
+> built and correct but want a designer's hand before submission.
 
 The three generation scripts are run by `scripts/build.sh`, which builds
 twice: once to measure the design, then again with everything regenerated
@@ -59,11 +58,27 @@ are their own codepoints, not the combining marks. Both scripts emit them as
 composites of the matching mark, re-centred inside a real advance width. An
 empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
-## 2. The two remaining characters
+## 2. Nothing is missing
 
-| | Why it is not generated |
-| --- | --- |
-| `ß` `ẞ` | **See `DRAWING-ESZETT.md`** for the measurements a drawing has to agree with. The eszett is its own letterform. Two constructions were built and rendered before being thrown away: the historical long-s + s ligature came out as an overlapping `ls` smudge, and a two-storey `B` on an ascender collapsed into a blob with no counter. `Straße` was unreadable in both. Unlike thorn it is not a stem plus a bowl, so there is nothing to assemble it from — it has to be drawn. |
+The Google Fonts Latin Core set is complete: 323 glyphs in each of the six
+styles, nothing left out.
+
+`ß` and `ẞ` were the last two and are now drawn, by
+`scripts/draw_eszett.py`. Seven attempts to assemble them from pieces failed
+first, and the reason they failed is the reason the eighth worked: each one
+built the stem, the upper bowl and the lower bowl separately and then had to
+join them, and every failure was at a join -- welded shut, cut through,
+collapsed to a slit, or reading as a `B` with a tail.
+
+The eighth draws the whole letter as **one continuous skeleton** -- up the
+stem, round the upper bowl, back to the waist, round the lower bowl, out to
+the terminal -- and strokes it with a width that varies along the way. There
+are no joins to get wrong, because the joins are the path. The counters form
+where the stroke encloses white.
+
+The capital is wider, with its waist nearer the middle, because cap height
+and ascender are both 730 here and without that the two glyphs come out
+identical -- a lowercase-shaped eszett among capitals reads as a mistake.
 
 ## 2a. Built, but wanting a designer's hand first
 
@@ -75,6 +90,7 @@ in the font and a curation review will notice:
 | `Æ` | `A` and `E` overlapped. The `A`'s right leg is a diagonal and the `E`'s stem is vertical, so they can only truly meet at one height — it reads as two letters touching rather than one letterform. `æ` does not have this problem, both sides being curved. |
 | `ð` | The bowl is the `o` and the ascender is a straight stroke with a bar across it. A real eth's ascender *curves* out of the bowl. Legible at text size, visibly constructed at display size. |
 | `§` | Two reduced `S`s overlapped. A section sign is a single continuous double curve, so there is a seam where they meet. Reads at text size; does not hold up large. |
+| `ß ẞ` | Drawn as a stroked skeleton rather than by eye: the weights come from the style's own stem and hairline, but the curves are mine, not the designer's. Reads correctly at text and display size; worth a pass in Glyphs. |
 | `Þ þ ¶` | The bowls are built from ellipses rather than drawn, so the counter is a plain oval where `P`'s is shaped, and the stroke does not thin into the join. Correct and in-style at text size; a designer would redraw the counter. |
 
 ## 3. What was built, and from what

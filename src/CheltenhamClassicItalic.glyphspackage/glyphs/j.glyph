@@ -4,6 +4,16 @@ kernLeft = j;
 kernRight = j;
 layers = (
 {
+anchors = (
+{
+name = top;
+pos = (76,730);
+},
+{
+name = bottom;
+pos = (76,-198);
+},
+);
 hints = (
 {
 horizontal = 1;
