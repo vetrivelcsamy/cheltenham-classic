@@ -136,7 +136,7 @@ Read it and cut what you would rather not publish.
 and large enough not to look soft on a high-density screen.
 
 Note that `info.pb` has no field for an email. Google Fonts keeps contact
-in the bio, which is where `vetrivelchinnasamy6@gmail.com` now sits. It
+in the bio, which is where `hello@vetrivelcsamy.me` now sits. It
 cannot go in the OFL copyright line: that parenthetical has to be the
 repository URL, and an email there fails `font_copyright`. Tried, measured,
 reverted.
