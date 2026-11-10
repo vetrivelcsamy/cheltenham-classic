@@ -1,6 +1,6 @@
 # Google Fonts submission
 
-Working directory for onboarding Cheltenham Classic. Everything here is
+Working directory for onboarding Libre Cheltenham. Everything here is
 produced by `../scripts/build.sh`; nothing is edited by hand except
 `METADATA.pb` and the two files under `designer/`.
 
@@ -12,7 +12,7 @@ is the designer's: the provenance statement in the issue below. See
 
 | Path | Purpose |
 | --- | --- |
-| `CheltenhamClassic-*.ttf` | The six styles, built by `fontmake` and finished by `../scripts/gf_fixup.py` |
+| `LibreCheltenham-*.ttf` | The six styles, built by `fontmake` and finished by `../scripts/gf_fixup.py` |
 | `METADATA.pb` | Family metadata: six styles, weights, PostScript names, subsets, upstream repository |
 | `OFL.txt` | Licence. Body is the canonical SIL text; only line 1 is ours |
 | `article/ARTICLE.en_us.html` | The page shown on the Google Fonts listing |
@@ -25,8 +25,8 @@ Fonts prefers.
 
 ## Status
 
-Copy this directory into a `google/fonts` fork at `ofl/cheltenhamclassic/`
-and run `fontbakery check-googlefonts ofl/cheltenhamclassic/*.ttf`:
+Copy this directory into a `google/fonts` fork at `ofl/librecheltenham/`
+and run `fontbakery check-googlefonts ofl/librecheltenham/*.ttf`:
 
 ```
 FAIL 0   WARN 36   PASS 902
@@ -43,7 +43,7 @@ smoothing it would flatten the letter.
 
 New families are submitted as an **issue**, not a pull request. Open
 <https://github.com/google/fonts/issues/new?template=1_add-font.md>, title it
-`Add Cheltenham Classic`, and adapt this:
+`Add Libre Cheltenham`, and adapt this:
 
 > **Font Project Link:** https://github.com/vetrivelcsamy/cheltenham-classic
 >
@@ -57,7 +57,7 @@ New families are submitted as an **issue**, not a pull request. Open
 > `Libre Baskerville`, `Libre Caslon`, `EB Garamond`. <!-- If you decided to
 > rename to Libre Cheltenham, say so here instead. See ../SUBMISSION.md. -->
 >
-> **Description.** Cheltenham Classic is a serif family in three weights with
+> **Description.** Libre Cheltenham is a serif family in three weights with
 > matching italics, drawn in the spirit of Cheltenham, the 1896 face by
 > Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 323 glyphs
 > covering the whole of the GF Latin Core set.

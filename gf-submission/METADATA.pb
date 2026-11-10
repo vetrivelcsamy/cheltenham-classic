@@ -1,95 +1,95 @@
-name: "Cheltenham Classic"
+name: "Libre Cheltenham"
 designer: "Vetrivel Chinnasamy"
 license: "OFL"
 category: "SERIF"
 date_added: "2026-11-09"
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "normal"
   weight: 400
-  filename: "CheltenhamClassic-Regular.ttf"
-  post_script_name: "CheltenhamClassic-Regular"
-  full_name: "Cheltenham Classic Regular"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-Regular.ttf"
+  post_script_name: "LibreCheltenham-Regular"
+  full_name: "Libre Cheltenham Regular"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "italic"
   weight: 400
-  filename: "CheltenhamClassic-Italic.ttf"
-  post_script_name: "CheltenhamClassic-Italic"
-  full_name: "Cheltenham Classic Italic"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-Italic.ttf"
+  post_script_name: "LibreCheltenham-Italic"
+  full_name: "Libre Cheltenham Italic"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "normal"
   weight: 500
-  filename: "CheltenhamClassic-Medium.ttf"
-  post_script_name: "CheltenhamClassic-Medium"
-  full_name: "Cheltenham Classic Medium"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-Medium.ttf"
+  post_script_name: "LibreCheltenham-Medium"
+  full_name: "Libre Cheltenham Medium"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "italic"
   weight: 500
-  filename: "CheltenhamClassic-MediumItalic.ttf"
-  post_script_name: "CheltenhamClassic-MediumItalic"
-  full_name: "Cheltenham Classic Medium Italic"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-MediumItalic.ttf"
+  post_script_name: "LibreCheltenham-MediumItalic"
+  full_name: "Libre Cheltenham Medium Italic"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "normal"
   weight: 700
-  filename: "CheltenhamClassic-Bold.ttf"
-  post_script_name: "CheltenhamClassic-Bold"
-  full_name: "Cheltenham Classic Bold"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-Bold.ttf"
+  post_script_name: "LibreCheltenham-Bold"
+  full_name: "Libre Cheltenham Bold"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 fonts {
-  name: "Cheltenham Classic"
+  name: "Libre Cheltenham"
   style: "italic"
   weight: 700
-  filename: "CheltenhamClassic-BoldItalic.ttf"
-  post_script_name: "CheltenhamClassic-BoldItalic"
-  full_name: "Cheltenham Classic Bold Italic"
-  copyright: "Copyright 2024 The Cheltenham Classic Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
+  filename: "LibreCheltenham-BoldItalic.ttf"
+  post_script_name: "LibreCheltenham-BoldItalic"
+  full_name: "Libre Cheltenham Bold Italic"
+  copyright: "Copyright 2024 The Libre Cheltenham Project Authors (https://github.com/vetrivelcsamy/cheltenham-classic)"
 }
 subsets: "latin"
 subsets: "latin-ext"
 subsets: "menu"
 source {
   repository_url: "https://github.com/vetrivelcsamy/cheltenham-classic"
-  commit: "a6d4daab293c81e82c8649c64316ec7bb1622f0b"
+  commit: "d7e10bcd810b4560cd622160de5b1eb799813bb8"
   files {
     source_file: "OFL.txt"
     dest_file: "OFL.txt"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-Regular.ttf"
-    dest_file: "CheltenhamClassic-Regular.ttf"
+    source_file: "gf-submission/LibreCheltenham-Regular.ttf"
+    dest_file: "LibreCheltenham-Regular.ttf"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-Italic.ttf"
-    dest_file: "CheltenhamClassic-Italic.ttf"
+    source_file: "gf-submission/LibreCheltenham-Italic.ttf"
+    dest_file: "LibreCheltenham-Italic.ttf"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-Medium.ttf"
-    dest_file: "CheltenhamClassic-Medium.ttf"
+    source_file: "gf-submission/LibreCheltenham-Medium.ttf"
+    dest_file: "LibreCheltenham-Medium.ttf"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-MediumItalic.ttf"
-    dest_file: "CheltenhamClassic-MediumItalic.ttf"
+    source_file: "gf-submission/LibreCheltenham-MediumItalic.ttf"
+    dest_file: "LibreCheltenham-MediumItalic.ttf"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-Bold.ttf"
-    dest_file: "CheltenhamClassic-Bold.ttf"
+    source_file: "gf-submission/LibreCheltenham-Bold.ttf"
+    dest_file: "LibreCheltenham-Bold.ttf"
   }
   files {
-    source_file: "gf-submission/CheltenhamClassic-BoldItalic.ttf"
-    dest_file: "CheltenhamClassic-BoldItalic.ttf"
+    source_file: "gf-submission/LibreCheltenham-BoldItalic.ttf"
+    dest_file: "LibreCheltenham-BoldItalic.ttf"
   }
   branch: "main"
   config_yaml: "sources/config.yaml"

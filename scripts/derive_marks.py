@@ -76,8 +76,8 @@ def path_glyph(name, lid, contour, width, uni):
 def main(repo, built):
     for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem = os.path.basename(pkg).replace(".glyphspackage", "")
-        style = stem.replace("CheltenhamClassic", "") or "Regular"
-        ttf = f"{built}/CheltenhamClassic-{style}.ttf"
+        style = stem.replace("LibreCheltenham", "") or "Regular"
+        ttf = f"{built}/LibreCheltenham-{style}.ttf"
         if not os.path.exists(ttf):
             print(f"  skip {stem}"); continue
         f = TTFont(ttf, lazy=True)

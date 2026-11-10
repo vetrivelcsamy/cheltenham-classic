@@ -1,4 +1,4 @@
-# Build and QA toolchain for Cheltenham Classic.
+# Build and QA toolchain for Libre Cheltenham.
 #   pip install -r requirements.txt
 #   ./scripts/build.sh
 #
@@ -9,3 +9,4 @@
 fontmake>=3.12          # builds TTFs from the .glyphspackage sources
 fontbakery[googlefonts] # the Google Fonts QA profile
 brotli                  # required by fontTools to write WOFF2
+Pillow                  # scripts/specimen.py renders the specimen

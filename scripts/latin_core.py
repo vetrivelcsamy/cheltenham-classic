@@ -234,7 +234,8 @@ def measure(ttf):
     sl = math.degrees(math.atan2(b[0] - a[0], m["xh"] * 0.70)) if a and b else 0.0
     m["slant"] = 0.0 if abs(sl) < 1.5 else sl
     m["stemx"] = {}
-    for ch, yy in (("I", m["cap"] * 0.5), ("l", m["xh"] * 0.5)):
+    for ch, yy in (("I", m["cap"] * 0.5), ("l", m["xh"] * 0.5),
+                   ("L", m["cap"] * 0.5)):
         h_ = hits(outline(cm[ord(ch)]), yy)
         if len(h_) >= 2:
             m["stemx"][ch] = (h_[0], h_[1])
@@ -471,8 +472,17 @@ def build(pkg, lid, m, style):
                                   ("l", "lslash", 0x0142, 0.42, 0.66)):
         if base not in B: continue
         x0, y0, x1, y1, w = B[base]
-        cx = x0 + stem / 2 if base == "L" else (x0 + x1) / 2
-        r_ = ow * 0.175
+        # The stroke has to cross the stem, so it is centred on the stem --
+        # measured, not guessed from the bounding box. x0 is the glyph's
+        # xMin, which on an L is the left edge of the foot serif, so
+        # `x0 + stem/2` put the stroke beside the stem instead of through
+        # it and both letters read as a plain L with a speck beside them.
+        sx = m["stemx"].get(base)
+        cx = (sx[0] + sx[1]) / 2 if sx else (x0 + x1) / 2
+        # far enough either side of the stem to be unmistakable at text
+        # size; at 0.175 the stroke barely cleared the stem and Polish read
+        # as plain L
+        r_ = ow * 0.27
         put_mixed(pkg, nm, lid,
                   [R(base), diagonal(cx - r_ + lean(y1 * lo), y1 * lo,
                                     cx + r_ + lean(y1 * hi), y1 * hi, t)],
@@ -696,8 +706,8 @@ def build(pkg, lid, m, style):
 def main(repo, built):
     for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem_ = os.path.basename(pkg).replace(".glyphspackage", "")
-        style = stem_.replace("CheltenhamClassic", "") or "Regular"
-        ttf = f"{built}/CheltenhamClassic-{style}.ttf"
+        style = stem_.replace("LibreCheltenham", "") or "Regular"
+        ttf = f"{built}/LibreCheltenham-{style}.ttf"
         if not os.path.exists(ttf):
             print(f"  skip {stem_}"); continue
         lid = layer_id(pkg)

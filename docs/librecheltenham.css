@@ -1,0 +1,56 @@
+/* Libre Cheltenham Typeface (Open Source) 
+
+  example usage: font-family: 'librecheltenham', serif;
+*/
+
+
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-Regular.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-Italic.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-Italic.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-Medium.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-Medium.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-MediumItalic.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+  font-style: italic;
+}
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-Bold.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-Bold.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "librecheltenham";
+  src: url("./font-files/LibreCheltenham-BoldItalic.woff2") format("woff2"),
+    url("./font-files/LibreCheltenham-BoldItalic.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+  font-style: italic;
+}
