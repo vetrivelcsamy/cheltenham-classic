@@ -1,71 +1,87 @@
 # Google Fonts submission
 
-Working directory for onboarding Cheltenham Classic to Google Fonts.
-**Not ready to submit yet** — see "Remaining" below.
+Working directory for onboarding Cheltenham Classic. Everything here is
+produced by `../scripts/build.sh`; nothing is edited by hand except
+`METADATA.pb` and the two files under `designer/`.
+
+**Not ready to submit.** `ß` and `ẞ` are missing, and Google Fonts requires
+the complete GF Latin Core set. See `../SUBMISSION.md` for the full list of
+what is blocking and who has to clear it.
 
 ## Contents
 
-| File | Purpose |
-|---|---|
-| `METADATA.pb` | Family metadata, six styles with weights and PostScript names |
-| `DESCRIPTION.en_us.html` | The blurb shown on the Google Fonts listing |
-| `OFL.txt` | Licence. First line reformatted to GF's required pattern |
-| `CheltenhamClassic-*.ttf` | Fonts renamed to GF convention and run through `../scripts/gf_fixup.py` |
+| Path | Purpose |
+| --- | --- |
+| `CheltenhamClassic-*.ttf` | The six styles, built by `fontmake` and finished by `../scripts/gf_fixup.py` |
+| `METADATA.pb` | Family metadata: six styles, weights, PostScript names, subsets, upstream repository |
+| `OFL.txt` | Licence. Body is the canonical SIL text; only line 1 is ours |
+| `article/ARTICLE.en_us.html` | The page shown on the Google Fonts listing |
+| `article/specimen.png` | Rendered from the built fonts, so it cannot drift from what ships |
+| `designer/info.pb`, `designer/bio.html` | For `catalog/designers/` in `google/fonts`. The bio is a **draft** and needs reading; a portrait is still required |
 
-## FontBakery status
+There is deliberately no `DESCRIPTION.en_us.html`: a family may have a
+description **or** an article, not both, and the article is what Google
+Fonts prefers.
 
-`fontbakery check-googlefonts *.ttf`
+## Status
 
-| | FAIL | PASS |
-|---|---|---|
-| Original FontLab exports | 88 | 786 |
-| Same, after `gf_fixup.py` | 26 | 850 |
-| **`fontmake` build + `gf_fixup.py`** | **14** | **844** |
+Copy this directory into a `google/fonts` fork at `ofl/cheltenhamclassic/`
+and run `fontbakery check-googlefonts ofl/cheltenhamclassic/*.ttf`:
 
-Run `./scripts/build.sh` to reproduce.
+```
+FAIL 12   WARN 30   PASS 896
+```
 
-Everything that was metadata is fixed. What remains needs drawing or a
-different build.
+321 glyphs across six styles. All twelve failures are `glyph_coverage` and
+`shape_languages`, and both fail for one reason: `ß` and `ẞ`.
 
-## Remaining
+The thirty warnings are itemised in `../SUBMISSION.md` with a reason each.
+One of them, `outline_jaggy_segments` on `B`, is a false positive and should
+be left standing.
 
-- **`glyph_coverage`** — 188 of GF Latin Core's 303 codepoints are missing.
-  145 of those are accented forms of letters already drawn, so they can be
-  built as composites once the ~15 accent marks exist. The genuinely new
-  drawing is ~21 letters (Æ Ø ß Þ Ð Œ Ł Đ Ħ ª º and lowercase), 15 symbols,
-  4 punctuation. Full list: `../../chelt/missing-glyphs.txt`.
-- **`mandatory_glyphs`** — `.notdef` is blank; it needs a box drawn.
-- **`equal_codepoint_coverage`** — `CheltenhamClassic-Italic` is missing the
-  semicolon, U+003B. The other five styles have it. One glyph to draw, and a
-  real bug in the shipped font rather than only a submission blocker.
-- **`family_directory_name`** — only passes inside a `google/fonts` checkout
-  at `ofl/cheltenhamclassic/`.
+## Draft issue text
 
-## Source metadata
+New families are submitted as an **issue**, not a pull request. Open
+<https://github.com/google/fonts/issues/new?template=1_add-font.md>, title it
+`Add Cheltenham Classic`, and adapt this:
 
-Building straight from the `.glyphspackage` files gave every style
-`usWeightClass 400` with bold and italic unmarked — 45 failures, worse than
-the old FontLab exports. `gf_fixup.py` now derives weight, `fsSelection` and
-`macStyle` from the filename instead of trusting the source, so the build is
-correct either way. The tidier fix is in Glyphs: Font Info -> Masters ->
-weight, plus style linking.
+> **Font Project Link:** https://github.com/vetrivelcsamy/cheltenham-classic
+>
+> **Is the font already published anywhere?** Specimen and downloads at
+> https://vetrivelcsamy.github.io/cheltenham-classic/ — built from the same
+> sources by CI, so the site and this submission are the same binaries.
+>
+> **Description.** Cheltenham Classic is a serif family in three weights with
+> matching italics, drawn in the spirit of Cheltenham, the 1896 face by
+> Bertram Goodhue and Ingalls Kimball for the Cheltenham Press. 321 glyphs
+> covering the GF Latin Core set.
+>
+> **Provenance.** <!-- YOU MUST WRITE THIS YOURSELF. Google Fonts requires
+> the design to be original, or a legitimate revival of a public-domain
+> design. Cheltenham (1896) is public domain. Say in your own words whether
+> these outlines were drawn by you from specimens or from scratch, and state
+> explicitly whether any geometry came from an existing digital Cheltenham.
+> If any did, name it and its licence. Do not submit without answering this;
+> see ../SUBMISSION.md. -->
+>
+> **Sources.** Six `.glyphspackage` files under `src/`. The build is
+> `scripts/build.sh`: `fontmake` from source, then `scripts/gf_fixup.py` for
+> the metadata the sources do not carry. FontBakery runs in CI on every push,
+> and a release cannot be tagged while any combining mark is an empty outline.
+>
+> **Licence.** SIL OFL 1.1. CLA signed by <!-- confirm -->.
+>
+> **Known gaps.** <!-- Delete once ß and ẞ are drawn. -->
 
-## Needs a decision before release
+## Reproducing
 
-The drawn vertical metrics are ascender 792 / descender -208, summing to
-exactly 1000 = **100% of UPM**. Google Fonts requires `hhea` to equal the typo
-metrics *and* that sum to fall between 120% and 200% of UPM, so the metrics as
-drawn cannot pass. `gf_fixup.py` pads them to **1000 / -250 = 125%**.
+```sh
+pip install -r ../requirements.txt
+../scripts/build.sh
+```
 
-This changes default line spacing in every application. It is a typographic
-decision, not a configuration fix. Check a specimen before release.
-
-## Fixed in this branch
-
-- Source packages and built fonts renamed `...ltalic` -> `...Italic`
-  (lowercase L where a capital I was meant), and the four `url()` references
-  in `docs/cheltenhamclassic.css` updated to match so the site keeps resolving.
-- Root `LICENSE.txt` line 1 reformatted to GF's pattern.
-- `README.md` glyph count corrected from "Over 150+" to 119. The misspelling
-  inside the two `fontinfo.plist` files is left alone: it appears only in a
-  comment recording the original FontLab path, which is history, not config.
+Two build passes: one to measure the design, then the marks, the Latin Core
+expansion and the kerning are regenerated from those measurements and it
+builds again. The missing-glyph list is printed on every run — read that
+rather than a rendered proof, because a browser silently substitutes a
+fallback face for anything absent.
