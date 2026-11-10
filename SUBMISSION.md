@@ -93,9 +93,10 @@ the shipped fonts are correct, but the sources should say it too.
 
 ### ~~Sign the Google CLA~~ — done
 
-Signed on 10 November 2026 as `vetrivel@fluentyne.com`, which is also the
-author address on every commit in this repository, so the signatory and the
-commit history agree without needing explanation.
+Signed on 10 November 2026. The account is not recorded here; commits in
+this repository are authored under a GitHub noreply address, and there is no
+reason for a working note to hold a mailbox that the submission does not
+need.
 
 If anyone else ever contributes outlines, they sign too.
 
