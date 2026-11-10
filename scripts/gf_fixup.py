@@ -194,6 +194,12 @@ def fixup(path, family):
     notes.append(f"metrics -> typo=hhea {ASC}/-{DESC} ({(ASC+DESC)/10:.0f}% UPM), "
                  f"win {os2.usWinAscent}/{os2.usWinDescent}")
 
+    # --- vendor id --------------------------------------------------------
+    # Was four spaces. A real code is correct practice; registering it with
+    # Microsoft is a separate step and until then the check still warns that
+    # it does not recognise it, which its own text says is expected.
+    f["OS/2"].achVendID = "VETR"
+
     # --- meta: declared and supported languages ----------------------------
     # googlefonts/meta/script_lang_tags wants the font to say what it is for.
     # Latin only, and the languages the Latin Core set actually covers.

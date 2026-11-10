@@ -194,7 +194,11 @@ def build(m):
     xh, stem, thin, ow = m["xh"], m["stem"], m["thin"], m["ow"]
     sl, piv = m["slant"], GAP + 0.42 * xh / 2
 
-    h = 0.42 * xh                 # accent height
+    # Accent height follows the x-height, but the italic's x-height is 492
+    # against the uprights' 421, which pushed its Agrave to 1018 -- past the
+    # 1000 typoAscender, which is what typoascender_exceeds_Agrave catches.
+    # Capped so a cap plus gap plus accent stays inside the ascender.
+    h = min(0.42 * xh, 985 - m["cap"] - GAP)
     heavy = stem * 0.80           # an accent's thick part
     light = thin * 0.85           # its thin part
     y0, y1 = GAP, GAP + h

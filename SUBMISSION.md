@@ -8,7 +8,7 @@ Run `./scripts/build.sh`, then copy `gf-submission/` into a `google/fonts`
 fork at `ofl/cheltenhamclassic/` and run FontBakery there:
 
 ```
-FAIL 12   WARN 37   PASS 889
+FAIL 12   WARN 30   PASS 896
 ```
 
 **All twelve failures are the same two glyphs.** `glyph_coverage` and
@@ -91,12 +91,15 @@ an image.
 
 ## Known warnings, and why they are left
 
+Thirty remain, in five kinds. None is mechanically fixable from here.
+
 | Warning | Why |
 | --- | --- |
-| `outline_jaggy_segments`, `contour_count` | The constructed glyphs. Both resolve when they are redrawn. |
-| `vendor_id` | Blank. Google Fonts normally assigns or accepts this during onboarding. |
+| `outline_jaggy_segments` | **One glyph, and it is yours, not generated: `B`.** Two segments meet at about 13 degrees near `(403, 383)` — the inner join of the upper and lower bowls. Left alone deliberately: silently reshaping your drawing is not my call. Worth a look in Glyphs. |
+| `vendor_id` | Now `VETR` rather than four spaces. It warns until the code is registered with Microsoft at <https://learn.microsoft.com/typography/vendors/>, which is your step. |
 | `designer_profiles` | Clears once your profile is merged into `google/fonts`. |
-| `soft_dotted` | The common cases are handled by the new `ccmp`. The remainder are rarer mark combinations. |
+| `contour_count` | The constructed glyphs differ from the shapes this check learned from. Resolves when they are redrawn. |
+| `unreachable_subsetting` | The spacing accents and a few combining marks are not in any Google Fonts subset definition. Its suggestions — add `yi`, `old-permic`, `todhri` — are nonsense for a Latin face. Nothing to do. |
 
 ## The submission itself
 

@@ -7,11 +7,11 @@ layers = (
 layerId = "C81813BF-B5F5-4CE8-9C14-91E07284E92C";
 shapes = (
 {
-pos = (129,0);
+pos = (128,0);
 ref = gravecomb;
 },
 );
-width = 239;
+width = 232;
 }
 );
 unicode = 96;
