@@ -1,4 +1,5 @@
-designer {
-  name: "Vetrivel Chinnasamy"
-  bio_url: "https://vetrivelcsamy.me"
+designer: "Vetrivel Chinnasamy"
+link: "https://vetrivelcsamy.me"
+avatar {
+  file_name: "vetrivelchinnasamy.png"
 }
