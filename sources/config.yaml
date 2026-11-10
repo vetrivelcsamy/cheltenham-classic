@@ -1,0 +1,26 @@
+# gftools builder configuration.
+#
+# Google Fonts rebuilds families from upstream with `gftools builder`, and
+# METADATA.pb points at this file. It is not what this repository uses --
+# scripts/build.sh is, because the marks, the Latin Core expansion and the
+# kerning are generated from measurements taken off a first build, which a
+# declarative config cannot express. This exists so their tooling can
+# produce the same six static styles from the same sources.
+#
+# Run ./scripts/build.sh first if you have changed anything generated.
+sources:
+  - ../src/CheltenhamClassic.glyphspackage
+  - ../src/CheltenhamClassicItalic.glyphspackage
+  - ../src/CheltenhamClassicMedium.glyphspackage
+  - ../src/CheltenhamClassicMediumItalic.glyphspackage
+  - ../src/CheltenhamClassicBold.glyphspackage
+  - ../src/CheltenhamClassicBoldItalic.glyphspackage
+familyName: "Cheltenham Classic"
+# Six separate sources, one master each, so there is no axis to interpolate.
+buildVariable: false
+buildStatic: true
+buildTTF: true
+buildOTF: true
+buildWebfont: true
+autohintTTF: true
+cleanUp: true
