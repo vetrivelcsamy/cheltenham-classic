@@ -9,13 +9,13 @@
 #
 # Run ./scripts/build.sh first if you have changed anything generated.
 sources:
-  - CheltenhamClassic.glyphspackage
-  - CheltenhamClassicItalic.glyphspackage
-  - CheltenhamClassicMedium.glyphspackage
-  - CheltenhamClassicMediumItalic.glyphspackage
-  - CheltenhamClassicBold.glyphspackage
-  - CheltenhamClassicBoldItalic.glyphspackage
-familyName: "Cheltenham Classic"
+  - LibreCheltenham.glyphspackage
+  - LibreCheltenhamItalic.glyphspackage
+  - LibreCheltenhamMedium.glyphspackage
+  - LibreCheltenhamMediumItalic.glyphspackage
+  - LibreCheltenhamBold.glyphspackage
+  - LibreCheltenhamBoldItalic.glyphspackage
+familyName: "Libre Cheltenham"
 # Six separate sources, one master each, so there is no axis to interpolate.
 buildVariable: false
 buildStatic: true

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Post-process Cheltenham Classic TTFs into Google Fonts shape.
+Post-process Libre Cheltenham TTFs into Google Fonts shape.
 
 Run this after `fontmake` on every export. Everything here is metadata the
 Glyphs sources do not currently carry, so patching the binaries by hand would
@@ -10,7 +10,7 @@ Fixes, each tied to the FontBakery check it clears:
   googlefonts/fstype                 fsType 4 -> 0 (GF requires installable)
   googlefonts/font_copyright         name ID 0
   googlefonts/name/license           name ID 13, 14
-  googlefonts/family_name_compliance "CheltenhamClassic" -> "Cheltenham Classic"
+  googlefonts/family_name_compliance "LibreCheltenham" -> "Libre Cheltenham"
   googlefonts/metadata/nameid/*      ID 1/2/4/6/16/17 per GF's RIBBI rules
   name/trailing_spaces               strip every name record
   opentype/italic_angle              measured from the outlines, not guessed
@@ -20,7 +20,7 @@ import sys, os, glob, math
 from fontTools.ttLib import TTFont, newTable
 
 REPO = "https://github.com/vetrivelcsamy/cheltenham-classic"
-COPYRIGHT = f"Copyright 2024 The Cheltenham Classic Project Authors ({REPO})"
+COPYRIGHT = f"Copyright 2024 The Libre Cheltenham Project Authors ({REPO})"
 LICENSE = ("This Font Software is licensed under the SIL Open Font License, "
            "Version 1.1. This license is available with a FAQ at: "
            "https://openfontlicense.org")
@@ -29,7 +29,7 @@ LICENSE_URL = "https://openfontlicense.org"
 # v1.1 release ships fonts that still claim 1.000, and OS font caches use this
 # string to decide whether an installed font is stale.
 VERSION = "Version " + os.environ.get("FONT_VERSION", "1.000")
-FAMILY = "Cheltenham Classic"
+FAMILY = "Libre Cheltenham"
 
 # filename stem -> (subfamily, typographic subfamily, RIBBI, italic, weight)
 # Weight and the fsSelection/macStyle bits are derived here rather than read
@@ -92,7 +92,7 @@ def fixup(path, family):
     f = TTFont(path)
     stem = os.path.basename(path).rsplit("-", 1)[-1][:-4]
     subfam, typosub, ribbi, italic, weight = STYLES[stem]
-    ps = f"CheltenhamClassic-{stem}"
+    ps = f"LibreCheltenham-{stem}"
     notes = []
 
     # --- embedding -------------------------------------------------------
@@ -104,8 +104,8 @@ def fixup(path, family):
     # Name ID 4 always carries the style, Regular included. Dropping it there
     # satisfies metadata/nameid/family_and_full_names but then breaks
     # metadata/match_fullname_postscript, which wants it to track the
-    # PostScript name "CheltenhamClassic-Regular". Both pass only if the full
-    # name and METADATA.pb agree on "Cheltenham Classic Regular".
+    # PostScript name "LibreCheltenham-Regular". Both pass only if the full
+    # name and METADATA.pb agree on "Libre Cheltenham Regular".
     full = f"{FAMILY} {subfam if ribbi else typosub}"
     set_name(f, 0, COPYRIGHT)
     set_name(f, 1, FAMILY if ribbi else f"{FAMILY} {typosub.replace(' Italic','')}")
@@ -118,7 +118,7 @@ def fixup(path, family):
     set_name(f, 14, LICENSE_URL)
     if ribbi:
         # RIBBI styles must NOT carry typographic family/subfamily records.
-        # fontmake wrote 16='CheltenhamClassic' / 17='BoldItalic' on Bold
+        # fontmake wrote 16='LibreCheltenham' / 17='BoldItalic' on Bold
         # Italic from the source, and leaving them there cascaded into eight
         # failures: camelcase family, a weightclass read off 'BoldItalic',
         # and every name/metadata consistency check.
@@ -249,7 +249,7 @@ def fixup(path, family):
 
 if __name__ == "__main__":
     d = sys.argv[1] if len(sys.argv) > 1 else "."
-    paths = sorted(glob.glob(os.path.join(d, "CheltenhamClassic-*.ttf")))
+    paths = sorted(glob.glob(os.path.join(d, "LibreCheltenham-*.ttf")))
 
     # Pass 1: one set of vertical metrics for the whole family.
     ymax, ymin, tasc, tdesc = [], [], [], []

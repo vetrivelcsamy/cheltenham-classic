@@ -83,20 +83,20 @@ jobs:
           for f in *.ttf; do
             fontforge -c "import fontforge; f = fontforge.open('$f'); f.generate('${f%.ttf}.otf')"
           done
-          zip -j CheltenhamClassic-TTF.zip   *.ttf
-          zip -j CheltenhamClassic-OTF.zip   *.otf
-          zip -j CheltenhamClassic-WOFF.zip  *.woff
-          zip -j CheltenhamClassic-WOFF2.zip *.woff2
+          zip -j LibreCheltenham-TTF.zip   *.ttf
+          zip -j LibreCheltenham-OTF.zip   *.otf
+          zip -j LibreCheltenham-WOFF.zip  *.woff
+          zip -j LibreCheltenham-WOFF2.zip *.woff2
 
       - name: Create download links
         run: |
           cat > docs/downloads.md <<'MD'
           # Font Downloads
 
-          - [Cheltenham Classic TTF](font-files/CheltenhamClassic-TTF.zip)
-          - [Cheltenham Classic OTF](font-files/CheltenhamClassic-OTF.zip)
-          - [Cheltenham Classic WOFF](font-files/CheltenhamClassic-WOFF.zip)
-          - [Cheltenham Classic WOFF2](font-files/CheltenhamClassic-WOFF2.zip)
+          - [Libre Cheltenham TTF](font-files/LibreCheltenham-TTF.zip)
+          - [Libre Cheltenham OTF](font-files/LibreCheltenham-OTF.zip)
+          - [Libre Cheltenham WOFF](font-files/LibreCheltenham-WOFF.zip)
+          - [Libre Cheltenham WOFF2](font-files/LibreCheltenham-WOFF2.zip)
           MD
 
       - uses: actions/configure-pages@v5

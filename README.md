@@ -1,9 +1,9 @@
-# Cheltenham Classic Typeface
+# Libre Cheltenham Typeface
 
 [![Sample](docs/img/example.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
 [![Sample Image](docs/img/open-graph.png)](https://vetrivelcsamy.github.io/cheltenham-classic/)
 
-Cheltenham Classic is a free and open-source typeface inspired by the timeless elegance of the original Cheltenham font.
+Libre Cheltenham is a free and open-source typeface inspired by the timeless elegance of the original Cheltenham font.
 
 ## Features
 
@@ -20,16 +20,16 @@ Cheltenham Classic is a free and open-source typeface inspired by the timeless e
 For web projects, include the following in your CSS:
 
 ```css
-@import url('https://vetrivelcsamy.github.io/cheltenham-classic/cheltenhamclassic.css');
+@import url('https://vetrivelcsamy.github.io/cheltenham-classic/librecheltenham.css');
 
 body {
-  font-family: 'cheltenhamclassic', serif;
+  font-family: 'librecheltenham', serif;
 }
 ```
 
 ## Current Status
 
-Cheltenham Classic is in active development. It covers basic Latin today; the
+Libre Cheltenham is in active development. It covers basic Latin today; the
 current focus is expanding the character set toward Google Fonts' Latin Core.
 
 ## Building
@@ -63,7 +63,7 @@ still missing from Google Fonts' Latin Core.
 
 ## License
 
-Cheltenham Classic is licensed under the SIL Open Font License 1.1. See the [OFL.txt](OFL.txt) file for details.
+Libre Cheltenham is licensed under the SIL Open Font License 1.1. See the [OFL.txt](OFL.txt) file for details.
 
 ## Contact
 

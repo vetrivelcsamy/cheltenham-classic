@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build Cheltenham Classic for Google Fonts, end to end.
+# Build Libre Cheltenham for Google Fonts, end to end.
 #
 #   pip install -r requirements.txt
 #   ./scripts/build.sh
@@ -53,6 +53,12 @@ python3 scripts/gf_fixup.py "$OUT"
 # rewritten whenever they are. Left to drift it points Google Fonts' tooling
 # at the wrong commit, which is worse than no pin at all.
 python3 scripts/pin_commit.py "$OUT/METADATA.pb"
+
+# The specimen is a build artefact, not a drawing: it is rendered from the
+# binaries that were just built, and its glyph count is counted from them.
+# Kept out of the build once, it ended up claiming 320 glyphs for a 323-glyph
+# font and would have gone on naming a family that had been renamed.
+python3 scripts/specimen.py "$OUT" documentation/article/specimen.png
 
 # The article is authored once, under documentation/, which is where the
 # Google Fonts upstream layout puts it. The package gets a copy, because in

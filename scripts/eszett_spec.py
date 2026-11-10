@@ -107,7 +107,7 @@ def measure(path):
 def main(repo, built):
     rows = {}
     for st in STYLES:
-        p = f"{built}/CheltenhamClassic-{st}.ttf"
+        p = f"{built}/LibreCheltenham-{st}.ttf"
         if os.path.exists(p):
             rows[st] = measure(p)
     if not rows:

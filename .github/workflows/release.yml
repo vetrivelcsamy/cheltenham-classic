@@ -75,9 +75,9 @@ jobs:
           for f in *.ttf; do
             fontforge -c "import fontforge; f = fontforge.open('$f'); f.generate('${f%.ttf}.otf')"
           done
-          zip -j "../dist/CheltenhamClassic-$VERSION-TTF.zip"   *.ttf
-          zip -j "../dist/CheltenhamClassic-$VERSION-OTF.zip"   *.otf
-          zip -j "../dist/CheltenhamClassic-$VERSION-WOFF.zip"  *.woff *.woff2
+          zip -j "../dist/LibreCheltenham-$VERSION-TTF.zip"   *.ttf
+          zip -j "../dist/LibreCheltenham-$VERSION-OTF.zip"   *.otf
+          zip -j "../dist/LibreCheltenham-$VERSION-WOFF.zip"  *.woff *.woff2
           cp OFL.txt "../dist/"
           ls -la ../dist
 
@@ -85,7 +85,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          name: Cheltenham Classic ${{ github.event.inputs.tag || github.ref_name }}
+          name: Libre Cheltenham ${{ github.event.inputs.tag || github.ref_name }}
           body_path: qa-report.md
           files: |
             dist/*.zip

@@ -100,8 +100,8 @@ def widths(n, stem, thin):
 def main(repo, built):
     for pkg in sorted(glob.glob(f"{repo}/sources/*.glyphspackage")):
         stem_ = os.path.basename(pkg).replace(".glyphspackage", "")
-        style = stem_.replace("CheltenhamClassic", "") or "Regular"
-        ttf = f"{built}/CheltenhamClassic-{style}.ttf"
+        style = stem_.replace("LibreCheltenham", "") or "Regular"
+        ttf = f"{built}/LibreCheltenham-{style}.ttf"
         if not os.path.exists(ttf):
             print(f"  skip {stem_}"); continue
         m = L.measure(ttf)

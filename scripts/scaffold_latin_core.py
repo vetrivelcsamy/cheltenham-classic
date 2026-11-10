@@ -104,8 +104,8 @@ def main(repo, core_file, built_dir):
     pkgs = sorted(glob.glob(f"{repo}/sources/*.glyphspackage"))
     for pkg in pkgs:
         stem = os.path.basename(pkg).replace(".glyphspackage", "")
-        style = stem.replace("CheltenhamClassic", "") or "Regular"
-        ttf = f"{built_dir}/CheltenhamClassic-{style}.ttf"
+        style = stem.replace("LibreCheltenham", "") or "Regular"
+        ttf = f"{built_dir}/LibreCheltenham-{style}.ttf"
         if not os.path.exists(ttf):
             print(f"  skip {stem}: no built {os.path.basename(ttf)}"); continue
 

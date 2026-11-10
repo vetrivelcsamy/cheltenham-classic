@@ -1,11 +1,11 @@
-# Submitting Cheltenham Classic to Google Fonts
+# Submitting Libre Cheltenham to Google Fonts
 
 Everything that can be prepared is prepared. What is left needs you.
 
 ## Where it stands
 
 Run `./scripts/build.sh`, then copy `gf-submission/` into a `google/fonts`
-fork at `ofl/cheltenhamclassic/` and run FontBakery there:
+fork at `ofl/librecheltenham/` and run FontBakery there:
 
 ```
 FAIL 0   WARN 36   PASS 902
@@ -54,11 +54,11 @@ for the qualifier where a living product shares the name:
 | `Libre Bodoni`, `Bodoni Moda` | Bodoni |
 | `EB Garamond`, `Cormorant Garamond` | Garamond |
 
-Every one carries a qualifier. `Cheltenham Classic` does too, so it may well
+Every one carries a qualifier. `Libre Cheltenham` does too, so it may well
 pass as it stands — "Classic" is doing the same work as "Libre" or "EB".
 
 **What to do:** decide deliberately rather than discover it in review.
-Either keep `Cheltenham Classic` and be ready to defend it, or rename to
+Either keep `Libre Cheltenham` and be ready to defend it, or rename to
 `Libre Cheltenham` now, which matches their stated rule most directly and is
 the form they have reached for four times already. I am not renaming it on
 my own: it is your font's identity, your repository and your published site.
@@ -191,7 +191,7 @@ New families are submitted as an **issue**, not a pull request.
 
 1. Open <https://github.com/google/fonts/issues/new?template=1_add-font.md>
    — the "Submitting a new OFL Font" template.
-2. Title: `Add Cheltenham Classic`.
+2. Title: `Add Libre Cheltenham`.
 3. Point it at `https://github.com/vetrivelcsamy/cheltenham-classic`, which
    already has what they ask for: sources in `.glyphspackage` form, a
    `fontmake` build, FontBakery in CI, and an OFL.

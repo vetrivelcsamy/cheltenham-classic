@@ -4,7 +4,7 @@
 `scripts/check_marks_drawn.py` passes, and nothing renders as a bare base
 letter any more.
 
-> **FontBakery passes.** Placed at `ofl/cheltenhamclassic/` the family
+> **FontBakery passes.** Placed at `ofl/librecheltenham/` the family
 > reports **zero failures**. What is left is in section 2a: glyphs that are
 > built and correct but want a designer's hand before submission.
 
