@@ -63,7 +63,7 @@ empty one trips `contour_count`; a zero-width one trips `base_has_width`.
 
 | | Why it is not generated |
 | --- | --- |
-| `ß` `ẞ` | The eszett is its own letterform. Two constructions were built and rendered before being thrown away: the historical long-s + s ligature came out as an overlapping `ls` smudge, and a two-storey `B` on an ascender collapsed into a blob with no counter. `Straße` was unreadable in both. Unlike thorn it is not a stem plus a bowl, so there is nothing to assemble it from — it has to be drawn. |
+| `ß` `ẞ` | **See `DRAWING-ESZETT.md`** for the measurements a drawing has to agree with. The eszett is its own letterform. Two constructions were built and rendered before being thrown away: the historical long-s + s ligature came out as an overlapping `ls` smudge, and a two-storey `B` on an ascender collapsed into a blob with no counter. `Straße` was unreadable in both. Unlike thorn it is not a stem plus a bowl, so there is nothing to assemble it from — it has to be drawn. |
 
 ## 2a. Built, but wanting a designer's hand first
 
